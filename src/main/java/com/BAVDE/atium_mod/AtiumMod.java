@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AtiumMod.MOD_ID)
 public class AtiumMod {
-    public static final String MOD_ID = "testmod";
+    public static final String MOD_ID = "atium_mod";
 
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
