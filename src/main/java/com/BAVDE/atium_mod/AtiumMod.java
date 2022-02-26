@@ -11,14 +11,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(TestMod.MOD_ID)
-public class TestMod {
+@Mod(AtiumMod.MOD_ID)
+public class AtiumMod {
     public static final String MOD_ID = "testmod";
 
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public TestMod() {
+    public AtiumMod() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(eventBus);

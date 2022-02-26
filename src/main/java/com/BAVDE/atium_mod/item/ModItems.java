@@ -1,6 +1,6 @@
 package com.BAVDE.atium_mod.item;
 
-import com.BAVDE.atium_mod.TestMod;
+import com.BAVDE.atium_mod.AtiumMod;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS=
-            DeferredRegister.create(ForgeRegistries.ITEMS, TestMod.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ITEMS, AtiumMod.MOD_ID);
 
     //Atium
     public static final RegistryObject<Item> PUREATIUM = ITEMS.register("pure_atium",
