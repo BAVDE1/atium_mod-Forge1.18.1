@@ -12,6 +12,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS=
             DeferredRegister.create(ForgeRegistries.ITEMS, TestMod.MOD_ID);
 
+    //Atium
     public static final RegistryObject<Item> PUREATIUM = ITEMS.register("pure_atium",
             () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
