@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "testmod:item/raw_atium"
+    "layer0": "atium_mod:item/raw_atium"
   }
 }
