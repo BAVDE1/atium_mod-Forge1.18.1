@@ -24,7 +24,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> PURE_ATIUM_BLOCK = registerBlock("pure_atium_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(9f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+                    .strength(8f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
