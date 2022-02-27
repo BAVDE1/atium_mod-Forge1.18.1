@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 public class AtiumMod {
     public static final String MOD_ID = "atium_mod";
 
-    // Directly reference a log4j logger.
+    // Directly reference a log4j logger
     private static final Logger LOGGER = LogManager.getLogger();
 
     public AtiumMod() {
