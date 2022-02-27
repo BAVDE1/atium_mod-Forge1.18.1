@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:pure_atium_block"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:pure_atium",
+    "count": 9
+  }
+}
