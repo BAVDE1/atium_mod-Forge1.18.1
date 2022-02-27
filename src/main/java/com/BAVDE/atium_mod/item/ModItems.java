@@ -14,13 +14,13 @@ public class ModItems {
 
     //Atium
     public static final RegistryObject<Item> PUREATIUM = ITEMS.register("pure_atium",
-            () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     public static final RegistryObject<Item> RAWATIUM = ITEMS.register("raw_atium",
-            () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     public static final RegistryObject<Item> ATIUMBEAD = ITEMS.register("atium_bead",
-            () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
 
 
