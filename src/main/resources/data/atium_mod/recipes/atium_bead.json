@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:pure_atium"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:atium_bead",
+    "count": 9
+  }
+}

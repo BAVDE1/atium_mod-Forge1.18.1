@@ -22,6 +22,9 @@ public class ModItems {
     public static final RegistryObject<Item> ATIUMBEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+
+
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
