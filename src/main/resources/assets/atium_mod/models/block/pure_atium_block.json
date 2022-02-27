@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "atium_mod:block/pure_atium_block"
+  }
+}
