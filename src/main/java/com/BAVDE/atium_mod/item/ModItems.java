@@ -26,13 +26,13 @@ public class ModItems {
 
     //Hammers
     public static final RegistryObject<Item> STONEHAMMER = ITEMS.register("stone_hammer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(16)));
 
     public static final RegistryObject<Item> IRONHAMMER = ITEMS.register("iron_hammer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(128)));
 
     public static final RegistryObject<Item> DIAMONDHAMMER = ITEMS.register("diamond_hammer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1024)));
 
 
     public static void register(IEventBus eventBus) {
