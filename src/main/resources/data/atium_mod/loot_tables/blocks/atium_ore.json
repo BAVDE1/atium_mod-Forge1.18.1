@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "atium_more:atium_ore"
+              "name": "atium_mod:atium_ore"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "atium_more:raw_atium"
+              "name": "atium_mod:raw_atium"
             }
           ]
         }
