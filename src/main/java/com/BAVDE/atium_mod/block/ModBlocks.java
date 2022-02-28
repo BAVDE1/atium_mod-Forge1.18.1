@@ -21,10 +21,14 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, AtiumMod.MOD_ID);
 
-
+    //Atium
     public static final RegistryObject<Block> PURE_ATIUM_BLOCK = registerBlock("pure_atium_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(8f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> ATIUM_ORE = registerBlock("atium_ore",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
