@@ -24,6 +24,16 @@ public class ModItems {
 
 
 
+    //Hammers
+    public static final RegistryObject<Item> STONEHAMMER = ITEMS.register("stone_hammer",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
+    public static final RegistryObject<Item> IRONHAMMER = ITEMS.register("iron_hammer",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
+    public static final RegistryObject<Item> DIAMONDHAMMER = ITEMS.register("diamond_hammer",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
