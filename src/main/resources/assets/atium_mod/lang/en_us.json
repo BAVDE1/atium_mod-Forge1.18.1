@@ -5,5 +5,6 @@
   "item.atium_mod.raw_atium": "Raw Atium",
   "item.atium_mod.atium_bead": "Atium Bead",
 
-  "block.atium_mod.pure_atium_block": "Pure Atium Block"
+  "block.atium_mod.pure_atium_block": "Pure Atium Block",
+  "block.atium_mod.atium_ore": "Atium Ore"
 }
