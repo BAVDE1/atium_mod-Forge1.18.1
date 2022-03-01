@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "atium_mod:atium_ore"
+  },
+  "result": "atium_mod:pure_atium",
+  "experience": 1.5,
+  "cookingtime": 200
+}
