@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.painting.ModPaintings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,6 +25,8 @@ public class AtiumMod {
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
+
+        ModPaintings.register(eventBus);
 
         eventBus.addListener(this::setup);
 
