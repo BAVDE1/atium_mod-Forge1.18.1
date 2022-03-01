@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.block.custom.AtiumLode;
 import com.BAVDE.atium_mod.block.custom.AtiumOre;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
@@ -31,6 +32,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> ATIUM_ORE = registerBlock("atium_ore",
             () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> ATIUM_LODE = registerBlock("atium_lode",
+            () -> new AtiumLode(BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .strength(12f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
