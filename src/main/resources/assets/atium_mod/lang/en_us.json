@@ -10,5 +10,8 @@
   "item.atium_mod.diamond_hammer": "Diamond Hammer",
 
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
-  "block.atium_mod.atium_ore": "Atium Ore"
+  "block.atium_mod.atium_ore": "Atium Ore",
+  "block.atium_mod.atium_lode": "Atium Lode",
+
+  "block.atium_mod.atium_lode.message_received": "You clicked the block!"
 }
