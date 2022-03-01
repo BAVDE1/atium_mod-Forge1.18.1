@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.item.custom.StoneHammer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,7 +27,7 @@ public class ModItems {
 
     //Hammers
     public static final RegistryObject<Item> STONEHAMMER = ITEMS.register("stone_hammer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(16)));
+            () -> new StoneHammer(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(16)));
 
     public static final RegistryObject<Item> IRONHAMMER = ITEMS.register("iron_hammer",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(128)));
