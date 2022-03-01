@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "atium_mod:raw_atium"
+              "name": "atium_mod:atium_geode"
             }
           ]
         }

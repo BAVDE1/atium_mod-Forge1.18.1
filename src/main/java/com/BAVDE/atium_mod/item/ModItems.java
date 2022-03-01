@@ -16,7 +16,7 @@ public class ModItems {
     public static final RegistryObject<Item> PUREATIUM = ITEMS.register("pure_atium",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
-    public static final RegistryObject<Item> RAWATIUM = ITEMS.register("raw_atium",
+    public static final RegistryObject<Item> ATIUMGEODE = ITEMS.register("atium_geode",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     public static final RegistryObject<Item> ATIUMBEAD = ITEMS.register("atium_bead",

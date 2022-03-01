@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": {"model": "atium_mod:block/atium_ore"}
+    "": {"model": "atium_mod:block/atium_lode"}
   }
 }
