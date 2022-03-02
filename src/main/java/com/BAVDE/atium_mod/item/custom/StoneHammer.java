@@ -24,8 +24,12 @@ public class StoneHammer extends Item {
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
 
-        itemStack.setDamageValue(itemStack.getDamageValue() + 1); //item takes 1 durability damage when used in crafting
-        return itemStack.copy(); //puts the newly damaged item in the crafting table
-
+        if (itemStack.getDamageValue() < 16) {
+            itemStack.setDamageValue(itemStack.getDamageValue() + 1); //item takes 1 durability damage when used in crafting
+            return itemStack.copy(); //puts the newly damaged item in the crafting table
+        } else {
+            itemStack.setDamageValue(itemStack.getDamageValue() + 1); //item takes 1 durability damage when used in crafting
+            return itemStack;
+        }
     }
 }
