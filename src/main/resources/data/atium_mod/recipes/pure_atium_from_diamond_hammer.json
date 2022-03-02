@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:diamond_hammer"
+    },
+    {
+      "item": "atium_mod:atium_geode"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:pure_atium"
+  }
+}
