@@ -2,13 +2,11 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.AtiumLode;
-import com.BAVDE.atium_mod.block.custom.AtiumOre;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -18,7 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
@@ -30,7 +27,7 @@ public class ModBlocks {
                     .strength(7f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> ATIUM_ORE = registerBlock("atium_ore",
-            () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> ATIUM_LODE = registerBlock("atium_lode",
@@ -38,9 +35,13 @@ public class ModBlocks {
                     .strength(12f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     //Crystallized Atium
+    public static final RegistryObject<Block> CRYSTALLIZED_ATIUM = registerBlock("crystallized_atium",
+            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .strength(4f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
 
+    //block stuff idk
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn, tab);

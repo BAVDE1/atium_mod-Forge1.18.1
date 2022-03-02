@@ -12,6 +12,7 @@
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",
   "block.atium_mod.atium_lode": "Atium Lode",
+  "block.atium_mod.crystallized_atium": "Crystallized Atium 1",
 
   "block.atium_mod.atium_lode.message_received": "You clicked the block!"
 }
