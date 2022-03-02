@@ -2,7 +2,7 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.AtiumLode;
-import com.BAVDE.atium_mod.block.custom.CrystallizedAtium;
+import com.BAVDE.atium_mod.block.custom.CrystallizedAtiumBlock;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -38,8 +38,8 @@ public class ModBlocks {
 
 
     //Crystallized Atium
-    public static final RegistryObject<Block> CRYSTALLIZED_ATIUM = registerBlock("crystallized_atium",
-            () -> new CrystallizedAtium(BlockBehaviour.Properties.of(Material.AMETHYST)
+    public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_BLOCK = registerBlock("crystallized_atium_block",
+            () -> new CrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
 
 

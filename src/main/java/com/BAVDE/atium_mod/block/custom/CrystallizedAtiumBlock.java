@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class CrystallizedAtium extends Block {
-    public CrystallizedAtium(Properties p_49795_) {
+public class CrystallizedAtiumBlock extends Block {
+    public CrystallizedAtiumBlock(Properties p_49795_) {
         super(p_49795_);
     }
 
