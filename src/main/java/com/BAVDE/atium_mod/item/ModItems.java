@@ -38,6 +38,11 @@ public class ModItems {
             () -> new DiamondHammer(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1024)));
 
 
+    //crystallized atium
+    public static final RegistryObject<Item> CRYSTALLIZED_ATIUM_SHARD = ITEMS.register("crystallized_atium_shard",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

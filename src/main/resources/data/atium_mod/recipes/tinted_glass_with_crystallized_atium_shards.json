@@ -1,15 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SS",
-    "SS"
+    " S ",
+    "SGS",
+    " S "
   ],
   "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
     "S": {
       "item": "atium_mod:crystallized_atium_shard"
     }
   },
   "result": {
-    "item": "atium_mod:crystallized_atium_block"
+    "item": "minecraft:tinted_glass",
+    "count": 2
   }
 }

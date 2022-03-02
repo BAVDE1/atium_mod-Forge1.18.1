@@ -1,15 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SS",
-    "SS"
+    " # ",
+    " X ",
+    " X "
   ],
   "key": {
-    "S": {
+    "#": {
       "item": "atium_mod:crystallized_atium_shard"
+    },
+    "X": {
+      "item": "minecraft:copper_ingot"
     }
   },
   "result": {
-    "item": "atium_mod:crystallized_atium_block"
+    "item": "minecraft:spyglass"
   }
 }
