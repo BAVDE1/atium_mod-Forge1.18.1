@@ -2,12 +2,14 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.AtiumLode;
+import com.BAVDE.atium_mod.block.custom.CrystallizedAtium;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,10 +36,13 @@ public class ModBlocks {
             () -> new AtiumLode(BlockBehaviour.Properties.of(Material.AMETHYST)
                     .strength(12f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
+
     //Crystallized Atium
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM = registerBlock("crystallized_atium",
-            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .strength(4f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+            () -> new CrystallizedAtium(BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
+
+
 
 
 
