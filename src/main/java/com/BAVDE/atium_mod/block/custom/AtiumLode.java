@@ -37,13 +37,14 @@ public class AtiumLode extends Block {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        /*ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (!itemstack.is(Items.IRON_INGOT)) {
             return InteractionResult.PASS;
-        } else {*/
+        } else {
             pPlayer.sendMessage(new TranslatableComponent("block.atium_mod.atium_lode.message_received"),
                     pPlayer.getUUID());
-        //}
+            itemstack.shrink(1);
+        }
         return InteractionResult.SUCCESS;
     }
 }
