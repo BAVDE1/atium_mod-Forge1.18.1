@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.AtiumLode;
+import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrown;
 import com.BAVDE.atium_mod.block.custom.CrystallizedAtiumBlock;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
@@ -33,7 +34,7 @@ public class ModBlocks {
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
-            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> ATIUM_LODE = registerBlock("atium_lode",
