@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:crystallized_atium_block"
+    },
+    {
+      "item": "atium_mod:iron_hammer"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:crystallized_atium_shard",
+    "count": 4
+  }
+}

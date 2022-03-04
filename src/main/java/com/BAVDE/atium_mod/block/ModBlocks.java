@@ -32,6 +32,10 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
+    public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+
     public static final RegistryObject<Block> ATIUM_LODE = registerBlock("atium_lode",
             () -> new AtiumLode(BlockBehaviour.Properties.of(Material.AMETHYST)
                     .strength(12f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);

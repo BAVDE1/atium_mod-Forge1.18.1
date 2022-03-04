@@ -46,9 +46,7 @@ public class AtiumLode extends Block {
                 int currentState = pState.getValue(CHARGE);
                 pLevel.setBlock(pPos, pState.setValue(CHARGE, (currentState + 2)), 3);
 
-                //pPlayer.sendMessage(), pPlayer.getUUID();
-
-                pPlayer.sendMessage(new TranslatableComponent("block.atium_mod.atium_lode.charge", currentState), pPlayer.getUUID());
+                pPlayer.sendMessage(new TextComponent("Charge: " + (currentState)), pPlayer.getUUID());
 
                 itemstack.shrink(1);
             } else {
