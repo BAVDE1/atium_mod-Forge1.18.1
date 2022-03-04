@@ -44,7 +44,7 @@ public class ModBlocks {
     //Crystallized Atium
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_BLOCK = registerBlock("crystallized_atium_block",
             () -> new CrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
+                    .strength(1f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
 
 
 
