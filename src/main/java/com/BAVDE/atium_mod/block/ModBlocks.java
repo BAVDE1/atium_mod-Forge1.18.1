@@ -5,6 +5,7 @@ import com.BAVDE.atium_mod.block.custom.AtiumLode;
 import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrown;
 //import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
 import com.BAVDE.atium_mod.block.custom.CrystallizedAtiumBlock;
+import com.BAVDE.atium_mod.block.custom.EmptyAtiumOreOvergrown;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -37,6 +38,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
             () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> EMPTY_ATIUM_ORE_OVERGROWN = registerBlock("empty_atium_ore_overgrown",
+            () -> new EmptyAtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(15f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> ATIUM_LODE = registerBlock("atium_lode",
             () -> new AtiumLode(BlockBehaviour.Properties.of(Material.AMETHYST)
