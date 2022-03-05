@@ -4,6 +4,7 @@
     "atium_mod:pure_atium_block",
     "atium_mod:atium_ore",
     "atium_mod:atium_lode",
-    "atium_mod:crystallized_atium_block"
+    "atium_mod:crystallized_atium_block",
+    "atium_mod:atium_ore_overgrown"
   ]
 }

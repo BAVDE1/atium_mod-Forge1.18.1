@@ -3,6 +3,7 @@ package com.BAVDE.atium_mod.block;
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.AtiumLode;
 import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrown;
+//import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
 import com.BAVDE.atium_mod.block.custom.CrystallizedAtiumBlock;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
