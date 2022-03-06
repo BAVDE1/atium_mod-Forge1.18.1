@@ -3,6 +3,7 @@
   "values": [
     "atium_mod:pure_atium_block",
     "atium_mod:atium_ore",
+    "atium_mod:empty_atium_ore",
     "atium_mod:atium_ore_overgrown",
     "atium_mod:empty_atium_ore_overgrown"
   ]

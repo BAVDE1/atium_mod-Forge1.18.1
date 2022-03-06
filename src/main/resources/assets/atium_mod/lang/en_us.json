@@ -12,8 +12,8 @@
 
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",
-  "block.atium_mod.atium_lode": "Atium Lode",
-  "block.atium_mod.crystallized_atium_block": "Crystallized Atium Block",
+  "block.atium_mod.empty_atium_ore": "Empty Atium Ore",
   "block.atium_mod.atium_ore_overgrown": "Overgrown Atium Ore",
-  "block.atium_mod.empty_atium_ore_overgrown": "Empty Overgrown Atium Ore"
+  "block.atium_mod.empty_atium_ore_overgrown": "Empty Overgrown Atium Ore",
+  "block.atium_mod.crystallized_atium_block": "Crystallized Atium Block"
 }

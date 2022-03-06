@@ -9,14 +9,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EmptyAtiumOreOvergrown extends Block {
+public class EmptyAtiumOre extends Block {
     public static final BooleanProperty TICKING = BooleanProperty.create("ticking");
     public static final IntegerProperty DELAY = IntegerProperty.create("delay", 0, 40);
 
-    public EmptyAtiumOreOvergrown(Properties p_49795_) {
+    public EmptyAtiumOre(Properties p_49795_) {
         super(p_49795_);
         this.registerDefaultState(this.defaultBlockState().setValue(TICKING, Boolean.valueOf(true)));
         this.registerDefaultState(this.defaultBlockState().setValue(DELAY, Integer.valueOf(0)));
@@ -33,7 +32,7 @@ public class EmptyAtiumOreOvergrown extends Block {
             int currentDelay = pState.getValue(DELAY); //sets a variable that is that same as delay state
             //takes about 50 - 60 mins to regenerate ore
             if (currentDelay == 40) {
-                pLevel.setBlock(pPos, ModBlocks.ATIUM_ORE_OVERGROWN.get().defaultBlockState(), 3);
+                pLevel.setBlock(pPos, ModBlocks.ATIUM_ORE.get().defaultBlockState(), 3);
             } else if (currentDelay < 40){
                 pLevel.setBlock(pPos, pState.setValue(DELAY, (currentDelay + 1)), 3);
             }
