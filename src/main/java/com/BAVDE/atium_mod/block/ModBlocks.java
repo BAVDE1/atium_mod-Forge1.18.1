@@ -8,6 +8,7 @@ import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -51,6 +52,21 @@ public class ModBlocks {
             () -> new CrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
                     .strength(1f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
 
+    public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_CLUSTER_BLOCK = registerBlock("crystallized_atium_cluster_block",
+            () -> new CrystallizedAtiumClusterBlock(7, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152632_) -> {return 5;})), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> LARGE_CRYSTALLIZED_ATIUM_BUD = registerBlock("large_crystallized_atium_bud",
+            () -> new CrystallizedAtiumClusterBlock(5, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> MEDIUM_CRYSTALLIZED_ATIUM_BUD = registerBlock("medium_crystallized_atium_bud",
+            () -> new CrystallizedAtiumClusterBlock(4, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> SMALL_CRYSTALLIZED_ATIUM_BUD = registerBlock("small_crystallized_atium_bud",
+            () -> new CrystallizedAtiumClusterBlock(3, 4, BlockBehaviour.Properties.of(Material.AMETHYST)
+                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
 
 
 
