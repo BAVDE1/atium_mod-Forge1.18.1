@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "atium_mod:block/crystallized_atium_cluster"
+  }
+}

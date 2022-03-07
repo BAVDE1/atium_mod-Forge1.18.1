@@ -1,5 +1,6 @@
 package com.BAVDE.atium_mod.block.custom;
 
+import com.BAVDE.atium_mod.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Random;
 
@@ -30,19 +32,19 @@ public class BuddingCrystallizedAtiumBlock extends CrystallizedAtiumBlock {
             Direction direction = DIRECTIONS[pRandom.nextInt(DIRECTIONS.length)];
             BlockPos blockpos = pPos.relative(direction);
             BlockState blockstate = pLevel.getBlockState(blockpos);
-            Block block = null;
+            RegistryObject<Block> block = null;
             if (canClusterGrowAtState(blockstate)) {
-                block = Blocks.SMALL_AMETHYST_BUD;
-            } else if (blockstate.is(Blocks.SMALL_AMETHYST_BUD) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
-                block = Blocks.MEDIUM_AMETHYST_BUD;
-            } else if (blockstate.is(Blocks.MEDIUM_AMETHYST_BUD) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
-                block = Blocks.LARGE_AMETHYST_BUD;
-            } else if (blockstate.is(Blocks.LARGE_AMETHYST_BUD) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
-                block = Blocks.AMETHYST_CLUSTER;
+                block = ModBlocks.SMALL_CRYSTALLIZED_ATIUM_BUD;
+            } else if (blockstate.is(ModBlocks.SMALL_CRYSTALLIZED_ATIUM_BUD.get()) && blockstate.getValue(CrystallizedAtiumCluster.FACING) == direction) {
+                block = ModBlocks.MEDIUM_CRYSTALLIZED_ATIUM_BUD;
+            } else if (blockstate.is(ModBlocks.MEDIUM_CRYSTALLIZED_ATIUM_BUD.get()) && blockstate.getValue(CrystallizedAtiumCluster.FACING) == direction) {
+                block = ModBlocks.LARGE_CRYSTALLIZED_ATIUM_BUD;
+            } else if (blockstate.is(ModBlocks.LARGE_CRYSTALLIZED_ATIUM_BUD.get()) && blockstate.getValue(CrystallizedAtiumCluster.FACING) == direction) {
+                block = ModBlocks.CRYSTALLIZED_ATIUM_CLUSTER;
             }
 
             if (block != null) {
-                BlockState blockstate1 = block.defaultBlockState().setValue(AmethystClusterBlock.FACING, direction).setValue(AmethystClusterBlock.WATERLOGGED, Boolean.valueOf(blockstate.getFluidState().getType() == Fluids.WATER));
+                BlockState blockstate1 = block.get().defaultBlockState().setValue(CrystallizedAtiumCluster.FACING, direction).setValue(CrystallizedAtiumCluster.WATERLOGGED, Boolean.valueOf(blockstate.getFluidState().getType() == Fluids.WATER));
                 pLevel.setBlockAndUpdate(blockpos, blockstate1);
             }
 

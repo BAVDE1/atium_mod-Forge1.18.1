@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "atium_mod:block/large_crystallized_atium_bud"
+  }
+}

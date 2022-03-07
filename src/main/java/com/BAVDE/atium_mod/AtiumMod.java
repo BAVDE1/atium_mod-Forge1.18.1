@@ -3,10 +3,13 @@ package com.BAVDE.atium_mod;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -29,9 +32,17 @@ public class AtiumMod {
         ModPaintings.register(eventBus);
 
         eventBus.addListener(this::setup);
+        eventBus.addListener(this::setupClient);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public void setupClient(final FMLClientSetupEvent event){
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMALL_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.MEDIUM_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.LARGE_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLIZED_ATIUM_CLUSTER.get(), RenderType.cutout());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

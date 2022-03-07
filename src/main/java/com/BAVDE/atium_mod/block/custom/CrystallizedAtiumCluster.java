@@ -20,7 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class CrystallizedAtiumClusterBlock extends CrystallizedAtiumBlock implements SimpleWaterloggedBlock {
+public class CrystallizedAtiumCluster extends CrystallizedAtiumBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     protected final VoxelShape northAabb;
@@ -30,7 +30,7 @@ public class CrystallizedAtiumClusterBlock extends CrystallizedAtiumBlock implem
     protected final VoxelShape upAabb;
     protected final VoxelShape downAabb;
 
-    public CrystallizedAtiumClusterBlock(int p_152015_, int p_152016_, Properties p_49795_) {
+    public CrystallizedAtiumCluster(int p_152015_, int p_152016_, Properties p_49795_) {
         super(p_49795_);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.UP));
         this.upAabb = Block.box((double)p_152016_, 0.0D, (double)p_152016_, (double)(16 - p_152016_), (double)p_152015_, (double)(16 - p_152016_));

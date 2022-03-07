@@ -16,6 +16,9 @@
   "block.atium_mod.atium_ore_overgrown": "Overgrown Atium Ore",
   "block.atium_mod.empty_atium_ore_overgrown": "Empty Overgrown Atium Ore",
   "block.atium_mod.crystallized_atium_block": "Crystallized Atium Block",
-  "block.atium_mod.crystallized_atium_cluster_block": "Crystallized Atium Cluster Block",
-  "block.atium_mod.budding.crystallized_atium_block": "Budding Crystallized Atium Block"
+  "block.atium_mod.budding_crystallized_atium_block": "Budding Crystallized Atium",
+  "block.atium_mod.crystallized_atium_cluster": "Crystallized Atium Cluster",
+  "block.atium_mod.small_crystallized_atium_bud": "Small Crystallized Atium Bud",
+  "block.atium_mod.medium_crystallized_atium_bud": "Medium Crystallized Atium Bud",
+  "block.atium_mod.large_crystallized_atium_bud": "Large Crystallized Atium Bud"
 }

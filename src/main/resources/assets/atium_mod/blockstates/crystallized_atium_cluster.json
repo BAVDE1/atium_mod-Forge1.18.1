@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "atium_mod:block/crystallized_atium_cluster",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "atium_mod:block/crystallized_atium_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "atium_mod:block/crystallized_atium_cluster",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "atium_mod:block/crystallized_atium_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "atium_mod:block/crystallized_atium_cluster"
+    },
+    "facing=west": {
+      "model": "atium_mod:block/crystallized_atium_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

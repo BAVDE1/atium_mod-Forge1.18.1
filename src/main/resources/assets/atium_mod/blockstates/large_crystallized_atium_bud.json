@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "atium_mod:block/large_crystallized_atium_bud",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "atium_mod:block/large_crystallized_atium_bud",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "atium_mod:block/large_crystallized_atium_bud",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "atium_mod:block/large_crystallized_atium_bud",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "atium_mod:block/large_crystallized_atium_bud"
+    },
+    "facing=west": {
+      "model": "atium_mod:block/large_crystallized_atium_bud",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
