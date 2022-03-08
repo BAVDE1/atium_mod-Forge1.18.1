@@ -5,6 +5,7 @@ import com.BAVDE.atium_mod.item.custom.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,11 +29,11 @@ public class ModItems {
 
     //Knives
     public static final RegistryObject<Item> WOOD_KNIFE = ITEMS.register("wood_knife",
-            () -> new WoodKnife(ModTiers.Knife, -1, -2.2f,
-                    new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(32)));
+            () -> new WoodKnife(Tiers.WOOD, 0, -2.2f,
+                    new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(64)));
 
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
-            () -> new CrystallizedKnife(ModTiers.Knife, 1, -2.2f,
+            () -> new CrystallizedKnife(ModTiers.Crystallized_Knife, 1, -2.2f,
                     new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
 
 
