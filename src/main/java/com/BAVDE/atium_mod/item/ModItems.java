@@ -6,6 +6,7 @@ import com.BAVDE.atium_mod.item.custom.IronHammer;
 import com.BAVDE.atium_mod.item.custom.StoneHammer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,25 +17,30 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, AtiumMod.MOD_ID);
 
     //Atium
-    public static final RegistryObject<Item> PUREATIUM = ITEMS.register("pure_atium",
+    public static final RegistryObject<Item> PURE_ATIUM = ITEMS.register("pure_atium",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
-    public static final RegistryObject<Item> ATIUMGEODE = ITEMS.register("atium_geode",
+    public static final RegistryObject<Item> ATIUM_GEODE = ITEMS.register("atium_geode",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
-    public static final RegistryObject<Item> ATIUMBEAD = ITEMS.register("atium_bead",
+    public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
+
+    public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
+            () -> new SwordItem(ModTiers.Knife, 1, -2.2f,
+                    new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
 
 
 
     //Hammers
-    public static final RegistryObject<Item> STONEHAMMER = ITEMS.register("stone_hammer",
+    public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer",
             () -> new StoneHammer(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(16)));
 
-    public static final RegistryObject<Item> IRONHAMMER = ITEMS.register("iron_hammer",
+    public static final RegistryObject<Item> IRON_HAMMER = ITEMS.register("iron_hammer",
             () -> new IronHammer(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(128)));
 
-    public static final RegistryObject<Item> DIAMONDHAMMER = ITEMS.register("diamond_hammer",
+    public static final RegistryObject<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer",
             () -> new DiamondHammer(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1024)));
 
 

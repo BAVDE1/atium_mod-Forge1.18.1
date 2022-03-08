@@ -8,7 +8,7 @@ public class ModCreativeModeTab {
     public static final CreativeModeTab ATIUM_TAB = new CreativeModeTab("atium_mod_tab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ModItems.PUREATIUM.get());
+            return new ItemStack(ModItems.PURE_ATIUM.get());
         }
     };
 }
