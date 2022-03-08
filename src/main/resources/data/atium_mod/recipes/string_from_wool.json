@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "atium_mod:crystallized_knife"
+      "tag": "atium_mod:knife"
     },
     {
       "tag": "minecraft:wool"
