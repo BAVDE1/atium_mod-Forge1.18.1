@@ -6,6 +6,10 @@
     "atium_mod:empty_atium_ore",
     "atium_mod:crystallized_atium_block",
     "atium_mod:atium_ore_overgrown",
-    "atium_mod:empty_atium_ore_overgrown"
+    "atium_mod:empty_atium_ore_overgrown",
+    "atium_mod:small_crystallized_atium_bud",
+    "atium_mod:medium_crystallized_atium_bud",
+    "atium_mod:large_crystallized_atium_bud",
+    "atium_mod:crystallized_atium_cluster"
   ]
 }

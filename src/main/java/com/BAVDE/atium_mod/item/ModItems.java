@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.item.custom.CrystallizedKnife;
 import com.BAVDE.atium_mod.item.custom.DiamondHammer;
 import com.BAVDE.atium_mod.item.custom.IronHammer;
 import com.BAVDE.atium_mod.item.custom.StoneHammer;
@@ -28,7 +29,7 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
-            () -> new SwordItem(ModTiers.Knife, 1, -2.2f,
+            () -> new CrystallizedKnife(ModTiers.Knife, 1, -2.2f,
                     new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
 
 

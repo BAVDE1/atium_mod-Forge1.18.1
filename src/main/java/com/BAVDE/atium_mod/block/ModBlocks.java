@@ -57,19 +57,19 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_CLUSTER = registerBlock("crystallized_atium_cluster",
             () -> new CrystallizedAtiumCluster(7, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152632_) -> {return 5;})), ModCreativeModeTab.ATIUM_TAB);
+                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152632_) -> {return 5;})), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> LARGE_CRYSTALLIZED_ATIUM_BUD = registerBlock("large_crystallized_atium_bud",
             () -> new CrystallizedAtiumCluster(5, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
+                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> MEDIUM_CRYSTALLIZED_ATIUM_BUD = registerBlock("medium_crystallized_atium_bud",
             () -> new CrystallizedAtiumCluster(4, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
+                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> SMALL_CRYSTALLIZED_ATIUM_BUD = registerBlock("small_crystallized_atium_bud",
             () -> new CrystallizedAtiumCluster(3, 4, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
+                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
 
 
 

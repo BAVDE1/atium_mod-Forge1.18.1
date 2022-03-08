@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S",
+    "# "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "s": {
+      "item": "atium_mod:crystallized_atium_shard"
+    }
+  },
+  "result": {
+    "item": "atium_mod:crystallized_knife"
+  }
+}
