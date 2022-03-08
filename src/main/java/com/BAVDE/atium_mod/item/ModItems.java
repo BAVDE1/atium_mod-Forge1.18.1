@@ -1,10 +1,7 @@
 package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
-import com.BAVDE.atium_mod.item.custom.CrystallizedKnife;
-import com.BAVDE.atium_mod.item.custom.DiamondHammer;
-import com.BAVDE.atium_mod.item.custom.IronHammer;
-import com.BAVDE.atium_mod.item.custom.StoneHammer;
+import com.BAVDE.atium_mod.item.custom.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
@@ -27,6 +24,12 @@ public class ModItems {
     public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
+
+
+    //Knives
+    public static final RegistryObject<Item> WOOD_KNIFE = ITEMS.register("wood_knife",
+            () -> new WoodKnife(ModTiers.Knife, -1, -2.2f,
+                    new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(32)));
 
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
             () -> new CrystallizedKnife(ModTiers.Knife, 1, -2.2f,
