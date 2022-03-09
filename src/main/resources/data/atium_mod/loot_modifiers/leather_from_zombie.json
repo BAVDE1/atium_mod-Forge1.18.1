@@ -1,0 +1,10 @@
+{
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/zombie"
+    }
+  ],
+  "addition": "minecraft:leather",
+  "type": "atium_mod:leather_from_zombie"
+}

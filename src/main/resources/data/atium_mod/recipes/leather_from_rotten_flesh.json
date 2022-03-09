@@ -5,7 +5,7 @@
       "tag": "atium_mod:knife"
     },
     {
-      "tag": "minecraft:rotten_flesh"
+      "item": "minecraft:rotten_flesh"
     }
   ],
   "result": {
