@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "atium_mod:knife"
+    },
+    {
+      "tag": "minecraft:rotten_flesh"
+    }
+  ],
+  "result": {
+    "item": "minecraft:leather"
+  }
+}
