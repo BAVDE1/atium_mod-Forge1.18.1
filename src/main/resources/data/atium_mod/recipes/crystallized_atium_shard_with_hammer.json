@@ -5,7 +5,7 @@
       "item": "atium_mod:crystallized_atium_block"
     },
     {
-      "item": "atium_mod:diamond_hammer"
+      "tag": "atium_mod:hammer"
     }
   ],
   "result": {

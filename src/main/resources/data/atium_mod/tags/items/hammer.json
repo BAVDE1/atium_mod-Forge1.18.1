@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "atium_mod:stone_hammer",
+    "atium_mod:iron_hammer",
+    "atium_mod:diamond_hammer"
+  ]
+}

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "atium_mod:diamond_hammer"
+      "tag": "atium_mod:hammer"
     },
     {
       "item": "atium_mod:atium_geode"

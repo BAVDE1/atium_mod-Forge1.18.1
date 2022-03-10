@@ -27,6 +27,9 @@ public class ModTags {
         public static final Tags.IOptionalNamedTag<Item> KNIFE
                 = tag("knife");
 
+        public static final Tags.IOptionalNamedTag<Item> HAMMER
+                = tag("hammer");
+
 
         //tag stuff
         private static Tags.IOptionalNamedTag<Item> tag(String name) {
