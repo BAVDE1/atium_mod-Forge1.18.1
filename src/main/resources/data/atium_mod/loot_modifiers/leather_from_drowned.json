@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "condition": "minecraft:damage_source_properties",
+      "predicate": {
+        "source_entity": {
+          "equipment": {
+            "mainhand": {
+              "tag": "atium_mod:knife"
+            }
+          }
+        }
+      }
+    },
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/drowned"
+    }
+  ],
+  "addition": "minecraft:leather",
+  "type": "atium_mod:leather_from_drowned"
+}

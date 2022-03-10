@@ -1,6 +1,9 @@
 {
   "replace": false,
   "entries": [
-    "atium_mod:leather_from_zombie"
+    "atium_mod:leather_from_zombie",
+    "atium_mod:leather_from_husk",
+    "atium_mod:leather_from_drowned",
+    "atium_mod:leather_from_zombie_villager"
   ]
 }
