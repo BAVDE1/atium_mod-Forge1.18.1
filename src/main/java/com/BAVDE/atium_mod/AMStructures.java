@@ -20,11 +20,11 @@ public class AMStructures {
     public static final DeferredRegister<StructureFeature<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, AtiumMod.MOD_ID);
 
     //Registers the base structure itself and sets what its path is. In this case, this base structure will have the resourcelocation of atium_mod:atium_geode_structure.
-    public static final RegistryObject<StructureFeature<JigsawConfiguration>> ATIUM_GEODE = DEFERRED_REGISTRY_STRUCTURE.register("atium_geode", () -> (new AtiumGeodeStructure()));
+    public static final RegistryObject<StructureFeature<JigsawConfiguration>> ATIUM_GEODE_STRUCTURE = DEFERRED_REGISTRY_STRUCTURE.register("atium_geode_structure", () -> (new AtiumGeodeStructure(JigsawConfiguration.CODEC)));
 
     public static void setupStructures() {
         setupMapSpacingAndLand(
-                ATIUM_GEODE.get(), /* The instance of the structure */
+                ATIUM_GEODE_STRUCTURE.get(), /* The instance of the structure */
                 new StructureFeatureConfiguration(10 /* average distance apart in chunks between spawn attempts */,
                         5 /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
@@ -55,8 +55,6 @@ public class AMStructures {
          *
          * Note: The air space this method will create will be filled with water if the structure is below sealevel.
          * This means this is best for structure above sealevel so keep that in mind.
-         *
-         * NOISE_AFFECTING_FEATURES requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
         if(transformSurroundingLand){
             StructureFeature.NOISE_AFFECTING_FEATURES =
@@ -75,8 +73,6 @@ public class AMStructures {
          *
          * Instead, we will use the WorldEvent.Load event in StructureTutorialMain to add the structure
          * spacing from this list into that dimension or to do dimension blacklisting properly.
-         *
-         * DEFAULTS requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
         StructureSettings.DEFAULTS =
                 ImmutableMap.<StructureFeature<?>, StructureFeatureConfiguration>builder()
@@ -98,8 +94,6 @@ public class AMStructures {
             /*
              * Pre-caution in case a mod makes the structure map immutable like datapacks do.
              * I take no chances myself. You never know what another mods does...
-             *
-             * structureConfig requires AccessTransformer (See resources/META-INF/accesstransformer.cfg)
              */
             if(structureMap instanceof ImmutableMap){
                 Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureMap);
