@@ -6,7 +6,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "atium_mod:atium_geode",
+        "location": "atium_mod:atium_geode_structure",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
