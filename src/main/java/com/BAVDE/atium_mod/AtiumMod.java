@@ -3,6 +3,7 @@ package com.BAVDE.atium_mod;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
+import com.BAVDE.atium_mod.worldgen.Registration;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
@@ -14,10 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AtiumMod.MOD_ID)
@@ -31,7 +28,7 @@ public class AtiumMod {
     public AtiumMod() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        AMStructures.DEFERRED_REGISTRY_STRUCTURE.register(eventBus);
+        Registration.init();
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);

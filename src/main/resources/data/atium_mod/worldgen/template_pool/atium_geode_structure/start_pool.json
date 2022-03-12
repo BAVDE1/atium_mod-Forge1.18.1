@@ -1,5 +1,5 @@
 {
-  "name": "atium_mod:atium_geode/start_pool",
+  "name": "atium_mod:atium_geode_structure/start_pool",
   "fallback": "minecraft:empty",
 
   "elements": [
