@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:village",
+  "type": "atium_mod:geode_structure",
 
   "config": {
-    "start_pool": "atium_mod:atium_geode_structure_pool",
+    "start_pool": "atium_mod:atium_geode_structure",
     "size": 1
   },
 
-  "biomes": "#atium_mod:has_structure/code_structure_atium_geode_structure_biomes",
+  "biomes": "#atium_mod:has_structure/geode_structure_biomes",
   "adapt_noise": false,
 
   "spawn_overrides": {
@@ -17,7 +17,7 @@
           "type": "minecraft:zombie",
           "weight": 5,
           "minCount": 0,
-          "maxCount": 2
+          "maxCount": 3
         },
         {
           "type": "minecraft:skeleton",

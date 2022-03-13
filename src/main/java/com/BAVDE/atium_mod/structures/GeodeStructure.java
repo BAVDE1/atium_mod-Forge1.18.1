@@ -3,12 +3,8 @@ package com.BAVDE.atium_mod.structures;
 import com.BAVDE.atium_mod.AtiumMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.LevelHeightAccessor;
-import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
@@ -18,15 +14,14 @@ import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import org.apache.logging.log4j.Level;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class AtiumGeodeStructure extends StructureFeature<JigsawConfiguration> {
+public class GeodeStructure extends StructureFeature<JigsawConfiguration> {
 
-    public AtiumGeodeStructure() {
+    public GeodeStructure() {
         // Create the pieces layout of the structure and give it to the game
-        super(JigsawConfiguration.CODEC, AtiumGeodeStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+        super(JigsawConfiguration.CODEC, GeodeStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
     }
 
     /**
@@ -41,32 +36,6 @@ public class AtiumGeodeStructure extends StructureFeature<JigsawConfiguration> {
         return GenerationStep.Decoration.UNDERGROUND_STRUCTURES;
     }
 
-    /*
-     * This is where extra checks can be done to determine if the structure can spawn here.
-     * This only needs to be overridden if you're adding additional spawn conditions.
-     *
-     * Fun fact, if you set your structure separation/spacing to be 0/1, you can use
-     * isFeatureChunk to return true only if certain chunk coordinates are passed in
-     * which allows you to spawn structures only at certain coordinates in the world.
-     *
-     * Basically, this method is used for determining if the land is at a suitable height,
-     * if certain other structures are too close or not, or some other restrictive condition.
-     *
-     * For example, Pillager Outposts added a check to make sure it cannot spawn within 10 chunk of a Village.
-     * (Bedrock Edition seems to not have the same check)
-     *
-     * If you are doing Nether structures, you'll probably want to spawn your structure on top of ledges.
-     * Best way to do that is to use getBaseColumn to grab a column of blocks at the structure's x/z position.
-     * Then loop through it and look for land with air above it and set blockpos's Y value to it.
-     * Make sure to set the final boolean in JigsawPlacement.addPieces to false so
-     * that the structure spawns at blockpos's y value instead of placing the structure on the Bedrock roof!
-     *
-     * Also, please for the love of god, do not do dimension checking here.
-     * If you do and another mod's dimension is trying to spawn your structure,
-     * the locate command will make minecraft hang forever and break the game.
-     * Use the biome tags for where to spawn the structure and users can datapack
-     * it to spawn in specific biomes that aren't in the dimension they don't like if they wish.
-     */
     private static boolean isFeatureChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
         // Grabs the chunk position we are at
         ChunkPos chunkpos = context.chunkPos();
@@ -80,7 +49,7 @@ public class AtiumGeodeStructure extends StructureFeature<JigsawConfiguration> {
 
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
-        if (!AtiumGeodeStructure.isFeatureChunk(context)) {
+        if (!GeodeStructure.isFeatureChunk(context)) {
             return Optional.empty();
         }
 
@@ -89,8 +58,8 @@ public class AtiumGeodeStructure extends StructureFeature<JigsawConfiguration> {
 
         // Find the top Y value of the land and then offset our structure to 60 blocks above that.
         // WORLD_SURFACE_WG will stop at top water so we don't accidentally put our structure into the ocean if it is a super deep ocean.
-        int topLandY = context.chunkGenerator().getFirstFreeHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-        blockpos = blockpos.above(topLandY + 60);
+        int belowLandY = context.chunkGenerator().getFirstFreeHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
+        blockpos = blockpos.below((int) (belowLandY - (Math.random() * 160) + 60));
 
         Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator =
                 JigsawPlacement.addPieces(

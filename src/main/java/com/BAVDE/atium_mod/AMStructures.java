@@ -1,6 +1,6 @@
 package com.BAVDE.atium_mod;
 
-import com.BAVDE.atium_mod.structures.AtiumGeodeStructure;
+import com.BAVDE.atium_mod.structures.GeodeStructure;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,5 +22,5 @@ public class AMStructures {
      * Registers the base structure itself and sets what its path is. In this case,
      * this base structure will have the resourcelocation of structure_tutorial:sky_structures.
      */
-    public static final RegistryObject<StructureFeature<?>> ATIUM_GEODE_STRUCTURE = DEFERRED_REGISTRY_STRUCTURE.register("atium_geode_structure", AtiumGeodeStructure::new);
+    public static final RegistryObject<StructureFeature<?>> GEODE_STRUCTURE = DEFERRED_REGISTRY_STRUCTURE.register("geode_structure", GeodeStructure::new);
 }
