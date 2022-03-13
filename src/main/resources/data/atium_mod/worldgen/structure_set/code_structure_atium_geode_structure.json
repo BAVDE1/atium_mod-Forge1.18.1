@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "atium_mod:code_structure_atium_geode_structure",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1224466881,
+    "spacing": 10,
+    "separation": 5,
+    "type": "minecraft:random_spread"
+  }
+}

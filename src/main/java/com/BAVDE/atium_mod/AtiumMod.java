@@ -3,7 +3,6 @@ package com.BAVDE.atium_mod;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
-import com.BAVDE.atium_mod.worldgen.Registration;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
@@ -28,7 +27,7 @@ public class AtiumMod {
     public AtiumMod() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        Registration.init();
+        AMStructures.DEFERRED_REGISTRY_STRUCTURE.register(eventBus);
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
