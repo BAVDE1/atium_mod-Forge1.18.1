@@ -22,5 +22,7 @@
   "block.atium_mod.crystallized_atium_cluster": "Crystallized Atium Cluster",
   "block.atium_mod.small_crystallized_atium_bud": "Small Crystallized Atium Bud",
   "block.atium_mod.medium_crystallized_atium_bud": "Medium Crystallized Atium Bud",
-  "block.atium_mod.large_crystallized_atium_bud": "Large Crystallized Atium Bud"
+  "block.atium_mod.large_crystallized_atium_bud": "Large Crystallized Atium Bud",
+
+  "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"
 }
