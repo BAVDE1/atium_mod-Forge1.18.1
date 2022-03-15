@@ -2,7 +2,6 @@ package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.item.custom.*;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
@@ -25,6 +24,10 @@ public class ModItems {
     public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
+    public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
+            () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f,
+                    new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1000)));
+
 
 
     //Knives
@@ -33,7 +36,7 @@ public class ModItems {
                     new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(64)));
 
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
-            () -> new CrystallizedKnife(ModTiers.Crystallized_Knife, 1, -2.2f,
+            () -> new CrystallizedKnife(ModTiers.CRYSTALLIZED_KNIFE_TIER, 1, -2.2f,
                     new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
 
 
