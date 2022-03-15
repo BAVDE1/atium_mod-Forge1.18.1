@@ -159,6 +159,12 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    maven { // JEI
+        url "https://dvs1.progwml6.com/files/maven"
+    }
+    maven { // TOP
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
@@ -168,9 +174,10 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.0.12'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
-    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
-    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
+    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.2.133:api") // Adds JEI API as a compile dependency
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.2.133") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
+    runtimeOnly fg.deobf("curse.maven:shutup_experimental_settings-407174:3544525")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
