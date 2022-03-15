@@ -16,14 +16,14 @@
         {
           "type": "minecraft:zombie",
           "weight": 5,
-          "minCount": 0,
-          "maxCount": 3
+          "minCount": 1,
+          "maxCount": 5
         },
         {
           "type": "minecraft:skeleton",
           "weight": 1,
           "minCount": 0,
-          "maxCount": 2
+          "maxCount": 3
         }
       ]
     }
