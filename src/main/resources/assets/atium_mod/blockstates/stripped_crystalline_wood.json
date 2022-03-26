@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "atium_mod:block/stripped_crystalline_log",
+      "model": "atium_mod:block/stripped_crystalline_wood",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "atium_mod:block/stripped_crystalline_log"
+      "model": "atium_mod:block/stripped_crystalline_wood"
     },
     "axis=z": {
-      "model": "atium_mod:block/stripped_crystalline_log",
+      "model": "atium_mod:block/stripped_crystalline_wood",
       "x": 90
     }
   }
