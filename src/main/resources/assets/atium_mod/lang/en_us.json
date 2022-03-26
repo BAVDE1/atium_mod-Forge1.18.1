@@ -17,12 +17,20 @@
   "block.atium_mod.empty_atium_ore": "Empty Atium Ore",
   "block.atium_mod.atium_ore_overgrown": "Overgrown Atium Ore",
   "block.atium_mod.empty_atium_ore_overgrown": "Empty Overgrown Atium Ore",
+
   "block.atium_mod.crystallized_atium_block": "Crystallized Atium Block",
   "block.atium_mod.budding_crystallized_atium_block": "Budding Crystallized Atium",
+
   "block.atium_mod.crystallized_atium_cluster": "Crystallized Atium Cluster",
   "block.atium_mod.small_crystallized_atium_bud": "Small Crystallized Atium Bud",
   "block.atium_mod.medium_crystallized_atium_bud": "Medium Crystallized Atium Bud",
   "block.atium_mod.large_crystallized_atium_bud": "Large Crystallized Atium Bud",
+
+  "block.atium_mod.crystalline_log": "Crystalline Log",
+  "block.atium_mod.crystalline_wood": "Crystalline Wood",
+  "block.atium_mod.stripped_crystalline_log": "Stripped Crystalline Log",
+  "block.atium_mod.stripped_crystalline_wood": "Stripped Crystalline Wood",
+  "block.atium_mod.crystalline_planks": "Crystalline Planks",
 
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"
 }

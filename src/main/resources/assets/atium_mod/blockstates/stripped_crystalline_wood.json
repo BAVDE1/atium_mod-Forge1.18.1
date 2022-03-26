@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "atium_mod:block/stripped_crystalline_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "atium_mod:block/stripped_crystalline_log"
+    },
+    "axis=z": {
+      "model": "atium_mod:block/stripped_crystalline_log",
+      "x": 90
+    }
+  }
+}

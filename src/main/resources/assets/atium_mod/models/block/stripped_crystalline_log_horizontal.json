@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "atium_mod:block/stripped_crystalline_top",
+    "side": "atium_mod:block/stripped_crystalline_log"
+  }
+}

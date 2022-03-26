@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "atium_mod:block/crystalline_log",
+    "side": "atium_mod:block/crystalline_log"
+  }
+}
