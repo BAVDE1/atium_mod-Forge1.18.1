@@ -5,15 +5,14 @@ import com.BAVDE.atium_mod.block.custom.*;
 //import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.world.feature.tree.CrystallineTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -108,6 +107,28 @@ public class ModBlocks {
                     return 5;
                 }
             }, ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 30;
+                }
+            }, ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
+            () -> new SaplingBlock(new CrystallineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), ModCreativeModeTab.ATIUM_TAB);
+
 
 
 

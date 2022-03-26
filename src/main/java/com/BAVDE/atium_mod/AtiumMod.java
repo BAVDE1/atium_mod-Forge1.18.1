@@ -46,6 +46,9 @@ public class AtiumMod {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.MEDIUM_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.LARGE_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLIZED_ATIUM_CLUSTER.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_LEAVES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_SAPLING.get(), RenderType.cutout());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

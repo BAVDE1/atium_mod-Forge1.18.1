@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "atium_mod:block/crystalline_sapling"
+  }
+}

@@ -31,6 +31,8 @@
   "block.atium_mod.stripped_crystalline_log": "Stripped Crystalline Log",
   "block.atium_mod.stripped_crystalline_wood": "Stripped Crystalline Wood",
   "block.atium_mod.crystalline_planks": "Crystalline Planks",
+  "block.atium_mod.crystalline_leaves": "Crystalline Leaves",
+  "block.atium_mod.crystalline_sapling": "Crystalline Sapling",
 
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"
 }
