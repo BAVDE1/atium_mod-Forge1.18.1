@@ -9,15 +9,18 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import java.util.Random;
 
 public class CrystallineLeaves extends LeavesBlock {
+    public static final IntegerProperty GROWING = IntegerProperty.create("growing", 0, 1);
     public static final BooleanProperty GROWN = BooleanProperty.create("grown");
 
     public CrystallineLeaves(Properties p_54422_) {
         super(p_54422_);
         this.registerDefaultState(this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false)));
+        this.registerDefaultState(this.defaultBlockState().setValue(GROWING, Math.random()));
     }
 
     @Override
@@ -38,11 +41,7 @@ public class CrystallineLeaves extends LeavesBlock {
         if (!pState.getValue(PERSISTENT)) {
             if (!pState.getValue(GROWN)) {
                 var chance = Math.round(Math.random() * 101);
-                if (chance == 5 || chance == 4 || chance == 3 || chance == 2 || chance == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return chance <= 5;
             } else {
                 return false;
             }
