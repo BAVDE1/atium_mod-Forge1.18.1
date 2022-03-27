@@ -14,13 +14,14 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import java.util.Random;
 
 public class CrystallineLeaves extends LeavesBlock {
-    public static final IntegerProperty GROWING = IntegerProperty.create("growing", 0, 1);
+    public static final BooleanProperty GROWING = BooleanProperty.create("growing");
     public static final BooleanProperty GROWN = BooleanProperty.create("grown");
 
     public CrystallineLeaves(Properties p_54422_) {
         super(p_54422_);
-        this.registerDefaultState(this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false)));
-        this.registerDefaultState(this.defaultBlockState().setValue(GROWING, Math.random()));
+        var willGrow = Math.random() < 0.05;
+        this.registerDefaultState(this.defaultBlockState().setValue(GROWN, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(GROWING, willGrow));
     }
 
     @Override
@@ -38,26 +39,27 @@ public class CrystallineLeaves extends LeavesBlock {
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        if (!pState.getValue(PERSISTENT)) {
-            if (!pState.getValue(GROWN)) {
-                var chance = Math.round(Math.random() * 101);
-                return chance <= 5;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        //if close to wood and not player placed
+        return pState.getValue(DISTANCE) == 7 && !pState.getValue(PERSISTENT)
+                //if growing and not grown
+                || pState.getValue(GROWING) && !pState.getValue(GROWN);
     }
 
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-        if (!pState.getValue(GROWN)) { //if the block is ticking (5% chance)
-            pState.setValue(GROWN, true);
+        //if growing
+        if (pState.getValue(GROWING)) {
+            pState.setValue(GROWN, true); //grow
+            pState.setValue(GROWING, false); //no longer growing
+        }
+        //if not close to wood and not player placed
+        if (pState.getValue(DISTANCE) == 7 && !pState.getValue(PERSISTENT)) {
+            dropResources(pState, pLevel, pPos); //drop items
+            pLevel.removeBlock(pPos, false); //remove block
         }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(GROWN, DISTANCE, PERSISTENT);
+        pBuilder.add(GROWING, GROWN, DISTANCE, PERSISTENT);
     }
 }
