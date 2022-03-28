@@ -125,7 +125,8 @@ public class ModBlocks {
             }, ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> BUDDING_CRYSTALLINE_LEAVES = registerBlock("budding_crystalline_leaves",
-            () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)), ModCreativeModeTab.ATIUM_TAB);
+            () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)
+                    .lightLevel((state) -> state.getValue(BuddingCrystallineLeaves.GROWN) ? 5 : 0)), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
             () -> new SaplingBlock(new CrystallineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), ModCreativeModeTab.ATIUM_TAB);
