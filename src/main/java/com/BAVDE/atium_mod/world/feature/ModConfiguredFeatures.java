@@ -26,7 +26,7 @@ public class ModConfiguredFeatures {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CRYSTALLINE_TREE =
             FeatureUtils.register("crystalline", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                     BlockStateProvider.simple(ModBlocks.CRYSTALLINE_LOG.get()),
-                    new FancyTrunkPlacer(5, 11, 0), // -, bigness, -
+                    new FancyTrunkPlacer(9, 11, 1), // -, bigness, -
 
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 6)
