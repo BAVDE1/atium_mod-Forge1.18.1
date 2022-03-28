@@ -1,5 +1,15 @@
 {
   "variants": {
-    "": {"model": "atium_mod:block/budding_crystalline_leaves"}
+    "growth=0": {"model": "atium_mod:block/crystalline_leaves"},
+    "growth=1": {"model": "atium_mod:block/crystalline_leaves"},
+    "growth=2": {"model": "atium_mod:block/crystalline_leaves"},
+    "growth=3": {"model": "atium_mod:block/crystalline_leaves"},
+    "growth=4": {"model": "atium_mod:block/crystalline_leaves"},
+    "growth=5": {"model": "atium_mod:block/budding_crystalline_leaves"},
+    "growth=6": {"model": "atium_mod:block/budding_crystalline_leaves"},
+    "growth=7": {"model": "atium_mod:block/budding_crystalline_leaves"},
+    "growth=8": {"model": "atium_mod:block/budding_crystalline_leaves"},
+    "growth=9": {"model": "atium_mod:block/budding_crystalline_leaves"},
+    "growth=10": {"model": "atium_mod:block/grown_crystalline_leaves"}
   }
 }

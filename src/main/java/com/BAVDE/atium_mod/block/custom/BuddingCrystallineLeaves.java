@@ -15,12 +15,10 @@ import java.util.Random;
 
 public class BuddingCrystallineLeaves extends LeavesBlock {
     public static final IntegerProperty GROWTH = IntegerProperty.create("growth", 0, 10);
-    public static final BooleanProperty GROWN = BooleanProperty.create("grown");
 
     public BuddingCrystallineLeaves(Properties p_54422_) {
         super(p_54422_);
         this.registerDefaultState(this.defaultBlockState().setValue(GROWTH, 0));
-        this.registerDefaultState(this.defaultBlockState().setValue(GROWN, false));
     }
 
     @Override
@@ -44,16 +42,13 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
         }
 
         int growth = pState.getValue(GROWTH);
-        var grown = pState.getValue(GROWN);
 
-        if (!grown && growth < 10) { //if not grown and growth less than 10
+        if (growth < 10) { //if growth less than 10
             pLevel.setBlock(pPos, pState.setValue(GROWTH, (growth + 1)), 3); //add 1 to growth state
-        } else if (!grown && growth == 10) { //if not grown and growth = 10
-            pLevel.setBlock(pPos, pState.setValue(GROWN, true), 3); //set grown to true
         }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
+        pBuilder.add(GROWTH, DISTANCE, PERSISTENT);
     }
 }
