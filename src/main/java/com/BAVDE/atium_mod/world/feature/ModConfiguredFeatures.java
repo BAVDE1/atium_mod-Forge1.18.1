@@ -21,6 +21,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
+import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWN;
+import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWTH;
+
 
 public class ModConfiguredFeatures {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CRYSTALLINE_TREE =
@@ -30,15 +33,10 @@ public class ModConfiguredFeatures {
 
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 6)
-                            .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState(), 1)),
+                            .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWN, true).setValue(GROWTH, 10), 1)),
                     new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
                     new TwoLayersFeatureSize(0, 0, 0)).build());
 
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
             PlacementUtils.filteredByBlockSurvival(ModBlocks.CRYSTALLINE_SAPLING.get()));
-
-    /*public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CRYSTALLINE_SPAWN =
-            FeatureUtils.register("crystalline_spawn", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(CRYSTALLINE_CHECKED,
-                            0.5F)), CRYSTALLINE_CHECKED));*/
 }

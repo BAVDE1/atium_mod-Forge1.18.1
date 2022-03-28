@@ -77,7 +77,7 @@ public class ModBlocks {
 
 
 
-    //Crystalline Woods
+    //Crystalline Tree
     public static final RegistryObject<Block> CRYSTALLINE_LOG = registerBlock("crystalline_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), ModCreativeModeTab.ATIUM_TAB);
 

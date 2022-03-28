@@ -2,13 +2,25 @@ package com.BAVDE.atium_mod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+
+import java.util.Random;
 
 public class BuddingCrystallineLeaves extends LeavesBlock {
+    public static final IntegerProperty GROWTH = IntegerProperty.create("growth", 0, 10);
+    public static final BooleanProperty GROWN = BooleanProperty.create("grown");
+
     public BuddingCrystallineLeaves(Properties p_54422_) {
         super(p_54422_);
+        this.registerDefaultState(this.defaultBlockState().setValue(GROWTH, 0));
+        this.registerDefaultState(this.defaultBlockState().setValue(GROWN, false));
     }
 
     @Override
@@ -18,4 +30,30 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
     @Override
     public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 30;}
 
+    @Override
+    public boolean isRandomlyTicking(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+        //leaf decay
+        if (!pState.getValue(PERSISTENT) && pState.getValue(DISTANCE) == 7) {
+            dropResources(pState, pLevel, pPos);
+            pLevel.removeBlock(pPos, false);
+        }
+
+        int growth = pState.getValue(GROWTH);
+        var grown = pState.getValue(GROWN);
+
+        if (!grown && growth < 10) { //if not grown and growth less than 10
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, (growth + 1)), 3); //add 1 to growth state
+        } else if (!grown && growth == 10) { //if not grown and growth = 10
+            pLevel.setBlock(pPos, pState.setValue(GROWN, true), 3); //set grown to true
+        }
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
+    }
 }
