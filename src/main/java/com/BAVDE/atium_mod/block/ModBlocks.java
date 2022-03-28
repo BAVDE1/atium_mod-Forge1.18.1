@@ -109,8 +109,23 @@ public class ModBlocks {
             }, ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
-            () -> new CrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)
-                    .lightLevel((state) -> state.getValue(CrystallineLeaves.GROWN) ? 15 : 0)), ModCreativeModeTab.ATIUM_TAB);
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 60;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 30;
+                }
+            }, ModCreativeModeTab.ATIUM_TAB);
+
+    public static final RegistryObject<Block> BUDDING_CRYSTALLINE_LEAVES = registerBlock("budding_crystalline_leaves",
+            () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)), ModCreativeModeTab.ATIUM_TAB);
 
     public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
             () -> new SaplingBlock(new CrystallineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), ModCreativeModeTab.ATIUM_TAB);
