@@ -26,12 +26,12 @@ public class ModConfiguredFeatures {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CRYSTALLINE_TREE =
             FeatureUtils.register("crystalline", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                     BlockStateProvider.simple(ModBlocks.CRYSTALLINE_LOG.get()),
-                    new FancyTrunkPlacer(9, 11, 1), // -, bigness, -
+                    new FancyTrunkPlacer(5, 10, 5), // branch size?, bigness, -
 
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 6)
                             .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState(), 1)),
-                    new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 4),
+                    new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
                     new TwoLayersFeatureSize(0, 0, 0)).build());
 
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
