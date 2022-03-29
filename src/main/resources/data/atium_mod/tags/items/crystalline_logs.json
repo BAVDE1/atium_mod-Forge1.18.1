@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "atium_mod:crystalline_log",
+    "atium_mod:crystalline_wood",
+    "atium_mod:stripped_crystalline_log",
+    "atium_mod:stripped_crystalline_wood"
+  ]
+}
