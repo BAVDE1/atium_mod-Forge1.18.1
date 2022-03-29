@@ -1,14 +1,16 @@
 {
   "variants": {
     "facing=east,half=bottom,open=false": {
-      "model": "atium_mod:block/crystalline_trapdoor_bottom"
+      "model": "atium_mod:block/crystalline_trapdoor_bottom",
+      "y": 90
     },
     "facing=east,half=bottom,open=true": {
       "model": "atium_mod:block/crystalline_trapdoor_open",
       "y": 90
     },
     "facing=east,half=top,open=false": {
-      "model": "atium_mod:block/crystalline_trapdoor_top"
+      "model": "atium_mod:block/crystalline_trapdoor_top",
+      "y": 90
     },
     "facing=east,half=top,open=true": {
       "model": "atium_mod:block/crystalline_trapdoor_open",
@@ -41,14 +43,16 @@
       "y": 180
     },
     "facing=west,half=bottom,open=false": {
-      "model": "atium_mod:block/crystalline_trapdoor_bottom"
+      "model": "atium_mod:block/crystalline_trapdoor_bottom",
+      "y": 90
     },
     "facing=west,half=bottom,open=true": {
       "model": "atium_mod:block/crystalline_trapdoor_open",
       "y": 270
     },
     "facing=west,half=top,open=false": {
-      "model": "atium_mod:block/crystalline_trapdoor_top"
+      "model": "atium_mod:block/crystalline_trapdoor_top",
+      "y": 90
     },
     "facing=west,half=top,open=true": {
       "model": "atium_mod:block/crystalline_trapdoor_open",

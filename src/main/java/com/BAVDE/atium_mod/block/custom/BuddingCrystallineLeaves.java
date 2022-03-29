@@ -50,8 +50,8 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return true;
-    } //always ticking
+        return pState.getValue(GROWTH)<10;
+    } //always ticking if not fully grown
 
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
@@ -75,7 +75,7 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand); //gets what the user is holding
         //if not client side and holding nothing or crystallized shard when right-clicked
-        if(!pLevel.isClientSide() && (itemStack.isEmpty()) || (itemStack.is(ModItems.CRYSTALLIZED_SHARD.get()))) {
+        if(!pLevel.isClientSide() && (itemStack.isEmpty() || (itemStack.is(ModItems.CRYSTALLIZED_SHARD.get())))) {
             if (pState.getValue(GROWN)) { //if the blocks is fully grown (true)
                 pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
                 pLevel.playSound((Player)null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
@@ -84,10 +84,10 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
                 popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
                 return InteractionResult.SUCCESS;
             } else {return InteractionResult.PASS;}
-        } else {return InteractionResult.PASS;}
+        } else {return InteractionResult.FAIL;}
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(GROWTH,GROWN, DISTANCE, PERSISTENT);
+        pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
     }
 }
