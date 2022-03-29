@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "atium_mod:block/crystalline_planks",
+    "top": "atium_mod:block/crystalline_planks",
+    "side": "atium_mod:block/crystalline_planks"
+  }
+}

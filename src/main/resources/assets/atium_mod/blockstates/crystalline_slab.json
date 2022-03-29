@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atium_mod:block/crystalline_slab"
+    },
+    "type=double": {
+      "model": "atium_mod:block/crystalline_planks"
+    },
+    "type=top": {
+      "model": "atium_mod:block/crystalline_slab_top"
+    }
+  }
+}

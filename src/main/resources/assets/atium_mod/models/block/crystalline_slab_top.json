@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "atium_mod:block/crystalline_planks",
+    "top": "atium_mod:block/crystalline_planks",
+    "side": "atium_mod:block/crystalline_planks"
+  }
+}
