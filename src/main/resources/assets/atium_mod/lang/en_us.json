@@ -39,6 +39,10 @@
   "block.atium_mod.crystalline_slab": "Crystalline Slab",
   "block.atium_mod.crystalline_fence": "Crystalline Fence",
   "block.atium_mod.crystalline_fence_gate": "Crystalline Fence Gate",
+  "block.atium_mod.crystalline_button": "Crystalline Button",
+  "block.atium_mod.crystalline_pressure_plate": "Crystalline Pressure Plate",
+  "block.atium_mod.crystalline_door": "Crystalline Door",
+  "block.atium_mod.crystalline_trapdoor": "Crystalline Trapdoor",
 
 
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"

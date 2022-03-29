@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+    "top": "atium_mod:block/crystalline_door_top",
+    "bottom": "atium_mod:block/crystalline_door_bottom"
+  }
+}

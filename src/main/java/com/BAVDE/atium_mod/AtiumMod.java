@@ -48,6 +48,9 @@ public class AtiumMod {
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_LEAVES.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_SAPLING.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_TRAPDOOR.get(), RenderType.cutout());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

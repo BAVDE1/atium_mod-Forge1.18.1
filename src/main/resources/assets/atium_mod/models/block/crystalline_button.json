@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "atium_mod:block/crystalline_planks"
+  }
+}
