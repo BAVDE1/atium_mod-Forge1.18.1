@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
+import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWN;
 import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWTH;
 
 
@@ -32,7 +33,7 @@ public class ModConfiguredFeatures {
 
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 6)
-                            .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWTH, 10), 1)),
+                            .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWTH, 10).setValue(GROWN, true), 1)),
                     new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
                     new TwoLayersFeatureSize(0, 0, 0)).build());
 

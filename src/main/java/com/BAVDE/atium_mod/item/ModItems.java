@@ -53,7 +53,7 @@ public class ModItems {
 
 
     //crystallized atium
-    public static final RegistryObject<Item> CRYSTALLIZED_ATIUM_SHARD = ITEMS.register("crystallized_atium_shard",
+    public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
 
