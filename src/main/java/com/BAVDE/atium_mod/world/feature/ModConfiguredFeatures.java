@@ -26,17 +26,21 @@ import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWTH;
 
 
 public class ModConfiguredFeatures {
+
+    //Crystalline tree
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CRYSTALLINE_TREE =
             FeatureUtils.register("crystalline", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                    //Trunk
                     BlockStateProvider.simple(ModBlocks.CRYSTALLINE_LOG.get()),
-                    new FancyTrunkPlacer(5, 10, 5), // branch size?, bigness, -
-
+                    new FancyTrunkPlacer(5, 10, 5), // bigness
+                    //Leaves
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 6)
                             .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWTH, 10).setValue(GROWN, true), 1)),
                     new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
                     new TwoLayersFeatureSize(0, 0, 0)).build());
 
+    //Crystalline sapling
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
             PlacementUtils.filteredByBlockSurvival(ModBlocks.CRYSTALLINE_SAPLING.get()));
 }

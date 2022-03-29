@@ -26,7 +26,6 @@ public class BuddingCrystallizedAtiumBlock extends CrystallizedAtiumBlock {
         return PushReaction.DESTROY;
     }
 
-
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
         if (pRandom.nextInt(5) == 0) {
             Direction direction = DIRECTIONS[pRandom.nextInt(DIRECTIONS.length)];

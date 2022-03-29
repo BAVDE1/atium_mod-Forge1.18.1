@@ -78,7 +78,7 @@ public class CrystallizedAtiumCluster extends CrystallizedAtiumBlock implements 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         LevelAccessor levelaccessor = pContext.getLevel();
         BlockPos blockpos = pContext.getClickedPos();
-        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER)).setValue(FACING, pContext.getClickedFace());
+        return this.defaultBlockState().setValue(WATERLOGGED, levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER).setValue(FACING, pContext.getClickedFace());
     }
 
 

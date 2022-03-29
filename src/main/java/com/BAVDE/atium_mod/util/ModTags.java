@@ -25,11 +25,13 @@ public class ModTags {
 
     public static class Items {
 
+        //TAGS HERE
         public static final TagKey<Item> KNIFE
                 = tag("knife");
 
         public static final TagKey<Item> HAMMER
                 = tag("hammer");
+
 
 
         //tag stuff

@@ -29,67 +29,60 @@ public class ModBlocks {
 
     //Atium
     public static final RegistryObject<Block> PURE_ATIUM_BLOCK = registerBlock("pure_atium_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(7f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(7f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> ATIUM_ORE = registerBlock("atium_ore",
-            () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> EMPTY_ATIUM_ORE = registerBlock("empty_atium_ore",
-            () -> new EmptyAtiumOre(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new EmptyAtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
-            () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> EMPTY_ATIUM_ORE_OVERGROWN = registerBlock("empty_atium_ore_overgrown",
-            () -> new EmptyAtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
-
+            () -> new EmptyAtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     //Crystallized Atium
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_BLOCK = registerBlock("crystallized_atium_block",
-            () -> new CrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .strength(1f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new CrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST).strength(1f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> BUDDING_CRYSTALLIZED_ATIUM_BLOCK = registerBlock("budding_crystallized_atium_block",
-            () -> new BuddingCrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new BuddingCrystallizedAtiumBlock(BlockBehaviour.Properties.of(Material.AMETHYST).randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_CLUSTER = registerBlock("crystallized_atium_cluster",
-            () -> new CrystallizedAtiumCluster(7, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152632_) -> {return 5;})), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new CrystallizedAtiumCluster(7, 3, BlockBehaviour.Properties.of(Material.AMETHYST).noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152632_) -> {return 5;})), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> LARGE_CRYSTALLIZED_ATIUM_BUD = registerBlock("large_crystallized_atium_bud",
-            () -> new CrystallizedAtiumCluster(5, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new CrystallizedAtiumCluster(5, 3, BlockBehaviour.Properties.of(Material.AMETHYST).noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> MEDIUM_CRYSTALLIZED_ATIUM_BUD = registerBlock("medium_crystallized_atium_bud",
-            () -> new CrystallizedAtiumCluster(4, 3, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
-
+            () -> new CrystallizedAtiumCluster(4, 3, BlockBehaviour.Properties.of(Material.AMETHYST).noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> SMALL_CRYSTALLIZED_ATIUM_BUD = registerBlock("small_crystallized_atium_bud",
-            () -> new CrystallizedAtiumCluster(3, 4, BlockBehaviour.Properties.of(Material.AMETHYST)
-                    .noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
-
-
+            () -> new CrystallizedAtiumCluster(3, 4, BlockBehaviour.Properties.of(Material.AMETHYST).noOcclusion().randomTicks().strength(1.5f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST_CLUSTER).lightLevel((p_152629_) -> {return  4;})), ModCreativeModeTab.ATIUM_TAB);
 
     //Crystalline Tree
     public static final RegistryObject<Block> CRYSTALLINE_LOG = registerBlock("crystalline_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), ModCreativeModeTab.ATIUM_TAB);
-
     public static final RegistryObject<Block> CRYSTALLINE_WOOD = registerBlock("crystalline_wood",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)), ModCreativeModeTab.ATIUM_TAB);
-
     public static final RegistryObject<Block> STRIPPED_CRYSTALLINE_LOG = registerBlock("stripped_crystalline_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)), ModCreativeModeTab.ATIUM_TAB);
-
     public static final RegistryObject<Block> STRIPPED_CRYSTALLINE_WOOD = registerBlock("stripped_crystalline_wood",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)), ModCreativeModeTab.ATIUM_TAB);
+    public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 60;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+                    return 30;
+                }
+            }, ModCreativeModeTab.ATIUM_TAB);
+    public static final RegistryObject<Block> BUDDING_CRYSTALLINE_LEAVES = registerBlock("budding_crystalline_leaves",
+            () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).lightLevel((state) -> state.getValue(BuddingCrystallineLeaves.GROWN) ? 5 : 0)), ModCreativeModeTab.ATIUM_TAB);
+    public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
+            () -> new SaplingBlock(new CrystallineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), ModCreativeModeTab.ATIUM_TAB);
 
+    //Crystalline planks
     public static final RegistryObject<Block> CRYSTALLINE_PLANKS = registerBlock("crystalline_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)) {
                 @Override
@@ -108,28 +101,8 @@ public class ModBlocks {
                 }
             }, ModCreativeModeTab.ATIUM_TAB);
 
-    public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 60;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 30;
-                }
-            }, ModCreativeModeTab.ATIUM_TAB);
 
-    public static final RegistryObject<Block> BUDDING_CRYSTALLINE_LEAVES = registerBlock("budding_crystalline_leaves",
-            () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)
-                    .lightLevel((state) -> state.getValue(BuddingCrystallineLeaves.GROWN) ? 5 : 0)), ModCreativeModeTab.ATIUM_TAB);
 
-    public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
-            () -> new SaplingBlock(new CrystallineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), ModCreativeModeTab.ATIUM_TAB);
 
 
 

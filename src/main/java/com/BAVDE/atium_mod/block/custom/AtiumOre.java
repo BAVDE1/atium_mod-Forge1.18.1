@@ -18,6 +18,7 @@ public class AtiumOre extends Block {
     @Override
     public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
         super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
+        //when block is destroyed replace with empty atium ore
         pLevel.setBlock(pPos, ModBlocks.EMPTY_ATIUM_ORE.get().defaultBlockState(), 3);
     }
 }

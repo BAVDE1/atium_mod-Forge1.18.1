@@ -3,8 +3,8 @@ package com.BAVDE.atium_mod.item.custom;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class DiamondHammer extends Item {
-    public DiamondHammer(Properties pProperties) {
+public class HammerItem extends Item {
+    public HammerItem(Properties pProperties) {
         super(pProperties);
 
     }

@@ -22,5 +22,6 @@ public class AMStructures {
      * Registers the base structure itself and sets what its path is. In this case,
      * this base structure will have the resourcelocation of structure_tutorial:sky_structures.
      */
+    //add more structures here?
     public static final RegistryObject<StructureFeature<?>> GEODE_STRUCTURE = DEFERRED_REGISTRY_STRUCTURE.register("geode_structure", GeodeStructure::new);
 }

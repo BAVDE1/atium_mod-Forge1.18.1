@@ -31,7 +31,6 @@ public class AtiumMod {
 
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
-
         ModPaintings.register(eventBus);
 
         eventBus.addListener(this::setup);

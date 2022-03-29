@@ -11,8 +11,10 @@ public class ModPaintings {
     public static final DeferredRegister<Motive> PAINTING_MOTIVE =
             DeferredRegister.create(ForgeRegistries.PAINTING_TYPES, AtiumMod.MOD_ID);
 
+    //PAINTINGS
     public static final RegistryObject<Motive> MOONLIGHT =
             PAINTING_MOTIVE.register("moonlight", () -> new Motive(32,32));
+
 
     public static void register(IEventBus eventBus) {
         PAINTING_MOTIVE.register(eventBus);

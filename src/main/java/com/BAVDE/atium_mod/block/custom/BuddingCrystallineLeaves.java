@@ -63,6 +63,7 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
 
         int growth = pState.getValue(GROWTH);
 
+        //code to grow each tick
         if (growth < 9) { //if growth less than 10
             pLevel.setBlock(pPos, pState.setValue(GROWTH, (growth + 1)), 3); //add 1 to growth state
         } else if (growth == 9) { //if growth is 9
@@ -82,12 +83,8 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
                 int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
                 popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
                 return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.PASS;
-            }
-        } else {
-            return InteractionResult.PASS;
-        }
+            } else {return InteractionResult.PASS;}
+        } else {return InteractionResult.PASS;}
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
