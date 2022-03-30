@@ -118,22 +118,7 @@ public class ModBlocks {
                 }
             }, ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_SLAB = registerBlock("crystalline_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 20;
-                }
-
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 5;
-                }
-            }, ModCreativeModeTab.ATIUM_TAB);
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_FENCE = registerBlock("crystalline_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_FENCE_GATE = registerBlock("crystalline_fence_gate",

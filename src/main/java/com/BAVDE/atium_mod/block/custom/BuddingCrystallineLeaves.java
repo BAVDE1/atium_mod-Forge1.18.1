@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +32,7 @@ import org.lwjgl.system.CallbackI;
 
 import java.util.Random;
 
-public class BuddingCrystallineLeaves extends LeavesBlock {
+public class BuddingCrystallineLeaves extends LeavesBlock implements BonemealableBlock {
     public static final IntegerProperty GROWTH = IntegerProperty.create("growth", 0, 10);
     public static final BooleanProperty GROWN = BooleanProperty.create("grown");
 
@@ -50,7 +51,7 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(GROWTH)<10;
+        return pState.getValue(GROWTH) < 10;
     } //always ticking if not fully grown
 
     @Override
@@ -75,19 +76,39 @@ public class BuddingCrystallineLeaves extends LeavesBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand); //gets what the user is holding
         //if not client side and holding nothing or crystallized shard when right-clicked
-        if(!pLevel.isClientSide() && (itemStack.isEmpty() || (itemStack.is(ModItems.CRYSTALLIZED_SHARD.get())))) {
-            if (pState.getValue(GROWN)) { //if the blocks is fully grown (true)
-                pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
-                pLevel.playSound((Player)null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
-                pLevel.playSound((Player)null, pPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
-                int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
-                popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
-                return InteractionResult.SUCCESS;
-            } else {return InteractionResult.PASS;}
-        } else {return InteractionResult.FAIL;}
+        if (itemStack.is(Items.BONE_MEAL) && !pState.getValue(GROWN)) { //if holding bone meal and not fully grown
+            return InteractionResult.PASS;
+        } else if (pState.getValue(GROWN)) { //if the blocks is fully grown (if state is true)
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
+            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
+            popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
+            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+        } else {
+            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
+    }
+
+    //bone meal stuff
+    @Override
+    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return pState.getValue(GROWTH) < 10;}
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
+        return true;
+    }
+    @Override
+    public void performBonemeal(ServerLevel pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
+        int amount = Math.min(10, pState.getValue(GROWTH) + (1 + this.RANDOM.nextInt(3))); //math.min gets the lowest number of the two
+        if (amount == 10) {
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, amount).setValue(GROWN, true), 2); //adds random growth to leaves
+        } else {
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, amount), 2); //adds random growth to leaves
+        }
     }
 }
