@@ -1,5 +1,14 @@
 {
   "replace": false,
   "values": [
+    "atium_mod:crystalline_planks",
+    "atium_mod:crystalline_stairs",
+    "atium_mod:crystalline_slab",
+    "atium_mod:crystalline_fence",
+    "atium_mod:crystalline_fence_gate",
+    "atium_mod:crystalline_button",
+    "atium_mod:crystalline_pressure_plate",
+    "atium_mod:crystalline_door",
+    "atium_mod:crystalline_trapdoor"
   ]
 }
