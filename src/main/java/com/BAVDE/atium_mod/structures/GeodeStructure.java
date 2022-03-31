@@ -1,12 +1,15 @@
 package com.BAVDE.atium_mod.structures;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.world.feature.ModPlacedFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplie
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import org.apache.logging.log4j.Level;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GeodeStructure extends StructureFeature<JigsawConfiguration> {

@@ -21,6 +21,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
+import java.util.List;
+
 import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWN;
 import static com.BAVDE.atium_mod.block.custom.BuddingCrystallineLeaves.GROWTH;
 
@@ -43,4 +45,7 @@ public class ModConfiguredFeatures {
     //Crystalline sapling
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
             PlacementUtils.filteredByBlockSurvival(ModBlocks.CRYSTALLINE_SAPLING.get()));
+
+    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CRYSTALLINE_SPAWN = FeatureUtils.register("crystalline_spawn", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(CRYSTALLINE_CHECKED, 0.5F)), CRYSTALLINE_CHECKED));
 }
