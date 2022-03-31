@@ -51,7 +51,7 @@ public class BuddingCrystallineLeaves extends LeavesBlock implements Bonemealabl
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(GROWTH) < 10;
+        return (!pState.getValue(PERSISTENT) || pState.getValue(GROWTH) < 10);
     } //always ticking if not fully grown
 
     @Override
@@ -68,14 +68,13 @@ public class BuddingCrystallineLeaves extends LeavesBlock implements Bonemealabl
         if (growth < 9) { //if growth less than 10
             pLevel.setBlock(pPos, pState.setValue(GROWTH, (growth + 1)), 3); //add 1 to growth state
         } else if (growth == 9) { //if growth is 9
-            pLevel.setBlock(pPos, pState.setValue(GROWTH, 10).setValue(GROWN, true), 3); //sets growth to 10 and growth to true
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, 10).setValue(GROWN, true), 3); //sets growth to 10 and grown to true
         }
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand); //gets what the user is holding
-        //if not client side and holding nothing or crystallized shard when right-clicked
         if (itemStack.is(Items.BONE_MEAL) && !pState.getValue(GROWN)) { //if holding bone meal and not fully grown
             return InteractionResult.PASS;
         } else if (pState.getValue(GROWN)) { //if the blocks is fully grown (if state is true)
