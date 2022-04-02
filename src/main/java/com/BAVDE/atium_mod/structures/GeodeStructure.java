@@ -28,13 +28,6 @@ public class GeodeStructure extends StructureFeature<JigsawConfiguration> {
         super(JigsawConfiguration.CODEC, GeodeStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
     }
 
-    /**
-     *        : WARNING!!! DO NOT FORGET THIS METHOD!!!! :
-     * If you do not override step method, your structure WILL crash the biome as it is being parsed!
-     *
-     * Generation step for when to generate the structure. there are 10 stages you can pick from!
-     * This surface structure stage places the structure before plants and ores are generated.
-     */
     @Override
     public GenerationStep.Decoration step() {
         return GenerationStep.Decoration.UNDERGROUND_STRUCTURES;
@@ -44,15 +37,13 @@ public class GeodeStructure extends StructureFeature<JigsawConfiguration> {
         // Grabs the chunk position we are at
         ChunkPos chunkpos = context.chunkPos();
 
-        // Checks to make sure our structure does not spawn within 20 chunks of an Ocean Monument
-        // to demonstrate how this method is good for checking extra conditions for spawning
+        // Checks to make sure our structure does not spawn within 20 chunks of a stronghold
         return !context.chunkGenerator().hasFeatureChunkInRange(BuiltinStructureSets.STRONGHOLDS, context.seed(), chunkpos.x, chunkpos.z, 20);
     }
 
     public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 
-        // Check if the spot is valid for our structure. This is just as another method for cleanness.
-        // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
+        // Check if the spot is valid for our structure. This is just as another method for cleanness. Returning an empty optional tells the game to skip this spot as it will not generate the structure.
         if (!GeodeStructure.isFeatureChunk(context)) {
             return Optional.empty();
         }
@@ -60,18 +51,18 @@ public class GeodeStructure extends StructureFeature<JigsawConfiguration> {
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
 
-        // Find the top Y value of the land and then offset our structure to 60 blocks above that.
+        // Find the top Y value of the land and then offset our structure.
         // WORLD_SURFACE_WG will stop at top water so we don't accidentally put our structure into the ocean if it is a super deep ocean.
         int belowLandY = context.chunkGenerator().getFirstFreeHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-        blockpos = blockpos.below((int) (belowLandY - (Math.round(Math.random() * 20) + 20)));
+        var Ypos = Math.round(Math.random() * 20) + 20;
+        blockpos = blockpos.below((int) (belowLandY - Ypos));
 
         Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context, // Used for JigsawPlacement to get all the proper behaviors done.
                         PoolElementStructurePiece::new, // Needed in order to create a list of jigsaw pieces when making the structure's layout.
                         blockpos, // Position of the structure. Y value is ignored if last parameter is set to true.
-                        false,  // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
-                        // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
+                        false,  // Keep this false and make your pieces not be partially intersecting. Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
                         false // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
                         // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
                 );
@@ -85,7 +76,6 @@ public class GeodeStructure extends StructureFeature<JigsawConfiguration> {
          */
 
         if(structurePiecesGenerator.isPresent()) {
-            // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
             AtiumMod.LOGGER.log(Level.DEBUG, "Atium Geode at {}", blockpos);
         }

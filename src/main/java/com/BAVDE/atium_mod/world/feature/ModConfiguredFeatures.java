@@ -45,7 +45,4 @@ public class ModConfiguredFeatures {
     //Crystalline sapling
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
             PlacementUtils.filteredByBlockSurvival(ModBlocks.CRYSTALLINE_SAPLING.get()));
-
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CRYSTALLINE_SPAWN = FeatureUtils.register("crystalline_spawn", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(CRYSTALLINE_CHECKED, 0.5F)), CRYSTALLINE_CHECKED));
 }
