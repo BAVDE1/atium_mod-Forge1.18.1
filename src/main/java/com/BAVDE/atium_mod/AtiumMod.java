@@ -47,6 +47,7 @@ public class AtiumMod {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLIZED_ATIUM_CLUSTER.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_LEAVES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_SAPLING.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_DOOR.get(), RenderType.cutout());

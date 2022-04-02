@@ -39,7 +39,7 @@ public class ModConfiguredFeatures {
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 9)
                             .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWTH, 10).setValue(GROWN, true), 1)),
-                    new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
+                    new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
                     new TwoLayersFeatureSize(0, 0, 0)).build());
 
     //Crystalline sapling

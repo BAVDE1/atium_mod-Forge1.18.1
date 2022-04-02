@@ -12,7 +12,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -64,7 +63,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> STRIPPED_CRYSTALLINE_WOOD = registerBlock("stripped_crystalline_wood",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
+            () -> new CrystallineLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
                     return true;
