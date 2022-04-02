@@ -1,34 +1,29 @@
 package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.item.ModItems;
-import net.minecraft.client.resources.sounds.Sound;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.eventbus.api.Event;
-import org.lwjgl.system.CallbackI;
 
 import java.util.Random;
 
@@ -89,10 +84,6 @@ public class BuddingCrystallineLeaves extends LeavesBlock implements Bonemealabl
         }
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
-    }
-
     //bone meal stuff
     @Override
     public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
@@ -109,5 +100,9 @@ public class BuddingCrystallineLeaves extends LeavesBlock implements Bonemealabl
         } else {
             pLevel.setBlock(pPos, pState.setValue(GROWTH, amount), 2); //adds random growth to leaves
         }
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(GROWTH, GROWN, DISTANCE, PERSISTENT);
     }
 }
