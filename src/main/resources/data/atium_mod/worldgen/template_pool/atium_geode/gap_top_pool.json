@@ -7,12 +7,14 @@
   "elements": [
     {
       "weight": 1,
+      "element": {
         //nbt
         "location": "atium_mod:geode/gap_top/gap_top_small",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
-      },
+      }
+    },
     {
       "weight": 1,
       "element": {
