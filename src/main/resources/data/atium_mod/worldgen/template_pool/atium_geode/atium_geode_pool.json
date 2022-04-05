@@ -7,11 +7,13 @@
   "elements": [
     {
       "weight": 1,
-      //nbt
-      "location": "atium_mod:geode/atium_geode",
-      "processors": "atium_mod:randomize_atium_ore",
-      "projection": "rigid",
-      "element_type": "minecraft:single_pool_element"
+      "element": {
+        //nbt
+        "location": "atium_mod:geode/atium_geode",
+        "processors": "atium_mod:randomize_atium_ore",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }
