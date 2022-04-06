@@ -3,12 +3,14 @@ package com.BAVDE.atium_mod.block.custom;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -77,6 +79,18 @@ public class BuddingCrystallineLeaves extends CrystallineLeavesBlock implements 
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
         } else {
             return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        }
+    }
+
+    @Override
+    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
+        if (pState.getValue(GROWN)) {
+            BlockPos pPos = pHit.getBlockPos();
+            pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
+            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
+            popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
         }
     }
 
