@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "atium_mod:crystalline_log"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:crystalline_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_door",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "atium_mod:crystalline_planks"
+    }
+  },
+  "result": {
+    "item": "atium_mod:crystalline_door",
+    "count": 3
+  }
+}
