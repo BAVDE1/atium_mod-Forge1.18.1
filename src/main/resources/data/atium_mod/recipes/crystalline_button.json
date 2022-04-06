@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "atium_mod:crystalline_planks"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:crystalline_button"
+  }
+}

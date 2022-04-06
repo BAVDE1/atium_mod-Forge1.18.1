@@ -21,6 +21,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    //gear
     public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
             () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1000)));
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "atium_mod:crystalline_planks"
+    }
+  },
+  "result": {
+    "item": "atium_mod:crystalline_slab",
+    "count": 6
+  }
+}

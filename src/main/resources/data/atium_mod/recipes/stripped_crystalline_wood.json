@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "LL",
+    "LL"
+  ],
+  "key": {
+    "L": {
+      "item": "atium_mod:stripped_crystalline_log"
+    }
+  },
+  "result": {
+    "item": "atium_mod:stripped_crystalline_wood",
+    "count": 3
+  }
+}
