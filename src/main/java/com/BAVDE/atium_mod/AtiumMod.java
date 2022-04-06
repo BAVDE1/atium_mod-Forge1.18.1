@@ -27,8 +27,6 @@ public class AtiumMod {
     public AtiumMod() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        AMStructures.DEFERRED_REGISTRY_STRUCTURE.register(eventBus);
-
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModPaintings.register(eventBus);
