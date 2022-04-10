@@ -2,9 +2,7 @@ package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.item.custom.*;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,7 +21,15 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     //gear
     public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
-            () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1000)));
+            () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_PICKAXE = ITEMS.register("atium_pickaxe",
+            () -> new PickaxeItem(ModTiers.ATIUM, 1, -2.8f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_AXE = ITEMS.register("atium_axe",
+            () -> new AxeItem(ModTiers.ATIUM, 5F, -3f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_SHOVEL = ITEMS.register("atium_shovel",
+            () -> new ShovelItem(ModTiers.ATIUM, 1.5F, -3f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_HOE = ITEMS.register("atium_hoe",
+            () -> new HoeItem(ModTiers.ATIUM, -2, 0, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
 
     //crystallized atium
     public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
