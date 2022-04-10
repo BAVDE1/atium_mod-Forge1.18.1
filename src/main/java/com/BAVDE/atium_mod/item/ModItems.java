@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.item;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.item.custom.*;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,17 +20,27 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
-    //gear
+    //Tools
     public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
             () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_PICKAXE = ITEMS.register("atium_pickaxe",
             () -> new PickaxeItem(ModTiers.ATIUM, 1, -2.8f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_AXE = ITEMS.register("atium_axe",
-            () -> new AxeItem(ModTiers.ATIUM, 5F, -3f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+            () -> new AxeItem(ModTiers.ATIUM, 5.5F, -3f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_SHOVEL = ITEMS.register("atium_shovel",
             () -> new ShovelItem(ModTiers.ATIUM, 1.5F, -3f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_HOE = ITEMS.register("atium_hoe",
-            () -> new HoeItem(ModTiers.ATIUM, -2, 0, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+            () -> new HoeItem(ModTiers.ATIUM, -2, -0.5f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    //Armour
+    public static final RegistryObject<Item> ATIUM_HELMET = ITEMS.register("atium_helmet",
+            () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.HEAD, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_CHESTPLATE = ITEMS.register("atium_chestplate",
+            () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.CHEST, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_LEGGINGS = ITEMS.register("atium_leggings",
+            () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.LEGS, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+    public static final RegistryObject<Item> ATIUM_BOOTS = ITEMS.register("atium_boots",
+            () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.FEET, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+
 
     //crystallized atium
     public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",

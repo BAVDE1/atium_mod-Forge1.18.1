@@ -7,6 +7,17 @@
   "item.atium_mod.crystallized_knife": "Crystallized Knife",
   "item.atium_mod.wood_knife": "Wooden Knife",
 
+  "item.atium_mod.atium_sword": "Atium Sword",
+  "item.atium_mod.atium_pickaxe": "Atium Pickaxe",
+  "item.atium_mod.atium_axe": "Atium Axe",
+  "item.atium_mod.atium_shovel": "Atium Shovel",
+  "item.atium_mod.atium_hoe": "Atium Hoe",
+
+  "item.atium_mod.atium_helmet": "Atium Helmet",
+  "item.atium_mod.atium_chestplate": "Atium Chestplate",
+  "item.atium_mod.atium_leggings": "Atium Leggings",
+  "item.atium_mod.atium_boots": "Atium Boots",
+
   "item.atium_mod.pure_atium": "Pure Atium",
   "item.atium_mod.atium_geode": "Atium Geode",
   "item.atium_mod.atium_bead": "Atium Bead",
