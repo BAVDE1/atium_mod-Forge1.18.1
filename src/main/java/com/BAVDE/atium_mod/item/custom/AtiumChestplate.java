@@ -1,6 +1,5 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.google.common.collect.ImmutableMap;
 import com.BAVDE.atium_mod.item.ModArmourMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -10,13 +9,10 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import java.util.Map;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class AtiumChestplate extends ArmorItem {
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
-            (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>()).put(ModArmourMaterials.ATIUM,
-                            new MobEffectInstance(MobEffects.REGENERATION, 20, 1)).build();
+    public static final BooleanProperty GOLD = BooleanProperty.create("gold");
 
     public AtiumChestplate(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
@@ -25,33 +21,19 @@ public class AtiumChestplate extends ArmorItem {
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if(!world.isClientSide()) {
-            evaluateArmorEffects(player);
             if(hasArmorOn(player)) {
-                evaluateArmorEffects(player);
+                if (hasCorrectArmorOn(ModArmourMaterials.ATIUM, player)) {
+                    addStatusEffectForMaterial(player, new MobEffectInstance(MobEffects.REGENERATION, 20, 1));
+                }
             }
         }
     }
 
-    private void evaluateArmorEffects(Player player) {
-        for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            MobEffectInstance mapStatusEffect = entry.getValue();
-
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-                addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
-            }
-        }
-    }
-
-    private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {
+    private void addStatusEffectForMaterial(Player player, MobEffectInstance mapStatusEffect) {
         boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
 
-        if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-            player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(), mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
-
-            //if(new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
-            //    player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
-            //}
+        if(hasCorrectArmorOn(ModArmourMaterials.ATIUM, player) && !hasPlayerEffect) {
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 1));
         }
     }
 
