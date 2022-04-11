@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "atium_mod:pure_atium"
+    }
+  },
+  "result": {
+    "item": "atium_mod:atium_boots"
+  }
+}

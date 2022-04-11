@@ -9,12 +9,11 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class AtiumChestplate extends ArmorItem {
-    public static final BooleanProperty GOLD = BooleanProperty.create("gold");
+public class InfusedAtiumChestplate extends ArmorItem {
+    public static final String TAG_METAL = "";
 
-    public AtiumChestplate(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
+    public InfusedAtiumChestplate(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
 
