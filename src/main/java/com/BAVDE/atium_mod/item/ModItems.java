@@ -35,7 +35,7 @@ public class ModItems {
     public static final RegistryObject<Item> ATIUM_HELMET = ITEMS.register("atium_helmet",
             () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.HEAD, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_CHESTPLATE = ITEMS.register("atium_chestplate",
-            () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.CHEST, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+            () -> new AtiumChestplate(ModArmourMaterials.ATIUM, EquipmentSlot.CHEST, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_LEGGINGS = ITEMS.register("atium_leggings",
             () -> new ArmorItem(ModArmourMaterials.ATIUM, EquipmentSlot.LEGS, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_BOOTS = ITEMS.register("atium_boots",
