@@ -1,8 +1,10 @@
 package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
+import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
+import com.BAVDE.atium_mod.screen.ModMenuTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
@@ -30,6 +32,8 @@ public class AtiumMod {
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModPaintings.register(eventBus);
+        ModBlockEntities.register(eventBus);
+        ModMenuTypes.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);
