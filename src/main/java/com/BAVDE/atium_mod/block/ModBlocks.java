@@ -106,6 +106,9 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()), ModCreativeModeTab.ATIUM_TAB);
 
 
+    public static final RegistryObject<Block> INFUSING_TABLE = registerBlock("infusing_table",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+
 
 
 
