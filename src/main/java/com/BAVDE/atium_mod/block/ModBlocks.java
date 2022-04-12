@@ -3,6 +3,7 @@ package com.BAVDE.atium_mod.block;
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.*;
 //import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
+import com.BAVDE.atium_mod.block.entity.custom.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.world.feature.tree.CrystallineTreeGrower;
@@ -107,7 +108,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> INFUSING_TABLE = registerBlock("infusing_table",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
+            () -> new InfusingTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
 
