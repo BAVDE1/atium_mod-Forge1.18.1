@@ -3,7 +3,6 @@ package com.BAVDE.atium_mod.block;
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.*;
 //import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
-import com.BAVDE.atium_mod.block.entity.custom.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.world.feature.tree.CrystallineTreeGrower;

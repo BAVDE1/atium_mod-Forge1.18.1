@@ -2,7 +2,7 @@ package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import com.BAVDE.atium_mod.block.entity.custom.InfusingTableBlockEntity;
+import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -32,8 +32,10 @@ public class InfusingTableBlock extends BaseEntityBlock {
         super(properties);
     }
 
+    //stores the shape for the block                                                 side     height   side
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 10, 16);
 
+    //creates the custom block shape
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
@@ -45,29 +47,27 @@ public class InfusingTableBlock extends BaseEntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
-
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
-
     @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
     }
-
-    /* BLOCK ENTITY */
-
+    //prevents model from being invisible
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
+    /* BLOCK ENTITY */
+
+    //calls the drop method in the block entity to drop its inventory
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
@@ -76,21 +76,20 @@ public class InfusingTableBlock extends BaseEntityBlock {
                 ((InfusingTableBlockEntity) blockEntity).drops();
             }
         }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    //when block is right-clicked, open the inventory / GUI
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
-                                 Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof InfusingTableBlockEntity) {
+                //network hooks basically synchronizes client and server side
                 NetworkHooks.openGui(((ServerPlayer)pPlayer), (InfusingTableBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
         }
-
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
@@ -100,10 +99,10 @@ public class InfusingTableBlock extends BaseEntityBlock {
         return new InfusingTableBlockEntity(pPos, pState);
     }
 
+    //method is called every tick for the block entity
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.INFUSING_TABLE_BLOCK_ENTITY.get(),
-                InfusingTableBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.INFUSING_TABLE_BLOCK_ENTITY.get(), InfusingTableBlockEntity::tick);
     }
 }

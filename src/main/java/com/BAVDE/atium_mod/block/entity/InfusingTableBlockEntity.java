@@ -1,6 +1,5 @@
-package com.BAVDE.atium_mod.block.entity.custom;
+package com.BAVDE.atium_mod.block.entity;
 
-import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
@@ -14,8 +13,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -46,6 +47,7 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         return new TextComponent("Infusing Table");
     }
 
+    //calls the InfusingTableMenu
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
@@ -58,7 +60,6 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         }
-
         return super.getCapability(cap, side);
     }
 
@@ -74,34 +75,57 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         lazyItemHandler.invalidate();
     }
 
+    //saves what is in the inventory or slots
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         super.saveAdditional(tag);
     }
 
+    //loads what is saved in the inventory
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
     }
 
+    //gets what is in the inventory and drops it at the position of the block when it is destroyed
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
-
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    //is called in InfusingTableBlock every tick
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
+        if(hasRecipe(pBlockEntity) && hasNotReachedStackLimit(pBlockEntity)) {
+            craftItem(pBlockEntity);
+        }
     }
 
     private static void craftItem(InfusingTableBlockEntity entity) {
+        //extracts item from slot 0
+        entity.itemHandler.extractItem(0, 1, false);
+        //extracts item from slot 1
+        entity.itemHandler.extractItem(1, 1, false);
+
+        //puts result item in slot 2
+        entity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.PURE_ATIUM.get(),
+                entity.itemHandler.getStackInSlot(2).getCount() + 1));
     }
 
+    //checks if correct items in inventory for the recipe
+    private static boolean hasRecipe(InfusingTableBlockEntity entity) {
+        boolean hasItemInSecondSlot = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.ATIUM_GEODE.get();
+        boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == ModItems.CRYSTALLIZED_SHARD.get();
+
+        return hasItemInFirstSlot && hasItemInSecondSlot;
+    }
+
+    //checks if the stack in result slot has reached its max stack size (usually 64)
     private static boolean hasNotReachedStackLimit(InfusingTableBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(3).getCount() < entity.itemHandler.getStackInSlot(3).getMaxStackSize();
+        return entity.itemHandler.getStackInSlot(2).getCount() < entity.itemHandler.getStackInSlot(2).getMaxStackSize();
     }
 }

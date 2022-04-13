@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-
 public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table_gui.png");
 
@@ -17,13 +16,20 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void init() {
+        super.init();
+    }
+
+    //renders the inventory texture
+    @Override
+    protected void renderBg(PoseStack pPoseStack, float pPartialTicks, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
+        //is displayed
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
     }
 
