@@ -2,7 +2,6 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.*;
-//import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.world.feature.tree.CrystallineTreeGrower;
@@ -40,10 +39,6 @@ public class ModBlocks {
             () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> EMPTY_ATIUM_ORE = registerBlock("empty_atium_ore",
             () -> new EmptyAtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-    public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
-            () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-    public static final RegistryObject<Block> EMPTY_ATIUM_ORE_OVERGROWN = registerBlock("empty_atium_ore_overgrown",
-            () -> new EmptyAtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     //Crystallized Atium
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_BLOCK = registerBlock("crystallized_atium_block",
