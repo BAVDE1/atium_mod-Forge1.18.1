@@ -84,7 +84,7 @@ public class InfusingTableBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof InfusingTableBlockEntity) {
-                //network hooks basically synchronizes client and server side
+                //network hooks basically synchronizes client and server side (i think)
                 NetworkHooks.openGui(((ServerPlayer)pPlayer), (InfusingTableBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
