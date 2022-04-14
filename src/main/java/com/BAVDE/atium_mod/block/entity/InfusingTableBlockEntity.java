@@ -44,7 +44,7 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     public Component getDisplayName() {
-        return new TextComponent("Infusing Table");
+        return new TextComponent("");
     }
 
     //calls the InfusingTableMenu
