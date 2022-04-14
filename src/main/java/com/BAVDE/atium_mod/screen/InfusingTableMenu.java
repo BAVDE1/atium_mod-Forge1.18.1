@@ -43,10 +43,10 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             //the coords start at 0 on the top right most pixel of inventory texture
             //+x -->  &  +y v
             //slot placement is top right corner of slot (not centre)
-            //index starts at 0
-            this.addSlot(new SlotItemHandler(handler, 0, 79, -10));
-            this.addSlot(new SlotItemHandler(handler, 1, 79, 25));
-            this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 71));
+            //index should start at 0
+            this.addSlot(new SlotItemHandler(handler, 0, 79, 17));
+            this.addSlot(new SlotItemHandler(handler, 1, 79, 52));
+            this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 98));
         });
     }
 
@@ -112,14 +112,14 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 7 + l * 18, 112 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 7 + l * 18, 139 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 169));
+            this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 196));
         }
     }
 }
