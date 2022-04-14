@@ -44,8 +44,8 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             //+x -->  &  +y v
             //slot placement is top right corner of slot (not centre)
             //index should start at 0
-            this.addSlot(new SlotItemHandler(handler, 0, 79, 17));
-            this.addSlot(new SlotItemHandler(handler, 1, 79, 52));
+            this.addSlot(new SlotItemHandler(handler, 0, 79, 23));
+            this.addSlot(new SlotItemHandler(handler, 1, 79, 57));
             this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 98));
         });
     }
