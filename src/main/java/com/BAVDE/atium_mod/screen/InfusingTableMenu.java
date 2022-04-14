@@ -2,8 +2,6 @@ package com.BAVDE.atium_mod.screen;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
-//import com.BAVDE.atium_mod.screen.slot.ModFuelSlot;
-//import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
 import com.BAVDE.atium_mod.screen.slot.ModResultDisplaySlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,7 +29,7 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     //constructor called in the ModMenuTypes
     public InfusingTableMenu(int windowId, Inventory inv, BlockEntity entity) {
         super(ModMenuTypes.INFUSING_TABLE_MENU.get(), windowId);
-        checkContainerSize(inv, 4);
+        checkContainerSize(inv, 9);
         blockEntity = ((InfusingTableBlockEntity) entity);
         this.level = inv.player.level;
 
@@ -47,8 +45,8 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             //slot placement is top right corner of slot (not centre)
             //index starts at 0
             this.addSlot(new SlotItemHandler(handler, 0, 66, 5));
-            this.addSlot(new SlotItemHandler(handler, 1, 66, 20));
-            this.addSlot(new ModResultDisplaySlot(handler, 2, 66, 35));
+            this.addSlot(new SlotItemHandler(handler, 1, 66, 30));
+            this.addSlot(new ModResultDisplaySlot(handler, 2, 66, 60));
         });
     }
 

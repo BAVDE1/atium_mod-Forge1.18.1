@@ -26,11 +26,14 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+        int widthImage = 173;
+        int heightImage = 220;
+
+        int x = (this.width - this.imageWidth) / 2;
+        int y = (this.height - this.imageHeight) / 2;
 
         //is displayed
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+        this.blit(pPoseStack, x, y, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @Override
