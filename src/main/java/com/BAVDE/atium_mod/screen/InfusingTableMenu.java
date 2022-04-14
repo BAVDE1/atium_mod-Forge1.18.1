@@ -29,7 +29,7 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     //constructor called in the ModMenuTypes
     public InfusingTableMenu(int windowId, Inventory inv, BlockEntity entity) {
         super(ModMenuTypes.INFUSING_TABLE_MENU.get(), windowId);
-        checkContainerSize(inv, 9);
+        checkContainerSize(inv, 4);
         blockEntity = ((InfusingTableBlockEntity) entity);
         this.level = inv.player.level;
 
@@ -44,9 +44,9 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             //+x -->  &  +y v
             //slot placement is top right corner of slot (not centre)
             //index starts at 0
-            this.addSlot(new SlotItemHandler(handler, 0, 66, 5));
-            this.addSlot(new SlotItemHandler(handler, 1, 66, 30));
-            this.addSlot(new ModResultDisplaySlot(handler, 2, 66, 60));
+            this.addSlot(new SlotItemHandler(handler, 0, 79, -10));
+            this.addSlot(new SlotItemHandler(handler, 1, 79, 25));
+            this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 71));
         });
     }
 
@@ -112,14 +112,14 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 7 + l * 18, 112 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
+            this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 169));
         }
     }
 }
