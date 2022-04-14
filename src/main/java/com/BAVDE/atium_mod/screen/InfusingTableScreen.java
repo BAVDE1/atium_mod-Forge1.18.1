@@ -13,6 +13,12 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
 
     public InfusingTableScreen(InfusingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
+        this.imageWidth = 176;
+        this.imageHeight = 220;
+        this.titleLabelX = 40;
+        this.titleLabelY = 3;
+        this.inventoryLabelX = 1000000;
+        this.inventoryLabelY = 1000000;
     }
 
     @Override
@@ -26,15 +32,6 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        this.imageWidth = 176;
-        this.imageHeight = 220;
-
-        this.inventoryLabelX = 1000000;
-        this.inventoryLabelY = 1000000;
-
-        this.leftPos = (this.width - imageWidth) / 2;
-        this.topPos = (this.height - imageHeight) / 2;
-
         //is displayed
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
