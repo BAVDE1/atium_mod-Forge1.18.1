@@ -36,17 +36,17 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 
         if (menu.hasMetal()){
-            blit(pPoseStack, leftPos + 15, topPos + 30, 0, 0, 57, 70);
+            renderMetalDesc(pPoseStack);
         }
     }
 
-    protected void renderMetalDesc(PoseStack pPoseStack, float pPartialTicks, int pMouseX, int pMouseY){
+    protected void renderMetalDesc(PoseStack pPoseStack){
         final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/metal_desc.png");
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, METAL_DESC);
 
-        blit(pPoseStack, leftPos + 15, topPos + 30, -15, -30, 57, 70);
+        blit(pPoseStack, leftPos + 9, topPos + 24, 0, 0, 57, 70);
     }
 
     @Override
