@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.screen;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
+import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.screen.slot.ModResultDisplaySlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,6 +12,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -48,6 +50,10 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(handler, 1, 79, 57));
             this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 98));
         });
+    }
+
+    public boolean hasMetal(){
+        return blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.GOLD_INGOT;
     }
 
     /* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) */
