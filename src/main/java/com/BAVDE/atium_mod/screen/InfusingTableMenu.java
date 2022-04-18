@@ -52,8 +52,28 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         });
     }
 
-    public boolean hasMetal(){
-        return blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.GOLD_INGOT;
+    public int hasMetal(){
+        /*
+        1 = Iron
+        2 = Silver
+        3 = Tin
+        4 = Pewter
+        5 = Brass
+        6 = Zinc
+        7 = Copper
+        8 = Bronze
+        9 = Gold */
+        int metal = 0;
+        if ((blockEntity.itemHandler.getStackInSlot(0).getItem()) == Items.IRON_INGOT) {
+            metal = 1;
+        } else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.COPPER_INGOT) {
+            metal = 7;
+        } else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.GOLD_INGOT) {
+            metal = 9;
+        } else {
+            metal = 0;
+        }
+        return metal;
     }
 
     /* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) */

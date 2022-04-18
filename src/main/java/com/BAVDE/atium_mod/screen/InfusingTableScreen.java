@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table_layout.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/infusing_table_layout.png");
 
     public InfusingTableScreen(InfusingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -35,18 +35,24 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         //is displayed
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 
-        if (menu.hasMetal()){
-            renderMetalDesc(pPoseStack);
-        }
+        renderMetalDesc(pPoseStack);
     }
 
     protected void renderMetalDesc(PoseStack pPoseStack){
-        final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/metal_desc.png");
+        final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/metal_desc.png");
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, METAL_DESC);
+        int descPosX = leftPos + 9;
+        int descPosY = topPos + 24;
 
-        blit(pPoseStack, leftPos + 9, topPos + 24, 0, 0, 57, 70);
+        if (menu.hasMetal() == 1) {
+            blit(pPoseStack, descPosX, descPosY, 0, 0, 57, 70);
+        } else if (menu.hasMetal() == 7) {
+            blit(pPoseStack, descPosX, descPosY, 114, 70, 57, 70);
+        } else if (menu.hasMetal() == 9) {
+            blit(pPoseStack, descPosX, descPosY, 0, 140, 57, 70);
+        }
     }
 
     @Override
