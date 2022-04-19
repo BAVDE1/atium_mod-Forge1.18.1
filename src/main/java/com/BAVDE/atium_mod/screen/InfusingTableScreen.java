@@ -45,25 +45,17 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShaderTexture(0, METAL_DESC);
         int descPosX = leftPos + 9;
         int descPosY = topPos + 24;
-        
-        if (menu.hasMetal() == 1) { //iron
-            blit(pPoseStack, descPosX, descPosY, 0, 0, 57, 70);
-        } else if (menu.hasMetal() == 2) { //steel
-            blit(pPoseStack, descPosX, descPosY, 57, 0, 57, 70);
-        } else if (menu.hasMetal() == 3) { //tin
-            blit(pPoseStack, descPosX, descPosY, 114, 0, 57, 70);
-        } else if (menu.hasMetal() == 4) { //pewter
-            blit(pPoseStack, descPosX, descPosY, 171, 0, 57, 70);
-        } else if (menu.hasMetal() == 5) { //brass
-            blit(pPoseStack, descPosX, descPosY, 0, 70, 57, 70);
-        } else if (menu.hasMetal() == 6) { //zinc
-            blit(pPoseStack, descPosX, descPosY, 57, 70, 57, 70);
-        } else if (menu.hasMetal() == 7) { //copper
-            blit(pPoseStack, descPosX, descPosY, 114, 70, 57, 70);
-        } else if (menu.hasMetal() == 8) { //bronze
-            blit(pPoseStack, descPosX, descPosY, 171, 70, 57, 70);
-        } else if (menu.hasMetal() == 9) { //gold
-            blit(pPoseStack, descPosX, descPosY, 0, 140, 57, 70);
+
+        switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+            case 1 -> blit(pPoseStack, descPosX, descPosY, 0,   0,   57, 70);
+            case 2 -> blit(pPoseStack, descPosX, descPosY, 57,  0,   57, 70);
+            case 3 -> blit(pPoseStack, descPosX, descPosY, 114, 0,   57, 70);
+            case 4 -> blit(pPoseStack, descPosX, descPosY, 171, 0,   57, 70);
+            case 5 -> blit(pPoseStack, descPosX, descPosY, 0,   70,  57, 70);
+            case 6 -> blit(pPoseStack, descPosX, descPosY, 57,  70,  57, 70);
+            case 7 -> blit(pPoseStack, descPosX, descPosY, 114, 70,  57, 70);
+            case 8 -> blit(pPoseStack, descPosX, descPosY, 171, 70,  57, 70);
+            case 9 -> blit(pPoseStack, descPosX, descPosY, 0,   140, 57, 70);
         }
     }
 
