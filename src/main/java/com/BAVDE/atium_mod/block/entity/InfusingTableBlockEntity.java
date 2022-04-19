@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

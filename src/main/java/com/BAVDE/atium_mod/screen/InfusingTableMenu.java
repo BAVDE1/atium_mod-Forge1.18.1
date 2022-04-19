@@ -3,13 +3,12 @@ package com.BAVDE.atium_mod.screen;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModItems;
-import com.BAVDE.atium_mod.screen.slot.ModResultDisplaySlot;
+import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.Nullable;
 
 public class InfusingTableMenu extends AbstractContainerMenu {
     private final InfusingTableBlockEntity blockEntity;
@@ -48,7 +46,7 @@ public class InfusingTableMenu extends AbstractContainerMenu {
             //index should start at 0
             this.addSlot(new SlotItemHandler(handler, 0, 79, 23));
             this.addSlot(new SlotItemHandler(handler, 1, 79, 57));
-            this.addSlot(new ModResultDisplaySlot(handler, 2, 79, 98));
+            this.addSlot(new ModResultSlot(handler, 2, 79, 98));
         });
     }
 
