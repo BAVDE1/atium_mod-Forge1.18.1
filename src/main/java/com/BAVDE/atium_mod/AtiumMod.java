@@ -4,7 +4,7 @@ import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
-import com.BAVDE.atium_mod.recipie.ModRecipes;
+import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;

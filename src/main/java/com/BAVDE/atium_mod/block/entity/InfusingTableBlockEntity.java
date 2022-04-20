@@ -1,8 +1,8 @@
 package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +17,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -28,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class InfusingTableBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
@@ -101,8 +101,23 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
 
     //is called in InfusingTableBlock every tick
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
-        if(hasRecipe(pBlockEntity) && hasNotReachedStackLimit(pBlockEntity)) {
-            craftItem(pBlockEntity);
+        if(hasRecipe(pBlockEntity)) {
+            displayItem(pBlockEntity);
+        }
+    }
+
+    public static void displayItem(InfusingTableBlockEntity entity) {
+        Level level = entity.level;
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
+
+        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
+
+        if (match.isPresent()) {
+            entity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
         }
     }
 
@@ -119,14 +134,24 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
 
     //checks if correct items in inventory for the recipe
     private static boolean hasRecipe(InfusingTableBlockEntity entity) {
-        boolean hasItemInSecondSlot = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.ATIUM_GEODE.get();
-        boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == ModItems.CRYSTALLIZED_SHARD.get();
+        Level level = entity.level;
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
+        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        }
 
-        return hasItemInFirstSlot && hasItemInSecondSlot;
+        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
+
+        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
     }
 
-    //checks if the stack in result slot has reached its max stack size (usually 64)
-    private static boolean hasNotReachedStackLimit(InfusingTableBlockEntity entity) {
-        return entity.itemHandler.getStackInSlot(2).getCount() < entity.itemHandler.getStackInSlot(2).getMaxStackSize();
+    //if it is the same item in the output slot as what it is trying to craft
+    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
+        return inventory.getItem(2).getItem() == output.getItem() || inventory.getItem(2).isEmpty();
+    }
+
+    //checks if the stack in result slot has reached its max stack size
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
+        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
     }
 }

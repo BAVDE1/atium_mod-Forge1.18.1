@@ -1,4 +1,4 @@
-package com.BAVDE.atium_mod.recipie;
+package com.BAVDE.atium_mod.recipe;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import net.minecraft.core.Registry;
