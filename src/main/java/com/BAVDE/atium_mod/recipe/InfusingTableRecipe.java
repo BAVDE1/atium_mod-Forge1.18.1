@@ -1,4 +1,4 @@
-package com.BAVDE.atium_mod.recipie;
+package com.BAVDE.atium_mod.recipe;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.google.gson.JsonArray;
@@ -26,7 +26,7 @@ public class InfusingTableRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, net.minecraft.world.level.Level pLevel) {
-        if(recipeItems.get(0).test(pContainer.getItem(0))) {
+        if (recipeItems.get(0).test(pContainer.getItem(0))) {
             return recipeItems.get(1).test(pContainer.getItem(1));
         }
         return false;
@@ -70,12 +70,11 @@ public class InfusingTableRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<InfusingTableRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(AtiumMod.MOD_ID,"infusing");
+        public static final ResourceLocation ID = new ResourceLocation(AtiumMod.MOD_ID, "infusing");
 
         @Override
         public InfusingTableRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            ItemStack tag = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "tag"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
@@ -125,7 +124,7 @@ public class InfusingTableRecipe implements Recipe<SimpleContainer> {
 
         @SuppressWarnings("unchecked") // Need this wrapper, because generics
         private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
+            return (Class<G>) cls;
         }
     }
 }

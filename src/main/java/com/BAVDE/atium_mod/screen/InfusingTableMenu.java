@@ -29,7 +29,7 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     //constructor called in the ModMenuTypes
     public InfusingTableMenu(int windowId, Inventory inv, BlockEntity entity) {
         super(ModMenuTypes.INFUSING_TABLE_MENU.get(), windowId);
-        checkContainerSize(inv, 4);
+        checkContainerSize(inv, 3);
         blockEntity = ((InfusingTableBlockEntity) entity);
         this.level = inv.player.level;
 
@@ -74,6 +74,36 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         else {metal = 0;}
         return metal;
     }
+
+    /*@Override
+    protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
+        return true;
+    }
+
+    protected void onTake(Player p_150663_, ItemStack p_150664_) {
+        p_150664_.onCraftedBy(p_150663_.level, p_150663_, p_150664_.getCount());
+        this.resultSlots.awardUsedRecipes(p_150663_);
+        this.shrinkStackInSlot(0);
+        this.shrinkStackInSlot(1);
+        this.access.execute((p_40263_, p_40264_) -> {
+            p_40263_.levelEvent(1044, p_40264_, 0);
+        });
+    }
+
+    @Override
+    protected boolean isValidBlock(BlockState p_39788_) {
+        return true;
+    }
+
+    @Override
+    public void createResult() {
+    }
+
+    private void shrinkStackInSlot(int p_40271_) {
+        ItemStack itemstack = this.inputSlots.getItem(p_40271_);
+        itemstack.shrink(1);
+        this.inputSlots.setItem(p_40271_, itemstack);
+    }*/
 
     /* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) */
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -133,7 +163,6 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     }
 
     /* PLAYER INVENTORY */
-
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
