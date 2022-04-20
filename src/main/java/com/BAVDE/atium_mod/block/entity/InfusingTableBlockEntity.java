@@ -99,8 +99,12 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity){
+
+    }
+
     //is called in InfusingTableBlock every tick
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
+    /*public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
         if(hasRecipe(pBlockEntity)) {
             displayItem(pBlockEntity);
         }
@@ -153,5 +157,5 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     //checks if the stack in result slot has reached its max stack size
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
         return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
-    }
+    }*/
 }
