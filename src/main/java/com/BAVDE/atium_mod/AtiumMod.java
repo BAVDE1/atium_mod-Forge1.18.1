@@ -38,9 +38,10 @@ public class AtiumMod {
 
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
-        ModRecipes.register(eventBus);
 
         ModMenuTypes.register(eventBus);
+
+        ModRecipes.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);
