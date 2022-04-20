@@ -1,0 +1,14 @@
+{
+  "type": "atium_mod:infusing",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "atium_mod:atium_chestplate"
+    }
+  ],
+  "output": {
+    "item": "atium_mod:atium_chestplate"
+  }
+}

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -99,12 +100,8 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity){
-
-    }
-
     //is called in InfusingTableBlock every tick
-    /*public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
         if(hasRecipe(pBlockEntity)) {
             displayItem(pBlockEntity);
         }
@@ -113,16 +110,30 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     public static void displayItem(InfusingTableBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
-
         Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
 
         if (match.isPresent()) {
             entity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
+            //entity.itemHandler.getStackInSlot(2).addTagElement("metal", getMetal(entity));
         }
+    }
+
+    public static int getMetal(InfusingTableBlockEntity entity){
+        ItemStack itemStack = entity.itemHandler.getStackInSlot(0);
+        int metal = 0;
+        if (itemStack.getItem() == Items.IRON_INGOT)            {metal = 1;}
+        else if (itemStack.getItem() == ModItems.STEEL.get())   {metal = 2;}
+        else if (itemStack.getItem() == ModItems.TIN.get())     {metal = 3;}
+        else if (itemStack.getItem() == ModItems.PEWTER.get())  {metal = 4;}
+        else if (itemStack.getItem() == ModItems.BRASS.get())   {metal = 5;}
+        else if (itemStack.getItem() == ModItems.ZINC.get())    {metal = 6;}
+        else if (itemStack.getItem() == Items.COPPER_INGOT)     {metal = 7;}
+        else if (itemStack.getItem() == ModItems.BRONZE.get())  {metal = 8;}
+        else if (itemStack.getItem() == Items.IRON_INGOT)       {metal = 9;}
+        return metal;
     }
 
     private static void craftItem(InfusingTableBlockEntity entity) {
@@ -143,7 +154,6 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
-
         Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
@@ -157,5 +167,5 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     //checks if the stack in result slot has reached its max stack size
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
         return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
-    }*/
+    }
 }

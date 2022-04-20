@@ -61,17 +61,17 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         7 = Copper
         8 = Bronze
         9 = Gold */
+        ItemStack itemStack = blockEntity.itemHandler.getStackInSlot(0);
         int metal = 0;
-        if ((blockEntity.itemHandler.getStackInSlot(0).getItem()) == Items.IRON_INGOT)          {metal = 1;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.STEEL.get())   {metal = 2;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.TIN.get())     {metal = 3;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.PEWTER.get())  {metal = 4;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.BRASS.get())   {metal = 5;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.ZINC.get())    {metal = 6;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.COPPER_INGOT)     {metal = 7;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.BRONZE.get())  {metal = 8;}
-        else if (blockEntity.itemHandler.getStackInSlot(0).getItem() == Items.GOLD_INGOT)       {metal = 9;}
-        else {metal = 0;}
+        if (itemStack.getItem() == Items.IRON_INGOT)            {metal = 1;}
+        else if (itemStack.getItem() == ModItems.STEEL.get())   {metal = 2;}
+        else if (itemStack.getItem() == ModItems.TIN.get())     {metal = 3;}
+        else if (itemStack.getItem() == ModItems.PEWTER.get())  {metal = 4;}
+        else if (itemStack.getItem() == ModItems.BRASS.get())   {metal = 5;}
+        else if (itemStack.getItem() == ModItems.ZINC.get())    {metal = 6;}
+        else if (itemStack.getItem() == Items.COPPER_INGOT)     {metal = 7;}
+        else if (itemStack.getItem() == ModItems.BRONZE.get())  {metal = 8;}
+        else if (itemStack.getItem() == Items.GOLD_INGOT)       {metal = 9;}
         return metal;
     }
 
