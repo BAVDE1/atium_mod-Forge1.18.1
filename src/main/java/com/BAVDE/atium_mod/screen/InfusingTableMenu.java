@@ -3,8 +3,11 @@ package com.BAVDE.atium_mod.screen;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -15,7 +18,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import java.util.Optional;
 
 public class InfusingTableMenu extends AbstractContainerMenu {
     private final InfusingTableBlockEntity blockEntity;
@@ -121,7 +127,7 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
     //must be defined!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);
