@@ -12,11 +12,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -80,36 +82,6 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         else if (itemStack.getItem() == Items.GOLD_INGOT)       {metal = 9;}
         return metal;
     }
-
-    /*@Override
-    protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
-        return true;
-    }
-
-    protected void onTake(Player p_150663_, ItemStack p_150664_) {
-        p_150664_.onCraftedBy(p_150663_.level, p_150663_, p_150664_.getCount());
-        this.resultSlots.awardUsedRecipes(p_150663_);
-        this.shrinkStackInSlot(0);
-        this.shrinkStackInSlot(1);
-        this.access.execute((p_40263_, p_40264_) -> {
-            p_40263_.levelEvent(1044, p_40264_, 0);
-        });
-    }
-
-    @Override
-    protected boolean isValidBlock(BlockState p_39788_) {
-        return true;
-    }
-
-    @Override
-    public void createResult() {
-    }
-
-    private void shrinkStackInSlot(int p_40271_) {
-        ItemStack itemstack = this.inputSlots.getItem(p_40271_);
-        itemstack.shrink(1);
-        this.inputSlots.setItem(p_40271_, itemstack);
-    }*/
 
     /* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) */
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

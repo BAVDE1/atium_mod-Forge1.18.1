@@ -158,7 +158,7 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     }
 
     //checks if correct items in inventory for the recipe
-    private static boolean hasRecipe(InfusingTableBlockEntity entity) {
+    public static boolean hasRecipe(InfusingTableBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
