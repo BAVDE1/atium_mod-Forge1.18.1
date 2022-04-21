@@ -5,6 +5,7 @@ import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
