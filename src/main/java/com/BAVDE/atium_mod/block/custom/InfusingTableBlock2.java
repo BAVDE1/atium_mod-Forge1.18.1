@@ -2,16 +2,20 @@ package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import com.BAVDE.atium_mod.screen.InfusingTableMenu2;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,7 +35,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class InfusingTableBlock2 extends CraftingTableBlock {
+import java.util.Random;
+
+public class InfusingTableBlock2 extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 10, 16);
     private static final Component CONTAINER_TITLE = new TranslatableComponent("container.upgrade");
@@ -45,7 +51,6 @@ public class InfusingTableBlock2 extends CraftingTableBlock {
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
-    /* FACING */
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
@@ -69,19 +74,29 @@ public class InfusingTableBlock2 extends CraftingTableBlock {
     }
 
     /* MENU */
-    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
-        return new SimpleMenuProvider((p_56424_, p_56425_, p_56426_) -> {
-            return new SmithingMenu(p_56424_, p_56425_, ContainerLevelAccess.create(pLevel, pPos));
-        }, CONTAINER_TITLE);
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (!pLevel.isClientSide()) {
+            BlockEntity entity = pLevel.getBlockEntity(pPos);
+            if(entity instanceof InfusingTableBlockEntity) {
+                //network hooks basically synchronizes client and server side (i think)
+                NetworkHooks.openGui(((ServerPlayer)pPlayer), (InfusingTableBlockEntity)entity, pPos);
+            } else {
+                throw new IllegalStateException("Our Container provider is missing!");
+            }
+        }
+        return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
-            pPlayer.awardStat(Stats.INTERACT_WITH_SMITHING_TABLE);
-            return InteractionResult.CONSUME;
-        }
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new InfusingTableBlockEntity(pPos, pState);
+    }
+
+    //method is called every tick for the block entity
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.INFUSING_TABLE_BLOCK_ENTITY.get(), InfusingTableBlockEntity::tick);
     }
 }
