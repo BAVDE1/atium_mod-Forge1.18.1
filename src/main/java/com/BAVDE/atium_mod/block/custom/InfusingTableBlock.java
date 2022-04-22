@@ -40,9 +40,6 @@ public class InfusingTableBlock extends BaseEntityBlock {
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
-
-    /* FACING */
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
@@ -66,7 +63,6 @@ public class InfusingTableBlock extends BaseEntityBlock {
     }
 
     /* BLOCK ENTITY */
-
     //calls the drop method in the block entity to drop its inventory
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {

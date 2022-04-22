@@ -67,7 +67,7 @@ public class AtiumMod {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_TRAPDOOR.get(), RenderType.cutout());
 
         //mod gui
-        MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU2.get(), InfusingTableScreen::new);
+        MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU.get(), InfusingTableScreen::new);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

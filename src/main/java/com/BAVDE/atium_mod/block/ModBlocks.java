@@ -104,9 +104,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> INFUSING_TABLE = registerBlock("infusing_table",
             () -> new InfusingTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
-    public static final RegistryObject<Block> INFUSING_TABLE2 = registerBlock("infusing_table2",
-            () -> new InfusingTableBlock2(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-
 
 
 

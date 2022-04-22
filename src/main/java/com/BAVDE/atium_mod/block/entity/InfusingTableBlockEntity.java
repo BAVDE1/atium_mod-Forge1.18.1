@@ -2,7 +2,7 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
-import com.BAVDE.atium_mod.screen.InfusingTableMenu2;
+import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -53,7 +53,19 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new InfusingTableMenu2(pContainerId, pInventory, this);
+        return new InfusingTableMenu(pContainerId, pInventory, this) {
+            @Override
+            protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
+                return true;
+            }
+            @Override
+            protected void onTake(Player p_150601_, ItemStack p_150602_) {
+            }
+            @Override
+            protected boolean isValidBlock(BlockState p_39788_) {
+                return true;
+            }
+        };
     }
 
     @Nonnull

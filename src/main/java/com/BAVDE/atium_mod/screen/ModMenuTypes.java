@@ -2,7 +2,6 @@ package com.BAVDE.atium_mod.screen;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,7 +17,7 @@ public class ModMenuTypes {
     //registered menus
     //public static final RegistryObject<MenuType<InfusingTableMenu>> INFUSING_TABLE_MENU = registerMenuType(InfusingTableMenu::new, "infusing_table_menu");
 
-    public static final RegistryObject<MenuType<InfusingTableMenu2>> INFUSING_TABLE_MENU2 = registerMenuType(InfusingTableMenu2::new, "infusing_table_menu2");
+    public static final RegistryObject<MenuType<InfusingTableMenu>> INFUSING_TABLE_MENU = registerMenuType(InfusingTableMenu::new, "infusing_table_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
