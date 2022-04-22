@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import com.BAVDE.atium_mod.event.ModEventBusEvents;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
 import com.BAVDE.atium_mod.recipe.ModRecipes;
@@ -12,6 +13,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -65,7 +67,7 @@ public class AtiumMod {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_TRAPDOOR.get(), RenderType.cutout());
 
         //mod gui
-        MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU.get(), InfusingTableScreen::new);
+        MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU2.get(), InfusingTableScreen::new);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

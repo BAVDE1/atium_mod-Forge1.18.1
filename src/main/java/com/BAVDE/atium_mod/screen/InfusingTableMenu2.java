@@ -1,53 +1,46 @@
-/*
 package com.BAVDE.atium_mod.screen;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
+import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.ItemCombinerMenu;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
-public class InfusingTableMenu extends AbstractContainerMenu {
+public class InfusingTableMenu2 extends ItemCombinerMenu {
     private final InfusingTableBlockEntity blockEntity;
     private final Level level;
+    private final List<InfusingTableRecipe> recipes;
 
-    //constructor called in block entity
-    public InfusingTableMenu(int windowId, Inventory inv, FriendlyByteBuf extraData) {
-        this(windowId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()));
+
+    public InfusingTableMenu2(int window, Inventory inv, FriendlyByteBuf friendlyByteBuf) {
+        this(window, inv, inv.player.level.getBlockEntity(friendlyByteBuf.readBlockPos()));
     }
 
-    //constructor called in the ModMenuTypes
-    public InfusingTableMenu(int windowId, Inventory inv, BlockEntity entity) {
-        super(ModMenuTypes.INFUSING_TABLE_MENU.get(), windowId);
-        checkContainerSize(inv, 3);
+    public InfusingTableMenu2(int window, Inventory inv, BlockEntity entity) {
+        super(ModMenuTypes.INFUSING_TABLE_MENU2.get(), window, inv, ContainerLevelAccess.create(entity.getLevel(), entity.getBlockPos()));
         blockEntity = ((InfusingTableBlockEntity) entity);
         this.level = inv.player.level;
+        this.recipes = this.level.getRecipeManager().getAllRecipesFor(InfusingTableRecipe.Type.INSTANCE);
 
-        //calls methods to include players inv and hot bar at bottom
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
-
-        //the slots in the inventory
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
             //slotItemHandler determines position (in pixels) of slot in inventory
             //the coords start at 0 on the top right most pixel of inventory texture
@@ -60,9 +53,26 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         });
     }
 
-    public int hasMetal(){
-        */
-/*
+    @Override
+    protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
+        return true;
+    }
+
+    @Override
+    protected void onTake(Player p_150601_, ItemStack p_150602_) {
+    }
+
+    @Override
+    protected boolean isValidBlock(BlockState p_39788_) {
+        return true;
+    }
+
+    @Override
+    public void createResult() {
+    }
+
+    public int hasMetal() {
+        /*
         1 = Iron
         2 = Steel
         3 = Tin
@@ -71,25 +81,22 @@ public class InfusingTableMenu extends AbstractContainerMenu {
         6 = Zinc
         7 = Copper
         8 = Bronze
-        9 = Gold *//*
-
+        9 = Gold */
         ItemStack itemStack = blockEntity.itemHandler.getStackInSlot(0);
         int metal = 0;
-        if (itemStack.getItem() == Items.IRON_INGOT)            {metal = 1;}
-        else if (itemStack.getItem() == ModItems.STEEL.get())   {metal = 2;}
-        else if (itemStack.getItem() == ModItems.TIN.get())     {metal = 3;}
-        else if (itemStack.getItem() == ModItems.PEWTER.get())  {metal = 4;}
-        else if (itemStack.getItem() == ModItems.BRASS.get())   {metal = 5;}
-        else if (itemStack.getItem() == ModItems.ZINC.get())    {metal = 6;}
-        else if (itemStack.getItem() == Items.COPPER_INGOT)     {metal = 7;}
-        else if (itemStack.getItem() == ModItems.BRONZE.get())  {metal = 8;}
-        else if (itemStack.getItem() == Items.GOLD_INGOT)       {metal = 9;}
+        if (itemStack.getItem() == Items.IRON_INGOT) {metal = 1;}
+        else if (itemStack.getItem() == ModItems.STEEL.get()) {metal = 2;}
+        else if (itemStack.getItem() == ModItems.TIN.get()) {metal = 3;}
+        else if (itemStack.getItem() == ModItems.PEWTER.get()) {metal = 4;}
+        else if (itemStack.getItem() == ModItems.BRASS.get()) {metal = 5;}
+        else if (itemStack.getItem() == ModItems.ZINC.get()) {metal = 6;}
+        else if (itemStack.getItem() == Items.COPPER_INGOT) {metal = 7;}
+        else if (itemStack.getItem() == ModItems.BRONZE.get()) {metal = 8;}
+        else if (itemStack.getItem() == Items.GOLD_INGOT) {metal = 9;}
         return metal;
     }
 
-    */
-/* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) *//*
-
+    /* QUICK MOVE CODE (SHIFT CLICK ITEMSTACK) */
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.
     // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
@@ -145,21 +152,4 @@ public class InfusingTableMenu extends AbstractContainerMenu {
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, ModBlocks.INFUSING_TABLE.get());
     }
-
-    */
-/* PLAYER INVENTORY *//*
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 7 + l * 18, 139 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 196));
-        }
-    }
-}*/
+}
