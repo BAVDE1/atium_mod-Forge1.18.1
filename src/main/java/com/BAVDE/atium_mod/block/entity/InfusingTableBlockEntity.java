@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
+import com.BAVDE.atium_mod.screen.AbstractInfusingMenu;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +15,8 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -53,14 +56,13 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new InfusingTableMenu(pContainerId, pInventory, this) {
+        return new InfusingTableMenu(pContainerId, pInventory, this, ContainerLevelAccess.NULL) {
             @Override
             protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
                 return true;
             }
             @Override
-            protected void onTake(Player p_150601_, ItemStack p_150602_) {
-            }
+            protected void onTake(Player p_150601_, ItemStack p_150602_) {}
             @Override
             protected boolean isValidBlock(BlockState p_39788_) {
                 return true;
@@ -113,73 +115,7 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     }
 
     //is called in InfusingTableBlock every tick
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
-        if (hasRecipe(pBlockEntity)) {
-            displayItem(pBlockEntity);
-        }
-    }
-
-    public static void displayItem(InfusingTableBlockEntity entity) {
-        Level level = entity.level;
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
-
-        if (match.isPresent()) {
-            entity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
-            //entity.itemHandler.getStackInSlot(2).addTagElement("metal", getMetal(entity));
-        }
-    }
-
-    public static int getMetal(InfusingTableBlockEntity entity) {
-        ItemStack itemStack = entity.itemHandler.getStackInSlot(0);
-        int metal = 0;
-        if (itemStack.getItem() == Items.IRON_INGOT) {
-            metal = 1;
-        } else if (itemStack.getItem() == ModItems.STEEL.get()) {
-            metal = 2;
-        } else if (itemStack.getItem() == ModItems.TIN.get()) {
-            metal = 3;
-        } else if (itemStack.getItem() == ModItems.PEWTER.get()) {
-            metal = 4;
-        } else if (itemStack.getItem() == ModItems.BRASS.get()) {
-            metal = 5;
-        } else if (itemStack.getItem() == ModItems.ZINC.get()) {
-            metal = 6;
-        } else if (itemStack.getItem() == Items.COPPER_INGOT) {
-            metal = 7;
-        } else if (itemStack.getItem() == ModItems.BRONZE.get()) {
-            metal = 8;
-        } else if (itemStack.getItem() == Items.IRON_INGOT) {
-            metal = 9;
-        }
-        return metal;
-    }
-
-    private static void craftItem(InfusingTableBlockEntity entity) {
-        //extracts item from slot 0
-        entity.itemHandler.extractItem(0, 1, false);
-        //extracts item from slot 1
-        entity.itemHandler.extractItem(1, 1, false);
-
-        //puts result item in slot 2
-        entity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.PURE_ATIUM.get(),
-                entity.itemHandler.getStackInSlot(2).getCount() + 1));
-    }
-
-    //checks if correct items in inventory for the recipe
-    private static boolean hasRecipe(InfusingTableBlockEntity entity) {
-        Level level = entity.level;
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
-
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
-    }
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {}
 
     //if it is the same item in the output slot as what it is trying to craft
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {

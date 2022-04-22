@@ -1,5 +1,9 @@
 package com.BAVDE.atium_mod.screen;
 
+import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
+import com.BAVDE.atium_mod.screen.slot.ModInputSlot;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -7,12 +11,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
 
 public abstract class AbstractInfusingMenu extends AbstractContainerMenu {
+    private final InfusingTableBlockEntity blockEntity;
     protected final Level level;
     protected final Player player;
+    protected final Container inputSlots = new SimpleContainer(2) {
+        /**
+         * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think
+         * it hasn't changed and skip it.
+         */
+        public void setChanged() {
+            super.setChanged();
+            AbstractInfusingMenu.this.slotsChanged(this);
+        }
+    };
 
     protected abstract boolean mayPickup(Player p_39798_, boolean p_39799_);
 
@@ -22,8 +38,16 @@ public abstract class AbstractInfusingMenu extends AbstractContainerMenu {
 
     public AbstractInfusingMenu(@Nullable MenuType<?> menuType, int window, Inventory inv, BlockEntity entity) {
         super(menuType, window);
+        blockEntity = ((InfusingTableBlockEntity) entity);
         this.player = inv.player;
         this.level = inv.player.level;
+    }
+
+    public abstract void createResult();
+
+    public void slotsChanged(Container pInventory) {
+        super.slotsChanged(pInventory);
+        this.createResult();
     }
 
     /* QUICK MOVE */
