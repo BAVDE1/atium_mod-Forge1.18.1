@@ -8,10 +8,10 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu2> {
+public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/infusing_table_layout.png");
 
-    public InfusingTableScreen(InfusingTableMenu2 pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public InfusingTableScreen(InfusingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = 176;
         this.imageHeight = 220;
