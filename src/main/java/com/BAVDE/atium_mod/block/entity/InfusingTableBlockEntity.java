@@ -62,12 +62,23 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
                 return true;
             }
             @Override
-            protected void onTake(Player p_150601_, ItemStack p_150602_) {}
+            protected void onTake(Player player, ItemStack itemStack) {
+                itemStack.onCraftedBy(player.level, player, itemStack.getCount());
+                InfusingTableBlockEntity.this.shrinkStacks();
+                this.access.execute((level, blockPos) -> {
+                    level.levelEvent(1044, blockPos, 0);
+                });
+            }
             @Override
             protected boolean isValidBlock(BlockState p_39788_) {
                 return true;
             }
         };
+    }
+
+    public void shrinkStacks() {
+        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(1, 1, false);
     }
 
     @Nonnull
@@ -108,22 +119,11 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
     //gets what is in the inventory and drops it at the position of the block when it is destroyed
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
+        inventory.setItem(0, itemHandler.getStackInSlot(0));
+        inventory.setItem(1, itemHandler.getStackInSlot(1));
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
     //is called in InfusingTableBlock every tick
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {}
-
-    //if it is the same item in the output slot as what it is trying to craft
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(2).getItem() == output.getItem() || inventory.getItem(2).isEmpty();
-    }
-
-    //checks if the stack in result slot has reached its max stack size
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
-    }
 }

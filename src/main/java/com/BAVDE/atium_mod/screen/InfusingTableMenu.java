@@ -85,17 +85,15 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
     @Override
     protected void onTake(Player player, ItemStack itemStack) {
         itemStack.onCraftedBy(player.level, player, itemStack.getCount());
-        this.shrinkStackInSlot(0);
-        this.shrinkStackInSlot(1);
+        this.shrinkStacks();
         this.access.execute((level, blockPos) -> {
             level.levelEvent(1044, blockPos, 0);
         });
     }
 
-    private void shrinkStackInSlot(int slot) {
-        ItemStack itemstack = blockEntity.itemHandler.getStackInSlot(slot);
-        itemstack.shrink(1);
-        blockEntity.itemHandler.setStackInSlot(slot, itemstack);
+    private void shrinkStacks() {
+        blockEntity.itemHandler.extractItem(0, 1, false);
+        blockEntity.itemHandler.extractItem(1, 1, false);
     }
 
     @Override
@@ -145,15 +143,25 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         9 = Gold */
         ItemStack itemStack = this.slots.get(0).getItem();
         int metal = 0;
-        if (itemStack.getItem() == Items.IRON_INGOT) {metal = 1;}
-        else if (itemStack.getItem() == ModItems.STEEL.get()) {metal = 2;}
-        else if (itemStack.getItem() == ModItems.TIN.get()) {metal = 3;}
-        else if (itemStack.getItem() == ModItems.PEWTER.get()) {metal = 4;}
-        else if (itemStack.getItem() == ModItems.BRASS.get()) {metal = 5;}
-        else if (itemStack.getItem() == ModItems.ZINC.get()) {metal = 6;}
-        else if (itemStack.getItem() == Items.COPPER_INGOT) {metal = 7;}
-        else if (itemStack.getItem() == ModItems.BRONZE.get()) {metal = 8;}
-        else if (itemStack.getItem() == Items.GOLD_INGOT) {metal = 9;}
+        if (itemStack.getItem() == Items.IRON_INGOT) {
+            metal = 1;
+        } else if (itemStack.getItem() == ModItems.STEEL.get()) {
+            metal = 2;
+        } else if (itemStack.getItem() == ModItems.TIN.get()) {
+            metal = 3;
+        } else if (itemStack.getItem() == ModItems.PEWTER.get()) {
+            metal = 4;
+        } else if (itemStack.getItem() == ModItems.BRASS.get()) {
+            metal = 5;
+        } else if (itemStack.getItem() == ModItems.ZINC.get()) {
+            metal = 6;
+        } else if (itemStack.getItem() == Items.COPPER_INGOT) {
+            metal = 7;
+        } else if (itemStack.getItem() == ModItems.BRONZE.get()) {
+            metal = 8;
+        } else if (itemStack.getItem() == Items.GOLD_INGOT) {
+            metal = 9;
+        }
         return metal;
     }
 
