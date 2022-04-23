@@ -1,8 +1,5 @@
 package com.BAVDE.atium_mod.block.entity;
 
-import com.BAVDE.atium_mod.item.ModItems;
-import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
-import com.BAVDE.atium_mod.screen.AbstractInfusingMenu;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,9 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 public class InfusingTableBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
@@ -122,6 +116,11 @@ public class InfusingTableBlockEntity extends BlockEntity implements MenuProvide
         inventory.setItem(0, itemHandler.getStackInSlot(0));
         inventory.setItem(1, itemHandler.getStackInSlot(1));
         Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    //clears the result slot (2) when placed
+    public void clearResultSlot() {
+        itemHandler.setStackInSlot(2, ItemStack.EMPTY);
     }
 
     //is called in InfusingTableBlock every tick

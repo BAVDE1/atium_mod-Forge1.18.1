@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -70,6 +71,17 @@ public class InfusingTableBlock extends BaseEntityBlock {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof InfusingTableBlockEntity) {
                 ((InfusingTableBlockEntity) blockEntity).drops();
+            }
+        }
+    }
+
+    //when placed calls clearResultSlot in block entity
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        if (pState.getBlock() != pOldState.getBlock()) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof InfusingTableBlockEntity) {
+                ((InfusingTableBlockEntity) blockEntity).clearResultSlot();
             }
         }
     }
