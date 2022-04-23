@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Random;
 
 public class DrownedDropLeather extends LootModifier {
     private final Item addition;

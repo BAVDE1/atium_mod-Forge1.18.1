@@ -72,8 +72,7 @@ public class BuddingCrystallineLeaves extends CrystallineLeavesBlock implements 
             return InteractionResult.PASS;
         } else if (pState.getValue(GROWN)) { //if the blocks is fully grown (if state is true)
             pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
-            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
-            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            playSound(pLevel, pPos);
             int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
             popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
@@ -87,11 +86,15 @@ public class BuddingCrystallineLeaves extends CrystallineLeavesBlock implements 
         if (pState.getValue(GROWN)) {
             BlockPos pPos = pHit.getBlockPos();
             pLevel.setBlock(pPos, pState.setValue(GROWTH, 0).setValue(GROWN, false), 3); //set growth to 0 and grown to false
-            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
-            pLevel.playSound((Player) null, pPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + pLevel.random.nextFloat() * 1.2F); //plays sound
+            playSound(pLevel, pPos);
             int amount = 1 + this.RANDOM.nextInt(3); //generates random number between 1 and 3
             popResource(pLevel, pPos, new ItemStack(ModItems.CRYSTALLIZED_SHARD.get(), amount)); //drops 1 to 3 crystallized shards
         }
+    }
+
+    private void playSound(Level level, BlockPos pos) {
+        level.playSound((Player) null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + level.random.nextFloat() * 1.2F); //plays sound
+        level.playSound((Player) null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 4.0F, 0.5F + level.random.nextFloat() * 1.2F); //plays sound
     }
 
     //bone meal stuff
