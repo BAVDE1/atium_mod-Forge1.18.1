@@ -63,6 +63,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
                 public boolean mayPlace(ItemStack itemStack) {
                     return false;
                 }
+
                 public void onTake(Player player, ItemStack itemStack) {
                     InfusingTableMenu.this.onTake(player, itemStack);
                 }
@@ -127,17 +128,13 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return match.isPresent();
     }
 
+    public boolean isSlot0Empty() {
+        ItemStack itemStack = this.slots.get(0).getItem();
+        return itemStack == ItemStack.EMPTY;
+    }
+
     public int hasMetal() {
-        /*
-        1 = Iron
-        2 = Steel
-        3 = Tin
-        4 = Pewter
-        5 = Brass
-        6 = Zinc
-        7 = Copper
-        8 = Bronze
-        9 = Gold */
+        //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
         ItemStack itemStack = this.slots.get(0).getItem();
         int metal = 0;
         if (itemStack.getItem() == Items.IRON_INGOT) {

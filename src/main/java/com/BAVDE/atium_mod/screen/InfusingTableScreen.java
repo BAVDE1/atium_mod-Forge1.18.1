@@ -34,6 +34,9 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShaderTexture(0, TEXTURE);
         //is displayed
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        if (!menu.isSlot0Empty()) {
+            blit(pPoseStack, leftPos + 79, topPos + 23, 79, 57, 16, 16);
+        }
 
         renderMetalDesc(pPoseStack);
     }

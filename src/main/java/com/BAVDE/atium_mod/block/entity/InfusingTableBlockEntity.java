@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,10 +15,14 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
@@ -61,6 +66,15 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
     public void load(CompoundTag nbt) {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return lazyItemHandler.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
     //gets what is in the inventory and drops it at the position of the block when it is destroyed
@@ -126,5 +140,11 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
     @Override
     public void clearContent() {
         this.items.clear();
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
     }
 }
