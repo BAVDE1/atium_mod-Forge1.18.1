@@ -2,7 +2,6 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -10,31 +9,17 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
-public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{1};
+public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
     public final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
@@ -92,27 +77,8 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
     }
 
     @Override
-    public int[] getSlotsForFace(Direction pSide) {
-        if (pSide == Direction.DOWN) {
-            return SLOTS_FOR_DOWN;
-        } else {
-            return pSide == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
-        }
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return pIndex != 2;
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
-        return pIndex != 2;
-    }
-
-    @Override
     public int getContainerSize() {
-        return this.items.size();
+        return 2;
     }
 
     @Override
@@ -160,32 +126,5 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
     @Override
     public void clearContent() {
         this.items.clear();
-    }
-
-    @Override
-    public void fillStackedContents(StackedContents pHelper) {
-        for (ItemStack itemstack : this.items) {
-            pHelper.accountStack(itemstack);
-        }
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (!this.remove && cap == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY )
-            return lazyItemHandler.cast();
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    @Override
-    public void reviveCaps() {
-        super.reviveCaps();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
 }
