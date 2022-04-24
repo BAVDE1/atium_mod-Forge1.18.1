@@ -6,7 +6,10 @@ import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.slot.ModInputSlot;
 import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +17,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -80,11 +84,18 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     @Override
     protected void onTake(Player player, ItemStack itemStack) {
+        BlockPos pos = blockEntity.getBlockPos();
         itemStack.onCraftedBy(player.level, player, itemStack.getCount());
         this.shrinkStacks();
+        this.playSound(pos);
         this.access.execute((level, blockPos) -> {
             level.levelEvent(1044, blockPos, 0);
         });
+    }
+
+    private void playSound(BlockPos pos) {
+        level.playSound((Player) null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound((Player) null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.3F, 0.8F + level.random.nextFloat() * 1.2F);
     }
 
     private void shrinkStacks() {
