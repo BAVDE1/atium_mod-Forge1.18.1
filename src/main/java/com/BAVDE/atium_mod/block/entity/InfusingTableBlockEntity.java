@@ -15,13 +15,17 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,14 +34,14 @@ import javax.annotation.Nonnull;
 public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{1};
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
-    public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
+    public final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
         }
     };
-
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     public InfusingTableBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
@@ -49,59 +53,15 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         return new TextComponent("");
     }
 
-    //calls the InfusingTableMenu
-    /*@Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new InfusingTableMenu(pContainerId, pInventory, this, ContainerLevelAccess.NULL) {
-            @Override
-            protected boolean mayPickup(Player p_39798_, boolean p_39799_) {
-                return true;
-            }
-            @Override
-            protected void onTake(Player player, ItemStack itemStack) {
-                itemStack.onCraftedBy(player.level, player, itemStack.getCount());
-                InfusingTableBlockEntity.this.shrinkStacks();
-                this.access.execute((level, blockPos) -> {
-                    level.levelEvent(1044, blockPos, 0);
-                });
-            }
-            @Override
-            protected boolean isValidBlock(BlockState p_39788_) {
-                return true;
-            }
-        };
-    }*/
-
     @Override
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return new InfusingTableMenu(pContainerId, pInventory, this, ContainerLevelAccess.NULL);
-    }
-
-    public void shrinkStacks() {
-        itemHandler.extractItem(0, 1, false);
-        itemHandler.extractItem(1, 1, false);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
-        }
-        return super.getCapability(cap, side);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
     }
 
     //saves what is in the inventory or slots
@@ -133,22 +93,21 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
 
     @Override
     public int[] getSlotsForFace(Direction pSide) {
-        return pSide == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
+        if (pSide == Direction.DOWN) {
+            return SLOTS_FOR_DOWN;
+        } else {
+            return pSide == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
+        }
     }
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return this.canPlaceItem(pIndex, pItemStack);
-    }
-
-    @Override
-    public boolean canPlaceItem(int pIndex, ItemStack pStack) {
         return pIndex != 2;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
-        return false;
+        return pIndex != 2;
     }
 
     @Override
@@ -158,7 +117,7 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
 
     @Override
     public boolean isEmpty() {
-        for(ItemStack itemstack : this.items) {
+        for (ItemStack itemstack : this.items) {
             if (!itemstack.isEmpty()) {
                 return false;
             }
@@ -194,7 +153,7 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return pPlayer.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
+            return pPlayer.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -205,8 +164,28 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
 
     @Override
     public void fillStackedContents(StackedContents pHelper) {
-        for(ItemStack itemstack : this.items) {
+        for (ItemStack itemstack : this.items) {
             pHelper.accountStack(itemstack);
         }
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
+        if (!this.remove && cap == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY )
+            return lazyItemHandler.cast();
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
+    }
+
+    @Override
+    public void reviveCaps() {
+        super.reviveCaps();
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
 }
