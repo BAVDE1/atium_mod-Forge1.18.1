@@ -29,7 +29,7 @@ public class ThrownKnife extends AbstractArrow {
     }
 
     public ThrownKnife(Level p_37569_, LivingEntity p_37570_, ItemStack p_37571_) {
-        super(EntityType.TRIDENT, p_37570_, p_37569_);
+        super(EntityType.ARROW, p_37570_, p_37569_);
         this.knifeItem = p_37571_.copy();
     }
 
