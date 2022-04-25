@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,6 +28,7 @@ import java.util.Optional;
 
 public class InfusingTableMenu extends AbstractInfusingMenu {
     private final InfusingTableBlockEntity blockEntity;
+    private InfusingTableRecipe selectedRecipe;
     private final List<InfusingTableRecipe> recipes;
     public final Level level;
     protected final Player player;
@@ -123,6 +125,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             if (match.isPresent()) {
                 if (!hasMetalTag()) {
                     blockEntity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
+                    this.copyTag();
                     this.addMetalTag();
                 }
             }
@@ -173,14 +176,17 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return metal;
     }
 
+    private void copyTag() {
+        CompoundTag copyCompoundTag = blockEntity.itemHandler.getStackInSlot(1).getTag();
+        blockEntity.itemHandler.getStackInSlot(2).setTag(copyCompoundTag.copy());
+    }
+
     private boolean hasMetalTag() {
         return blockEntity.itemHandler.getStackInSlot(1).getTag().contains("atium_mod.metal");
     }
 
     private void addMetalTag() {
-        CompoundTag nbtData = new CompoundTag();
-        nbtData.putInt("atium_mod.metal", hasMetal());
-        blockEntity.itemHandler.getStackInSlot(2).setTag(nbtData);
+        blockEntity.itemHandler.getStackInSlot(2).getTag().putInt("atium_mod.metal", hasMetal());
     }
 
     //if still close enough to access inventory
