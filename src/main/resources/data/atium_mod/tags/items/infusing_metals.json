@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_ingot",
+    "atium_mod:steel",
+    "atium_mod:tin",
+    "atium_mod:pewter",
+    "atium_mod:brass",
+    "atium_mod:zinc",
+    "minecraft:copper_ingot",
+    "atium_mod:bronze",
+    "minecraft:gold_ingot"
+  ]
+}

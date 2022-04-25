@@ -2,7 +2,7 @@
   "type": "atium_mod:infusing",
   "ingredients": [
     {
-      "item": "minecraft:gold_ingot"
+      "tag": "atium_mod:infusing_metals"
     },
     {
       "item": "atium_mod:atium_chestplate"
