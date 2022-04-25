@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
@@ -73,6 +74,7 @@ public class InfusingTableBlock extends BaseEntityBlock {
                 ((InfusingTableBlockEntity) blockEntity).drops();
             }
         }
+        pLevel.updateNeighborsAt(pPos, this);
     }
 
     //when placed calls clearResultSlot in block entity
@@ -84,6 +86,7 @@ public class InfusingTableBlock extends BaseEntityBlock {
                 ((InfusingTableBlockEntity) blockEntity).clearResultSlot();
             }
         }
+        pLevel.updateNeighborsAt(pPos, this);
     }
 
     //when block is right-clicked, open the inventory / GUI
@@ -105,5 +108,15 @@ public class InfusingTableBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new InfusingTableBlockEntity(pPos, pState);
+    }
+
+    @Override
+    public int getSignal(BlockState pState, BlockGetter pLevel, BlockPos pPos, Direction pDirection) {
+        return 1;
+    }
+
+    @Override
+    public boolean isSignalSource(BlockState pState) {
+        return true;
     }
 }
