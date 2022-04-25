@@ -7,6 +7,7 @@ import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.slot.ModInputSlot;
 import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,7 +18,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -122,6 +122,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
             if (match.isPresent()) {
                 blockEntity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
+                this.addMetalTag();
             }
         } else {
             blockEntity.itemHandler.setStackInSlot(2, ItemStack.EMPTY);
@@ -168,6 +169,12 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             metal = 9;
         }
         return metal;
+    }
+
+    public void addMetalTag() {
+        CompoundTag nbtData = new CompoundTag();
+        nbtData.putInt("atium_mod.metal", hasMetal());
+        blockEntity.itemHandler.getStackInSlot(2).setTag(nbtData);
     }
 
     //if still close enough to access inventory

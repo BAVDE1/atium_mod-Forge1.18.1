@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+
 public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/infusing_table_layout.png");
 
@@ -34,6 +35,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShaderTexture(0, TEXTURE);
         //is displayed
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+
         if (!menu.isSlot0Empty()) {
             blit(pPoseStack, leftPos + 79, topPos + 23, 79, 57, 16, 16);
         }
@@ -41,7 +43,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         renderMetalDesc(pPoseStack);
     }
 
-    protected void renderMetalDesc(PoseStack pPoseStack){
+    protected void renderMetalDesc(PoseStack pPoseStack) {
         final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/metal_desc.png");
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -50,15 +52,15 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         int descPosY = topPos + 24;
 
         switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-            case 1 -> blit(pPoseStack, descPosX, descPosY, 0,   0,   57, 70);
-            case 2 -> blit(pPoseStack, descPosX, descPosY, 57,  0,   57, 70);
-            case 3 -> blit(pPoseStack, descPosX, descPosY, 114, 0,   57, 70);
-            case 4 -> blit(pPoseStack, descPosX, descPosY, 171, 0,   57, 70);
-            case 5 -> blit(pPoseStack, descPosX, descPosY, 0,   70,  57, 70);
-            case 6 -> blit(pPoseStack, descPosX, descPosY, 57,  70,  57, 70);
-            case 7 -> blit(pPoseStack, descPosX, descPosY, 114, 70,  57, 70);
-            case 8 -> blit(pPoseStack, descPosX, descPosY, 171, 70,  57, 70);
-            case 9 -> blit(pPoseStack, descPosX, descPosY, 0,   140, 57, 70);
+            case 1 -> blit(pPoseStack, descPosX, descPosY, 0, 0, 57, 70);
+            case 2 -> blit(pPoseStack, descPosX, descPosY, 57, 0, 57, 70);
+            case 3 -> blit(pPoseStack, descPosX, descPosY, 114, 0, 57, 70);
+            case 4 -> blit(pPoseStack, descPosX, descPosY, 171, 0, 57, 70);
+            case 5 -> blit(pPoseStack, descPosX, descPosY, 0, 70, 57, 70);
+            case 6 -> blit(pPoseStack, descPosX, descPosY, 57, 70, 57, 70);
+            case 7 -> blit(pPoseStack, descPosX, descPosY, 114, 70, 57, 70);
+            case 8 -> blit(pPoseStack, descPosX, descPosY, 171, 70, 57, 70);
+            case 9 -> blit(pPoseStack, descPosX, descPosY, 0, 140, 57, 70);
         }
     }
 
