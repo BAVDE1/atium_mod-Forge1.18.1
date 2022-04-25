@@ -121,8 +121,10 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
 
             if (match.isPresent()) {
-                blockEntity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
-                this.addMetalTag();
+                if (!hasMetalTag()) {
+                    blockEntity.itemHandler.setStackInSlot(2, new ItemStack(match.get().getResultItem().getItem(), 1));
+                    this.addMetalTag();
+                }
             }
         } else {
             blockEntity.itemHandler.setStackInSlot(2, ItemStack.EMPTY);
@@ -171,7 +173,11 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return metal;
     }
 
-    public void addMetalTag() {
+    private boolean hasMetalTag() {
+        return blockEntity.itemHandler.getStackInSlot(1).getTag().contains("atium_mod.metal");
+    }
+
+    private void addMetalTag() {
         CompoundTag nbtData = new CompoundTag();
         nbtData.putInt("atium_mod.metal", hasMetal());
         blockEntity.itemHandler.getStackInSlot(2).setTag(nbtData);
