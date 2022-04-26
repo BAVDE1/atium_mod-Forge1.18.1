@@ -60,8 +60,6 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     //Knives
-    public static final RegistryObject<Item> WOOD_KNIFE = ITEMS.register("wood_knife",
-            () -> new KnifeItem(Tiers.WOOD, 0, -2.2f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(64)));
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
             () -> new KnifeItem(ModTiers.CRYSTALLIZED_KNIFE_TIER, 1, -2.2f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
 

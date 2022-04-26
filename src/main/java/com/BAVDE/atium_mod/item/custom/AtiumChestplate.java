@@ -4,7 +4,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
@@ -12,26 +14,25 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AtiumChestplate extends ArmorItem {
-
     public AtiumChestplate(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 
     @Override
-    public Rarity getRarity(ItemStack pStack) {
-        if (!pStack.isEnchanted() || pStack.getTag().contains("atium_mod.metal")) {
-            return this.rarity;
-        } else {
-            switch(this.rarity) {
-                case COMMON:
-                case UNCOMMON:
-                    return Rarity.RARE;
-                case RARE:
-                    return Rarity.EPIC;
-                case EPIC:
-                default:
-                    return this.rarity;
-            }
+    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, Level level, Player player) {
+        if (!level.isClientSide) {
+            this.gold(stack, level, player);
+        }
+    }
+
+    private void gold(ItemStack itemStack, Level level, Player player) {
+        if (player.getHealth() > player.getMaxHealth()) {
+            player.heal(1f);
         }
     }
 
@@ -66,7 +67,12 @@ public class AtiumChestplate extends ArmorItem {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 
-    private void gold() {
-
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            return Rarity.COMMON;
+        } else {
+            return this.rarity;
+        }
     }
 }
