@@ -66,5 +66,30 @@
   "block.atium_mod.infusing_table2": "Infusing Table2",
 
 
-  "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"
+  "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
+
+  //Tool Tips
+  //Atium helmet
+
+  //Atium Chestplate
+  "tooltip.atium_mod.atium_chestplate.tooltip.iron": "§7Iron Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.steel": "§7Steel Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.tin": "§7Tin Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.pewter": "§7Pewter Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.brass": "§7Brass Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.zinc": "§7Zinc Infused §8[SHIFT]",
+  "tooltip.atium_mod.atium_chestplate.tooltip.copper": "§7Copper §8(temp)",
+  "tooltip.atium_mod.atium_chestplate.tooltip.bronze": "§7Bronze §8(temp)",
+  "tooltip.atium_mod.atium_chestplate.tooltip.gold": "§7Gold Infused §8[SHIFT]",
+
+  "tooltip.atium_mod.atium_chestplate.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.gold.shift": "§8Will heal player 1/2 heart every XX seconds"
+  //Atium Leggings
+
+  //Atium Boots
 }
