@@ -1,5 +1,6 @@
 package com.BAVDE.atium_mod.block.entity;
 
+import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +14,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -23,6 +26,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import java.util.Optional;
 
 public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
@@ -82,7 +87,25 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         inventory.setItem(0, itemHandler.getStackInSlot(0));
         inventory.setItem(1, itemHandler.getStackInSlot(1));
+        this.checkResult();
         Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    private void checkResult() {
+        Level level = this.getLevel();
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
+
+        if (match.isPresent()) {
+            if (itemHandler.getStackInSlot(2).getItem() == new ItemStack(match.get().getResultItem().getItem(), 1).getItem()) {
+                inventory.setItem(2, ItemStack.EMPTY);
+            }
+        } else {
+            inventory.setItem(2, itemHandler.getStackInSlot(2));
+        }
     }
 
     //clears the result slot (2) when placed
