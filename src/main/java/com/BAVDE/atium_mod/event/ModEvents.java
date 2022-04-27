@@ -15,5 +15,6 @@ public class ModEvents {
         Player player = respawnEvent.getNewPlayer();
         player.setTicksFrozen(0);
         respawnEvent.getPlayer().setTicksFrozen(0);
+        respawnEvent.getOldPlayer().setTicksFrozen(0);
     }
 }
