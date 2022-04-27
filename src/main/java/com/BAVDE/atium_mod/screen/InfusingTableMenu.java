@@ -28,7 +28,6 @@ import java.util.Optional;
 
 public class InfusingTableMenu extends AbstractInfusingMenu {
     private final InfusingTableBlockEntity blockEntity;
-    private InfusingTableRecipe selectedRecipe;
     private final List<InfusingTableRecipe> recipes;
     public final Level level;
     protected final Player player;

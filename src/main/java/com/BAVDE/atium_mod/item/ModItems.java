@@ -22,7 +22,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     //Tools
     public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
-            () -> new SwordItem(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
+            () -> new AtiumSword(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_PICKAXE = ITEMS.register("atium_pickaxe",
             () -> new PickaxeItem(ModTiers.ATIUM, 1, -2.8f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
     public static final RegistryObject<Item> ATIUM_AXE = ITEMS.register("atium_axe",
