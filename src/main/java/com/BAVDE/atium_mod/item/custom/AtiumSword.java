@@ -1,6 +1,8 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -17,6 +19,10 @@ public class AtiumSword extends SwordItem {
 
         if (chance > 50) {
             pTarget.setTicksFrozen(139);
+            if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 3), pAttacker);
+            }
+            pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 2.0F, 1.0F);
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
