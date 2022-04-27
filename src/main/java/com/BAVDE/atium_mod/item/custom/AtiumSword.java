@@ -1,14 +1,10 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.level.Level;
-
-import java.util.Random;
 
 public class AtiumSword extends SwordItem {
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
@@ -34,8 +30,8 @@ public class AtiumSword extends SwordItem {
 
         //pTarget.getTicksFrozen();
 
-        pTarget.setIsInPowderSnow(true);
-        pTarget.setTicksFrozen(140);
+        pTarget.setTicksFrozen(139);
+        //pTarget.hurt(DamageSource.FREEZE, 1F);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 }
