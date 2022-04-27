@@ -8,6 +8,7 @@ import com.BAVDE.atium_mod.painting.ModPaintings;
 import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
+import com.BAVDE.atium_mod.util.ModItemProperties;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -68,6 +69,9 @@ public class AtiumMod {
 
         //mod gui
         MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU.get(), InfusingTableScreen::new);
+
+        //item properties
+        ModItemProperties.addCustomItemProperties();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
