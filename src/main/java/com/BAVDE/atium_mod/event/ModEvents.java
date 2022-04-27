@@ -12,9 +12,6 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void resetFreeze(ClientPlayerNetworkEvent.RespawnEvent respawnEvent) {
-        Player player = respawnEvent.getNewPlayer();
-        player.setTicksFrozen(0);
-        respawnEvent.getPlayer().setTicksFrozen(0);
-        respawnEvent.getOldPlayer().setTicksFrozen(0);
+        respawnEvent.getNewPlayer().setTicksFrozen(0);
     }
 }

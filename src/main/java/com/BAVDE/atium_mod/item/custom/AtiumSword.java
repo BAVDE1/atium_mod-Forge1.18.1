@@ -13,25 +13,11 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        //Level pLevel = pTarget.level;
+        int chance = pTarget.level.random.nextInt(100);
 
-        /*if (pLevel.isClientSide) {
-            Random random = pLevel.getRandom();
-            boolean flag = pTarget.xOld != pTarget.getX() || pTarget.zOld != pTarget.getZ();
-            if (flag && random.nextBoolean()) {
-                pLevel.addParticle(ParticleTypes.SNOWFLAKE, pTarget.getX(), (double) (pTarget.getY() + 1), pTarget.getZ(), (double) (Mth.randomBetween(random, -1.0F, 1.0F) * 0.083333336F), (double) 0.05F, (double) (Mth.randomBetween(random, -1.0F, 1.0F) * 0.083333336F));
-            }
+        if (chance > 50) {
+            pTarget.setTicksFrozen(139);
         }
-        pTarget.setIsInPowderSnow(true);
-        if (!pLevel.isClientSide) {
-            pTarget.setSharedFlagOnFire(false);
-        }*/
-        //pLevel.addParticle(ParticleTypes.SNOWFLAKE, pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(random, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(random, -1.0F, 1.0F) * 0.083333336F));
-
-        //pTarget.getTicksFrozen();
-
-        pTarget.setTicksFrozen(139);
-        //pTarget.hurt(DamageSource.FREEZE, 1F);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 }
