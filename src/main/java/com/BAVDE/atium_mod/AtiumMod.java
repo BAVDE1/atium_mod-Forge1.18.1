@@ -9,6 +9,7 @@ import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
 import com.BAVDE.atium_mod.util.ModItemProperties;
+import com.BAVDE.atium_mod.world.feature.treedecorators.ModTreeDecoratorType;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -45,6 +46,8 @@ public class AtiumMod {
         ModMenuTypes.register(eventBus);
 
         ModRecipes.register(eventBus);
+
+        ModTreeDecoratorType.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);

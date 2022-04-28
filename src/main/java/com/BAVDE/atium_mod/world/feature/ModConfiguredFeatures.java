@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePla
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -40,7 +41,7 @@ public class ModConfiguredFeatures {
                             .add(ModBlocks.CRYSTALLINE_LEAVES.get().defaultBlockState(), 9)
                             .add(ModBlocks.BUDDING_CRYSTALLINE_LEAVES.get().defaultBlockState().setValue(GROWTH, 10).setValue(GROWN, true), 1)),
                     new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(4), 4),
-                    new TwoLayersFeatureSize(0, 0, 0)).build());
+                    new TwoLayersFeatureSize(0, 0, 0)).decorators(List.of(new LeaveVineDecorator())).build());
 
     //Crystalline sapling
     public static final Holder<PlacedFeature> CRYSTALLINE_CHECKED = PlacementUtils.register("crystalline_checked", CRYSTALLINE_TREE,
