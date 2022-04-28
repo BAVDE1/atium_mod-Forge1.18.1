@@ -28,15 +28,9 @@ public class AtiumOre extends Block {
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRandom) {
         super.animateTick(pState, pLevel, pPos, pRandom);
-        float chance = 0.5f;
+        float chance = 0.4f;
         if (chance < pRandom.nextFloat()) {
-            pLevel.addParticle(ParticleTypes.EXPLOSION_EMITTER, pPos.getX(), pPos.getY(), pPos.getZ(), 1.0D, 0.0D, 0.0D);
-            pLevel.addParticle(ParticleTypes.EXPLOSION, pPos.getX(), pPos.getY(), pPos.getZ(), 1.0D, 0.0D, 0.0D);
-
-            /*for (int i = 0; i < 10; i++) {
-                pLevel.addParticle(ParticleTypes.ENCHANTED_HIT, pPos.getX(), pPos.getY(), pPos.getZ(),
-                        1d, 0d + pRandom.nextDouble(0.05d), 1d);
-            }*/
+            //particle test
         }
     }
 }

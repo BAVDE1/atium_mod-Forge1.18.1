@@ -5,11 +5,16 @@ import com.BAVDE.atium_mod.event.loot.DrownedDropLeather;
 import com.BAVDE.atium_mod.event.loot.HuskDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieVillagerDropLeather;
+import com.BAVDE.atium_mod.particle.ModParticles;
+import com.BAVDE.atium_mod.particle.custom.ModSnowflakeParticle;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,5 +41,11 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerRecipeTypes(final RegistryEvent.Register<RecipeSerializer<?>> event){
         Registry.register(Registry.RECIPE_TYPE, InfusingTableRecipe.Type.ID, InfusingTableRecipe.Type.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
+        Minecraft.getInstance().particleEngine.register(ModParticles.SNOWFLAKE_PARTICLES.get(),
+                ModSnowflakeParticle.Provider::new);
     }
 }
