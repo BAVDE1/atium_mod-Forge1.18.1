@@ -22,15 +22,6 @@ public class ModEvents {
     public final Random random = new Random();
 
     @SubscribeEvent
-    public void attackParticles(AttackEntityEvent attackEntityEvent) {
-        ItemStack itemStack = attackEntityEvent.getPlayer().getMainHandItem();
-
-        if (itemStack.getItem() == ModItems.ATIUM_SWORD.get()) {
-
-        }
-    }
-
-    @SubscribeEvent
     public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent respawnEvent) {
         respawnEvent.getNewPlayer().setTicksFrozen(0);
     }

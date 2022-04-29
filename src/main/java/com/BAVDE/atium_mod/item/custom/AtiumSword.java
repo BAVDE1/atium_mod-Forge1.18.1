@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AtiumSword extends SwordItem {
     public Level level;
-    public ClientLevel clientLevel;
+    public Minecraft minecraft;
 
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
@@ -28,17 +28,24 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        //int chance = pTarget.level.random.nextInt(100);
+        int chance = pTarget.level.random.nextInt(100);
+        this.minecraft = Minecraft.getInstance();
+        this.level = minecraft.level;
 
-        //if (chance > 50) {
-        pTarget.setTicksFrozen(139);
-        if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-            pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 3), pAttacker);
+        if (chance > 10) {
+            pTarget.setTicksFrozen(139);
+            if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 3), pAttacker);
+            }
+            pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 3.0F, 1.0F);
+            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
+            //particle(pTarget);
         }
-        pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 3.0F, 1.0F);
-
-        this.level.addParticle(ModParticles.SNOWFLAKE_PARTICLES.get(), pTarget.getX(), pTarget.getY(), pTarget.getZ(), 1f, 1f, 1f);
-        //}
         return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void particle(LivingEntity pTarget) {
+        this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
     }
 }
