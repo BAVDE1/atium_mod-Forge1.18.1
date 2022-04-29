@@ -1,8 +1,10 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -11,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
 
 public class AtiumSword extends SwordItem {
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
@@ -22,11 +25,14 @@ public class AtiumSword extends SwordItem {
         //int chance = pTarget.level.random.nextInt(100);
 
         //if (chance > 50) {
-            pTarget.setTicksFrozen(139);
-            if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 3), pAttacker);
-            }
-            pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 4.0F, 1.0F);
+        pTarget.setTicksFrozen(139);
+        if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+            pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 3), pAttacker);
+        }
+        pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 3.0F, 1.0F);
+
+        pTarget.getLevel().addParticle(ModParticles.SNOWFLAKE_PARTICLES.get(), pTarget.getX(), pTarget.getY(), pTarget.getZ(), 1f, 1f, 1f);
+
         //}
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
