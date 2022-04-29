@@ -26,7 +26,7 @@ public class ModSnowflakeParticle extends TextureSheetParticle {
 
         this.hasPhysics = true;
 
-        this.lifetime = 80;
+        this.lifetime = 60 + this.random.nextInt(20);
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;
@@ -43,12 +43,11 @@ public class ModSnowflakeParticle extends TextureSheetParticle {
 
     public void tick() {
         super.tick();
-        fadeOut();
         this.setSpriteFromAge(this.sprites);
     }
 
     private void fadeOut() {
-        this.alpha = (-(1/(float)lifetime) * age + 1);
+        this.alpha = (-(1 / (float) lifetime) * age + 1);
     }
 
 
@@ -62,24 +61,6 @@ public class ModSnowflakeParticle extends TextureSheetParticle {
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double XSpeed, double YSpeed, double ZSpeed) {
             return new ModSnowflakeParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static class Starter extends NoRenderParticle {
-        private final ParticleEngine engine;
-
-        public Starter(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, ParticleEngine pEngine, @Nullable CompoundTag pTag) {
-            super(pLevel, pX, pY, pZ);
-            this.xd = pXSpeed;
-            this.yd = pYSpeed;
-            this.zd = pZSpeed;
-            this.engine = pEngine;
-            this.lifetime = 8;
-        }
-
-        public void tick() {
-
         }
     }
 }

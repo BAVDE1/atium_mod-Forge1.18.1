@@ -5,6 +5,7 @@ import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import com.BAVDE.atium_mod.event.ModEventBusEvents;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
+import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
@@ -47,7 +48,9 @@ public class AtiumMod {
 
         ModRecipes.register(eventBus);
 
-        ModTreeDecoratorType.register(eventBus);
+        //ModTreeDecoratorType.register(eventBus);
+
+        ModParticles.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);

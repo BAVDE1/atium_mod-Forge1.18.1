@@ -14,20 +14,15 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class ModTreeDecoratorType extends TreeDecoratorType {
+public class ModTreeDecoratorType {
     private static final DeferredRegister<TreeDecoratorType<?>> MOD_TREE_DECORATOR =
             DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, AtiumMod.MOD_ID);
 
     public static final TreeDecoratorType<TreeDecorator> HANGING_LEAVES = registerDecoration("hanging_leaves", CrystallineTreeDecorator.CODEC);
 
-    public ModTreeDecoratorType(Codec codec) {
-        super(codec);
-    }
-
     private static <P extends TreeDecorator> TreeDecoratorType<P> registerDecoration(String pKey, Codec<P> pCodec) {
         return Registry.register(Registry.TREE_DECORATOR_TYPES, pKey, new TreeDecoratorType<>(pCodec));
     }
-
     public static void register(IEventBus eventBus) {
         MOD_TREE_DECORATOR.register(eventBus);
     }
