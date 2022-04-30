@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
-public class CrystallineTreeDecorator extends TreeDecorator {
+public class CrystallineTreeDecorator extends TreeDecorator{
+
     @Override
     protected TreeDecoratorType<?> type() {
         return null;

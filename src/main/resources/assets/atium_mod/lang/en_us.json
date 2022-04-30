@@ -79,7 +79,13 @@
   "tooltip.atium_mod.tooltip.bronze": "§7Bronze §8(temp)",
   "tooltip.atium_mod.tooltip.gold": "§7Gold Infused §8[SHIFT]",
   //Atium helmet
-
+  "tooltip.atium_mod.atium_helmet.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.gold.shift": "§8Desc",
   //Atium Chestplate
   "tooltip.atium_mod.atium_chestplate.tooltip.iron.shift": "§8Desc",
   "tooltip.atium_mod.atium_chestplate.tooltip.steel.shift": "§8Desc",
@@ -87,8 +93,61 @@
   "tooltip.atium_mod.atium_chestplate.tooltip.pewter.shift": "§8Desc",
   "tooltip.atium_mod.atium_chestplate.tooltip.brass.shift": "§8Desc",
   "tooltip.atium_mod.atium_chestplate.tooltip.zinc.shift": "§8Desc",
-  "tooltip.atium_mod.atium_chestplate.tooltip.gold.shift": "§8Will heal player 1/2 heart every XX seconds"
+  "tooltip.atium_mod.atium_chestplate.tooltip.gold.shift": "§8Will heal player 1/2 heart every XX seconds",
   //Atium Leggings
-
+  "tooltip.atium_mod.atium_leggings.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_leggings.tooltip.gold.shift": "§8Desc",
   //Atium Boots
+  "tooltip.atium_mod.atium_boots.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_boots.tooltip.gold.shift": "§8Desc",
+  //Atium Sword
+  "tooltip.atium_mod.atium_sword.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.zinc.shift": "§810% chance to completely freeze & slow enemies",
+  "tooltip.atium_mod.atium_sword.tooltip.gold.shift": "§8Desc",
+  //Atium Pickaxe
+  "tooltip.atium_mod.atium_pickaxe.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_pickaxe.tooltip.gold.shift": "§8Desc",
+  //Atium Axe
+  "tooltip.atium_mod.atium_axe.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_axe.tooltip.gold.shift": "§8Desc",
+  //Atium Shovel
+  "tooltip.atium_mod.atium_shovel.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_shovel.tooltip.gold.shift": "§8Desc",
+  //Atium Hoe
+  "tooltip.atium_mod.atium_hoe.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_hoe.tooltip.gold.shift": "§8Desc"
 }

@@ -2,33 +2,19 @@ package com.BAVDE.atium_mod.item.custom;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AtiumChestplate extends ArmorItem {
-    public AtiumChestplate(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
-        super(pMaterial, pSlot, pProperties);
-    }
-
-    @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
-        this.gold(level, player);
-    }
-
-    private void gold(Level level, Player player) {
-        if (player.getHealth() < player.getMaxHealth()) {
-            player.heal(1f);
-            player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.5f, 0.8F + level.random.nextFloat() * 1.2F);
-        }
+public class AtiumHoe extends PickaxeItem {
+    public AtiumHoe(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+        super(pTier, (int) pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
     @Override
@@ -37,13 +23,13 @@ public class AtiumChestplate extends ArmorItem {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
             if (Screen.hasShiftDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.iron.shift"));
-                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.steel.shift"));
-                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.tin.shift"));
-                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.pewter.shift"));
-                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.brass.shift"));
-                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.zinc.shift"));
-                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_chestplate.tooltip.gold.shift"));
+                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.iron.shift"));
+                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.steel.shift"));
+                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.tin.shift"));
+                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.pewter.shift"));
+                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.brass.shift"));
+                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.zinc.shift"));
+                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_hoe.tooltip.gold.shift"));
                 }
             } else {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
