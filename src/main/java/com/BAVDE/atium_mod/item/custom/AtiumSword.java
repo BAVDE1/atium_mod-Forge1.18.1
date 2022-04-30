@@ -30,22 +30,16 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        int chance = pTarget.level.random.nextInt(100);
+        var chance = Math.random();
 
-        if (chance < 10) {
+        if (chance < 0.1) {
             pTarget.setTicksFrozen(139);
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 3), pAttacker);
             }
             pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 3.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
-            //particle(pTarget);
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void particle(LivingEntity pTarget) {
-        this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
     }
 }
