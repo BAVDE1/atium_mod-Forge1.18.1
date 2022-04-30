@@ -4,6 +4,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -19,26 +20,20 @@ public class AtiumChestplate extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
-        super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
-    }
-
-    @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (!level.isClientSide) {
-            this.gold(stack, level, player);
-        }
+        this.gold(level, player);
     }
 
-    private void gold(ItemStack itemStack, Level level, Player player) {
-        if (player.getHealth() > player.getMaxHealth()) {
+    private void gold(Level level, Player player) {
+        if (player.getHealth() < player.getMaxHealth()) {
             player.heal(1f);
+            player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.5f, 0.8F + level.random.nextFloat() * 1.2F);
         }
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if(pStack.getTag().contains("atium_mod.metal")) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
             if (Screen.hasShiftDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
