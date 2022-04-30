@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CSC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "atium_mod:crystallized_shard"
+    },
+    "S": {
+      "item": "minecraft:oak_sapling"
+    }
+  },
+  "result": {
+    "item": "atium_mod:crystalline_sapling"
+  }
+}

@@ -28,7 +28,7 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "atium_mod:atium_ore_overgrown"
+            "Name": "atium_mod:atium_ore"
           }
         }
       ]

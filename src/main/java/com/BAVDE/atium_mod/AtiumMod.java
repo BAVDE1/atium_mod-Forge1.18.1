@@ -1,12 +1,22 @@
 package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
+import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import com.BAVDE.atium_mod.event.ModEventBusEvents;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
+import com.BAVDE.atium_mod.particle.ModParticles;
+import com.BAVDE.atium_mod.recipe.ModRecipes;
+import com.BAVDE.atium_mod.screen.InfusingTableScreen;
+import com.BAVDE.atium_mod.screen.ModMenuTypes;
+import com.BAVDE.atium_mod.util.ModItemProperties;
+import com.BAVDE.atium_mod.world.feature.treedecorators.ModTreeDecoratorType;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -27,11 +37,20 @@ public class AtiumMod {
     public AtiumMod() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        AMStructures.DEFERRED_REGISTRY_STRUCTURE.register(eventBus);
-
         ModItems.register(eventBus);
-        ModBlocks.register(eventBus);
+
         ModPaintings.register(eventBus);
+
+        ModBlocks.register(eventBus);
+        ModBlockEntities.register(eventBus);
+
+        ModMenuTypes.register(eventBus);
+
+        ModRecipes.register(eventBus);
+
+        //ModTreeDecoratorType.register(eventBus);
+
+        ModParticles.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);
@@ -41,6 +60,7 @@ public class AtiumMod {
     }
 
     public void setupClient(final FMLClientSetupEvent event) {
+        //cutout textures
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMALL_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.MEDIUM_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.LARGE_CRYSTALLIZED_ATIUM_BUD.get(), RenderType.cutout());
@@ -52,11 +72,17 @@ public class AtiumMod {
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_TRAPDOOR.get(), RenderType.cutout());
+
+        //mod gui
+        MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU.get(), InfusingTableScreen::new);
+
+        //item properties
+        ModItemProperties.addCustomItemProperties();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        LOGGER.info("Hi");
+        LOGGER.info("Pure Atium >> {}", ModItems.PURE_ATIUM.get().getRegistryName());
     }
 }

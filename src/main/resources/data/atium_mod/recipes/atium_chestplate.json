@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "atium_mod:pure_atium"
+    }
+  },
+  "result": {
+    "item": "atium_mod:atium_chestplate"
+  }
+}

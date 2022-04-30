@@ -2,20 +2,25 @@ package com.BAVDE.atium_mod.block;
 
 import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.block.custom.*;
-//import com.BAVDE.atium_mod.block.custom.AtiumOreOvergrownRecharging;
 import com.BAVDE.atium_mod.item.ModCreativeModeTab;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.world.feature.tree.CrystallineTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,10 +39,6 @@ public class ModBlocks {
             () -> new AtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> EMPTY_ATIUM_ORE = registerBlock("empty_atium_ore",
             () -> new EmptyAtiumOre(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-    public static final RegistryObject<Block> ATIUM_ORE_OVERGROWN = registerBlock("atium_ore_overgrown",
-            () -> new AtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(5f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
-    public static final RegistryObject<Block> EMPTY_ATIUM_ORE_OVERGROWN = registerBlock("empty_atium_ore_overgrown",
-            () -> new EmptyAtiumOreOvergrown(BlockBehaviour.Properties.of(Material.STONE).strength(18f).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
     //Crystallized Atium
     public static final RegistryObject<Block> CRYSTALLIZED_ATIUM_BLOCK = registerBlock("crystallized_atium_block",
@@ -64,19 +65,9 @@ public class ModBlocks {
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_LEAVES = registerBlock("crystalline_leaves",
             () -> new CrystallineLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 60;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 30;
-                }
-            }, ModCreativeModeTab.ATIUM_TAB);
+                @Override public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return true;}
+                @Override public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 60;}
+                @Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 30;}}, ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> BUDDING_CRYSTALLINE_LEAVES = registerBlock("budding_crystalline_leaves",
             () -> new BuddingCrystallineLeaves(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).lightLevel((state) -> state.getValue(BuddingCrystallineLeaves.GROWN) ? 5 : 0)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_SAPLING = registerBlock("crystalline_sapling",
@@ -85,38 +76,14 @@ public class ModBlocks {
     //Crystalline wood building blocks
     public static final RegistryObject<Block> CRYSTALLINE_PLANKS = registerBlock("crystalline_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 20;
-                }
-
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 5;
-                }
-            }, ModCreativeModeTab.ATIUM_TAB);
+                @Override public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return true;}
+                @Override public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 20;}
+                @Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 5;}}, ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_STAIRS = registerBlock("crystalline_stairs",
             () -> new StairBlock(() -> ModBlocks.CRYSTALLINE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return true;
-                }
-
-                @Override
-                public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 20;
-                }
-
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-                    return 5;
-                }
-            }, ModCreativeModeTab.ATIUM_TAB);
+                @Override public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return true;}
+                @Override public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 20;}
+                @Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 5;}}, ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_SLAB = registerBlock("crystalline_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)), ModCreativeModeTab.ATIUM_TAB);
     public static final RegistryObject<Block> CRYSTALLINE_FENCE = registerBlock("crystalline_fence",
@@ -133,6 +100,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYSTALLINE_TRAPDOOR = registerBlock("crystalline_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion()), ModCreativeModeTab.ATIUM_TAB);
 
+    public static final RegistryObject<Block> INFUSING_TABLE = registerBlock("infusing_table",
+            () -> new InfusingTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops()), ModCreativeModeTab.ATIUM_TAB);
 
 
 

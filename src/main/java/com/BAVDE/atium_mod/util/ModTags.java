@@ -32,6 +32,9 @@ public class ModTags {
         public static final TagKey<Item> HAMMER
                 = tag("hammer");
 
+        public static final TagKey<Item> INFUSING_METALS
+                = tag("infusing_metals");
+
 
 
         //tag stuff

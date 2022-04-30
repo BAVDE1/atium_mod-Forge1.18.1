@@ -7,16 +7,34 @@
   "item.atium_mod.crystallized_knife": "Crystallized Knife",
   "item.atium_mod.wood_knife": "Wooden Knife",
 
+  "item.atium_mod.atium_sword": "Atium Sword",
+  "item.atium_mod.atium_pickaxe": "Atium Pickaxe",
+  "item.atium_mod.atium_axe": "Atium Axe",
+  "item.atium_mod.atium_shovel": "Atium Shovel",
+  "item.atium_mod.atium_hoe": "Atium Hoe",
+
+  "item.atium_mod.atium_helmet": "Atium Helmet",
+  "item.atium_mod.atium_chestplate": "Atium Chestplate",
+  "item.atium_mod.infused_atium_chestplate": "Infused Atium Chestplate",
+  "item.atium_mod.atium_leggings": "Atium Leggings",
+  "item.atium_mod.atium_boots": "Atium Boots",
+
   "item.atium_mod.pure_atium": "Pure Atium",
   "item.atium_mod.atium_geode": "Atium Geode",
   "item.atium_mod.atium_bead": "Atium Bead",
   "item.atium_mod.crystallized_shard": "Crystallized Shard",
 
+  "item.atium_mod.steel": "Steel",
+  "item.atium_mod.tin": "Tin",
+  "item.atium_mod.pewter": "Pewter",
+  "item.atium_mod.brass": "Brass",
+  "item.atium_mod.zinc": "Zinc",
+  "item.atium_mod.bronze": "Bronze",
+
+
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",
   "block.atium_mod.empty_atium_ore": "Empty Atium Ore",
-  "block.atium_mod.atium_ore_overgrown": "Overgrown Atium Ore",
-  "block.atium_mod.empty_atium_ore_overgrown": "Empty Overgrown Atium Ore",
 
   "block.atium_mod.crystallized_atium_block": "Crystallized Atium Block",
   "block.atium_mod.budding_crystallized_atium_block": "Budding Crystallized Atium",
@@ -44,6 +62,33 @@
   "block.atium_mod.crystalline_door": "Crystalline Door",
   "block.atium_mod.crystalline_trapdoor": "Crystalline Trapdoor",
 
+  "block.atium_mod.infusing_table": "Infusing Table",
+  "block.atium_mod.infusing_table2": "Infusing Table2",
 
-  "structure.atium_mod.atium_geode_structure": "Atium Geode Structure"
+
+  "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
+
+  //Tool Tips
+  "tooltip.atium_mod.tooltip.iron": "§7Iron Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.steel": "§7Steel Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.tin": "§7Tin Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.pewter": "§7Pewter Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.brass": "§7Brass Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.zinc": "§7Zinc Infused §8[SHIFT]",
+  "tooltip.atium_mod.tooltip.copper": "§7Copper §8(temp)",
+  "tooltip.atium_mod.tooltip.bronze": "§7Bronze §8(temp)",
+  "tooltip.atium_mod.tooltip.gold": "§7Gold Infused §8[SHIFT]",
+  //Atium helmet
+
+  //Atium Chestplate
+  "tooltip.atium_mod.atium_chestplate.tooltip.iron.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.steel.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.tin.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.pewter.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.brass.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.zinc.shift": "§8Desc",
+  "tooltip.atium_mod.atium_chestplate.tooltip.gold.shift": "§8Will heal player 1/2 heart every XX seconds"
+  //Atium Leggings
+
+  //Atium Boots
 }

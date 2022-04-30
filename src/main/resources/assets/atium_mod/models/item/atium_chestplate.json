@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "atium_mod:item/atium_chestplate"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "metal": 9
+      },
+      "model": "atium_mod:item/atium_chestplate_gold"
+    }
+  ]
+}

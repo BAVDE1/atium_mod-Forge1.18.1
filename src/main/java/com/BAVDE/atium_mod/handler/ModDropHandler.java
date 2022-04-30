@@ -29,10 +29,3 @@ public final class ModDropHandler {
         }
     }
 }
-
-
-/*if (attacker instanceof Player player) {
-                var item = player.getMainHandItem().getItem();
-                if (item == ModItems.WOOD_KNIFE.get()){*/
-//}
-//}
