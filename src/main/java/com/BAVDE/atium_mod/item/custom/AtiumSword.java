@@ -37,9 +37,18 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = pStack.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+                case 6 -> zinc(pTarget, pAttacker);
+            }
+        }
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
 
-        if (chance < 0.1) {
+    private void zinc(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 0.1) { //10%
             pTarget.setTicksFrozen(139);
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 3), pAttacker);
@@ -47,22 +56,21 @@ public class AtiumSword extends SwordItem {
             pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
         }
-        return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
-            if (Screen.hasShiftDown()) {
+            if (Screen.hasAltDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.iron.shift"));
-                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.steel.shift"));
-                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.tin.shift"));
-                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.pewter.shift"));
-                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.brass.shift"));
-                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.zinc.shift"));
-                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.gold.shift"));
+                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.iron.alt"));
+                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.steel.alt"));
+                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.tin.alt"));
+                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.pewter.alt"));
+                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.brass.alt"));
+                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.zinc.alt"));
+                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.gold.alt"));
                 }
             } else {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold

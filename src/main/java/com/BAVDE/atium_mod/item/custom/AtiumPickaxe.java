@@ -21,15 +21,15 @@ public class AtiumPickaxe extends PickaxeItem {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
-            if (Screen.hasShiftDown()) {
+            if (Screen.hasAltDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.iron.shift"));
-                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.steel.shift"));
-                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.tin.shift"));
-                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.pewter.shift"));
-                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.brass.shift"));
-                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.zinc.shift"));
-                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.gold.shift"));
+                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.iron.alt"));
+                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.steel.alt"));
+                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.tin.alt"));
+                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.pewter.alt"));
+                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.brass.alt"));
+                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.zinc.alt"));
+                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_pickaxe.tooltip.gold.alt"));
                 }
             } else {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
