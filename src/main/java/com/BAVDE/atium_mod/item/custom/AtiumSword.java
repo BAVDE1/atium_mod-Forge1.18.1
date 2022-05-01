@@ -13,6 +13,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -24,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class AtiumSword extends SwordItem {
     public Level level;
@@ -32,18 +35,35 @@ public class AtiumSword extends SwordItem {
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         this.minecraft = Minecraft.getInstance();
-        this.level = minecraft.level;
+        this.level = Minecraft.getInstance().level; //this is null
     }
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+            switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 3 -> tin(pTarget, pAttacker);
                 case 6 -> zinc(pTarget, pAttacker);
             }
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 1) { //10%
+            if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
+                pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
+            }
+            if (!pTarget.hasEffect(MobEffects.CONFUSION)) {
+                pTarget.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 4));
+            }
+            pTarget.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+            //pTarget.getBrain().setMemory(MemoryModuleType.DUMMY, Optional.empty());
+            pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 4.0F, 1.0F);
+            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.BLINDNESS_PARTICLES.get());
+        }
     }
 
     private void zinc(LivingEntity pTarget, LivingEntity pAttacker) {

@@ -15,6 +15,11 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> SNOWFLAKE_PARTICLES =
             PARTICLE_TYPES.register("snowflake_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BLINDNESS_PARTICLES =
+            PARTICLE_TYPES.register("blindness_particles", () -> new SimpleParticleType(true));
+
+    //register particles in ModEventBusEvents
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

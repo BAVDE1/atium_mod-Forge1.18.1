@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.util;
 
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.item.ModTiers;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -16,7 +17,16 @@ import net.minecraft.world.item.ItemStack;
 public class ModItemProperties {
     public static void addCustomItemProperties() {
 
+        InfusableItem(ModItems.ATIUM_HELMET.get());
         InfusableItem(ModItems.ATIUM_CHESTPLATE.get());
+        InfusableItem(ModItems.ATIUM_LEGGINGS.get());
+        InfusableItem(ModItems.ATIUM_BOOTS.get());
+
+        InfusableItem(ModItems.ATIUM_SWORD.get());
+        InfusableItem(ModItems.ATIUM_PICKAXE.get());
+        InfusableItem(ModItems.ATIUM_AXE.get());
+        InfusableItem(ModItems.ATIUM_SHOVEL.get());
+        InfusableItem(ModItems.ATIUM_HOE.get());
     }
 
     static void InfusableItem(Item item) {
@@ -25,7 +35,6 @@ public class ModItemProperties {
             int metal = 0;
 
             if (entity != null) {
-                //boolean flag = livingEntity instanceof Player && ((Player)livingEntity).isLocalPlayer();
                 metal = itemStack.getTag().getInt("atium_mod.metal");
             }
             return metal;

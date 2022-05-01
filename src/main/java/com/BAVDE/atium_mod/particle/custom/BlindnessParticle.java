@@ -3,16 +3,13 @@ package com.BAVDE.atium_mod.particle.custom;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-
-public class ModSnowflakeParticle extends TextureSheetParticle {
+public class BlindnessParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected ModSnowflakeParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected BlindnessParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
         this.sprites = spriteSet;
 
@@ -22,11 +19,11 @@ public class ModSnowflakeParticle extends TextureSheetParticle {
 
         this.quadSize *= 0.85F;
         this.friction = 0.5F;
-        this.gravity = 0.5f;
+        this.gravity = 0.0f;
 
         this.hasPhysics = true;
 
-        this.lifetime = 70 + this.random.nextInt(20);
+        this.lifetime = 40 + this.random.nextInt(20);
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;
@@ -55,7 +52,8 @@ public class ModSnowflakeParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double XSpeed, double YSpeed, double ZSpeed) {
-            return new ModSnowflakeParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
+            return new BlindnessParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
+            //dont forget to change ^
         }
     }
 }

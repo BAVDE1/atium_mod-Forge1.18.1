@@ -36,7 +36,7 @@ public class AtiumChestplate extends ArmorItem {
             player.getCooldowns().addCooldown(stack.getItem(), 300);
             player.heal(1f);
             player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1.5F + level.random.nextFloat() * 2.0F);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 8; i++) {
                 level.addParticle(ParticleTypes.HAPPY_VILLAGER, player.getRandomX(1.0D), player.getRandomY() + 0.5D, player.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
             }
         }
