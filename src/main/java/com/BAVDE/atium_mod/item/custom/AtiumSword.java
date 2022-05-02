@@ -1,5 +1,6 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.effect.ModMobEffects;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -56,8 +57,8 @@ public class AtiumSword extends SwordItem {
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
             }
-            if (!pTarget.hasEffect(MobEffects.CONFUSION)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 4));
+            if (!pTarget.hasEffect(ModMobEffects.DISORIENTED.get())) {
+                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100));
             }
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.BLINDNESS_PARTICLES.get());

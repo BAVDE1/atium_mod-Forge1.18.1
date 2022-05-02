@@ -12,8 +12,8 @@ public class DisorientedEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         var chance = Math.random();
-        var large = Math.random() / 4;
-        var small = Math.random() / 8;
+        var large = Math.random() / 3;
+        var small = Math.random() / 5;
         if (chance < 0.25) { //push X
             if (chance < 0.125) {
                 pLivingEntity.push(large, 0, 0);
@@ -21,7 +21,7 @@ public class DisorientedEffect extends MobEffect {
                 pLivingEntity.push(-large, 0, 0);
             }
         } else if (chance < 0.5) { //push Z
-            if (chance < 0.375) {
+            if (chance < 0.275) {
                 pLivingEntity.push(0, 0, large);
             } else {
                 pLivingEntity.push(0, 0, -large);
@@ -44,6 +44,11 @@ public class DisorientedEffect extends MobEffect {
 
     @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
-        return true;
+        int i = 4 >> pAmplifier;
+        if (i > 0) {
+            return pDuration % i == 0;
+        } else {
+            return true;
+        }
     }
 }
