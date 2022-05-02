@@ -22,15 +22,15 @@ public class AtiumBoots extends ArmorItem {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
-            if (Screen.hasAltDown()) {
+            if (Screen.hasControlDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.iron.alt"));
-                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.steel.alt"));
-                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.tin.alt"));
-                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.pewter.alt"));
-                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.brass.alt"));
-                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.zinc.alt"));
-                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.gold.alt"));
+                    case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.iron.ctrl"));
+                    case 2 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.steel.ctrl"));
+                    case 3 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.tin.ctrl"));
+                    case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.pewter.ctrl"));
+                    case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.brass.ctrl"));
+                    case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.zinc.ctrl"));
+                    case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_boots.tooltip.gold.ctrl"));
                 }
             } else {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
