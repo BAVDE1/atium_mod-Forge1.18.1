@@ -44,11 +44,20 @@ public class AtiumSword extends SwordItem {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 2 -> steel(pTarget, pAttacker);
                 case 3 -> tin(pTarget, pAttacker);
                 case 6 -> zinc(pTarget, pAttacker);
             }
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 1) { //10%
+            pTarget.knockback(10, pTarget.getX(), pTarget.getZ());
+            pTarget.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 4.0f, 1.0F);
+        }
     }
 
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {

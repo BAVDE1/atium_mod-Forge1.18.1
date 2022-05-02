@@ -18,6 +18,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> BLINDNESS_PARTICLES =
             PARTICLE_TYPES.register("blindness_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> DISORIENTED_PARTICLES =
+            PARTICLE_TYPES.register("disoriented_particles", () -> new SimpleParticleType(true));
+
     //register particles in ModEventBusEvents
 
     public static void register(IEventBus eventBus) {

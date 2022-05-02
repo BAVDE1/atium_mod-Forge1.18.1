@@ -7,6 +7,7 @@ import com.BAVDE.atium_mod.event.loot.ZombieDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieVillagerDropLeather;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.particle.custom.BlindnessParticle;
+import com.BAVDE.atium_mod.particle.custom.DisorientedParticle;
 import com.BAVDE.atium_mod.particle.custom.ModSnowflakeParticle;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import net.minecraft.client.Minecraft;
@@ -50,8 +51,9 @@ public class ModEventBusEvents {
         //register particles here
         Minecraft.getInstance().particleEngine.register(ModParticles.SNOWFLAKE_PARTICLES.get(),
                 ModSnowflakeParticle.Provider::new);
-
         Minecraft.getInstance().particleEngine.register(ModParticles.BLINDNESS_PARTICLES.get(),
                 BlindnessParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.DISORIENTED_PARTICLES.get(),
+                DisorientedParticle.Provider::new);
     }
 }
