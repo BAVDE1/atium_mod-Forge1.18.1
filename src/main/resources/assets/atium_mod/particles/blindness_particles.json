@@ -1,10 +1,12 @@
 {
   "textures": [
     "atium_mod:blindness_0",
+    "atium_mod:blindness_0",
+    "atium_mod:blindness_0",
     "atium_mod:blindness_1",
     "atium_mod:blindness_2",
     "atium_mod:blindness_3",
     "atium_mod:blindness_4",
-    "atium_mod:blindness_5"
+    "atium_mod:blindness_4"
   ]
 }

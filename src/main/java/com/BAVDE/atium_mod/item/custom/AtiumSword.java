@@ -59,8 +59,6 @@ public class AtiumSword extends SwordItem {
             if (!pTarget.hasEffect(MobEffects.CONFUSION)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 4));
             }
-            pTarget.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
-            //pTarget.getBrain().setMemory(MemoryModuleType.DUMMY, Optional.empty());
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.BLINDNESS_PARTICLES.get());
         }

@@ -2,7 +2,7 @@ package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
-import com.BAVDE.atium_mod.event.ModEventBusEvents;
+import com.BAVDE.atium_mod.effect.ModMobEffects;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
 import com.BAVDE.atium_mod.particle.ModParticles;
@@ -10,13 +10,10 @@ import com.BAVDE.atium_mod.recipe.ModRecipes;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
 import com.BAVDE.atium_mod.util.ModItemProperties;
-import com.BAVDE.atium_mod.world.feature.treedecorators.ModTreeDecoratorType;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -51,6 +48,8 @@ public class AtiumMod {
         //ModTreeDecoratorType.register(eventBus);
 
         ModParticles.register(eventBus);
+
+        ModMobEffects.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);
