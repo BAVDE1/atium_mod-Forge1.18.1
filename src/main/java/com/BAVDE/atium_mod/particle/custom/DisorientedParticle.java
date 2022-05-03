@@ -23,7 +23,7 @@ public class DisorientedParticle extends TextureSheetParticle {
 
         this.hasPhysics = true;
 
-        this.lifetime = 70 + this.random.nextInt(20);
+        this.lifetime = 60 + this.random.nextInt(20);
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;

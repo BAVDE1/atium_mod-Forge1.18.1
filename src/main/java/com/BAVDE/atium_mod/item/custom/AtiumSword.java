@@ -55,14 +55,20 @@ public class AtiumSword extends SwordItem {
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
         if (chance < 1) { //10%
-            pTarget.knockback(10, pTarget.getX(), pTarget.getZ());
+            double d1 = pTarget.getX() - pAttacker.getX();
+
+            double d0;
+            for(d0 = pTarget.getZ() - pAttacker.getZ(); d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D) {
+                d1 = (Math.random() - Math.random()) * 0.01D;
+            }
+            pTarget.knockback(5, d1, d0);
             pTarget.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 4.0f, 1.0F);
         }
     }
 
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (chance < 1) { //10%
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
             }
@@ -70,7 +76,7 @@ public class AtiumSword extends SwordItem {
                 pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100));
             }
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 4.0F, 1.0F);
-            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.BLINDNESS_PARTICLES.get());
+            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.DISORIENTED_PARTICLES.get());
         }
     }
 
