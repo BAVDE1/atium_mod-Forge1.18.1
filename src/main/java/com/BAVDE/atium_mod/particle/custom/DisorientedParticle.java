@@ -17,7 +17,7 @@ public class DisorientedParticle extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
 
-        this.quadSize *= 0.85F;
+        this.quadSize *= 0.75F;
         this.friction = 0.5F;
         this.gravity = 0.0f;
 
@@ -41,6 +41,11 @@ public class DisorientedParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
+        fadeOut();
+    }
+
+    private void fadeOut() {
+        this.alpha = (-(1 / (float) lifetime) * age + 1);
     }
 
     @OnlyIn(Dist.CLIENT)
