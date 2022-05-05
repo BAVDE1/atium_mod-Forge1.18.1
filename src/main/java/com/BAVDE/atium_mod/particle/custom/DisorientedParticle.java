@@ -45,7 +45,7 @@ public class DisorientedParticle extends TextureSheetParticle {
     }
 
     private void fadeOut() {
-        //fades out in last 30 tick of particles' life
+        //fades out in last 30 tick of particles life
         if (this.age >= this.lifetime - 30 && this.alpha > 0.01F) {
             this.alpha -= 0.033F;
         }
