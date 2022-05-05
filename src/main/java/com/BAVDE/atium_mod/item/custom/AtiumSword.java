@@ -7,6 +7,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -14,19 +15,24 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +43,7 @@ public class AtiumSword extends SwordItem {
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         this.minecraft = Minecraft.getInstance();
-        this.level = Minecraft.getInstance().level; //this is null
+        //this.level = Minecraft.getInstance().level; //this is null
     }
 
     @Override
@@ -50,6 +56,7 @@ public class AtiumSword extends SwordItem {
                 case 4 -> pewter(pTarget, pAttacker);
                 case 5 -> brass(pTarget, pAttacker);
                 case 6 -> zinc(pTarget, pAttacker);
+                case 9 -> gold(pTarget, pAttacker);
             }
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
@@ -67,8 +74,6 @@ public class AtiumSword extends SwordItem {
             pTarget.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 4.0f, 1.0F);
             for (int i = 0; i < 16; i++) {
                 this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), pTarget.getRandomX(1), pTarget.getRandomY(), pTarget.getRandomZ(1), 0, 0, 0);
-                //this.minecraft.particleEngine.createTrackingEmitter(pTarget, ParticleTypes.LARGE_SMOKE);
-                //this.minecraft.level.addParticle(ParticleTypes.LARGE_SMOKE, pTarget.getRandomX(level.random.nextFloat()), pTarget.getRandomY(), pTarget.getRandomZ(level.random.nextFloat()), 0, 0, 0);
             }
         }
     }
@@ -127,8 +132,26 @@ public class AtiumSword extends SwordItem {
         }
     }
 
+    private void gold(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 1) { //10%
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
+            areaeffectcloud.setRadius(3.0F);
+            areaeffectcloud.setRadiusOnUse(-0.5F);
+            areaeffectcloud.setWaitTime(10);
+            areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)areaeffectcloud.getDuration());
+            areaeffectcloud.setPotion(Potions.REGENERATION);
+            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.REGENERATION));
+
+            this.level.addFreshEntity(areaeffectcloud);
+            //this.minecraft.level.addFreshEntity(areaeffectcloud);
+            //this.level.addFreshEntity(areaeffectcloud);
+        }
+    }
+
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        this.level = pLevel;
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
             if (Screen.hasControlDown()) {

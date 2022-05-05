@@ -16,41 +16,21 @@ public class ModFlameParticle extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
 
-        this.quadSize *= 1F;
-        this.friction = 1F;
-        this.gravity = 0F;
+        this.friction = 0.5F;
+        this.gravity = 0.0F;
 
-        this.hasPhysics = false;
+        this.hasPhysics = true;
 
         this.lifetime = 60 + this.random.nextInt(20);
-
-        this.rCol = 1f;
-        this.gCol = 1f;
-        this.bCol = 1f;
-
-        this.tick();
     }
 
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    public void move(double pX, double pY, double pZ) {
-        this.setBoundingBox(this.getBoundingBox().move(pX, pY, pZ));
-        this.setLocationFromBoundingbox();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        fadeOut();
-    }
-
-    private void fadeOut() {
-        //fades out in last 30 tick of particles life
-        if (this.age >= this.lifetime - 30 && this.alpha > 0.01F) {
-            this.alpha -= 0.033F;
-        }
+    public float getQuadSize(float pScaleFactor) {
+        float f = ((float)this.age + pScaleFactor) / (float)this.lifetime;
+        return this.quadSize * (1.0F - f * f * 0.5F);
     }
 
     public int getLightColor(float pPartialTick) {
