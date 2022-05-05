@@ -11,8 +11,24 @@ public class ModFlameParticle extends TextureSheetParticle {
 
     protected ModFlameParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
+
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
+
+        this.quadSize *= 1F;
         this.friction = 1F;
-        //this.gravity = -0.1F;
+        this.gravity = 0F;
+
+        this.hasPhysics = false;
+
+        this.lifetime = 60 + this.random.nextInt(20);
+
+        this.rCol = 1f;
+        this.gCol = 1f;
+        this.bCol = 1f;
+
+        this.tick();
     }
 
     public ParticleRenderType getRenderType() {
@@ -24,9 +40,17 @@ public class ModFlameParticle extends TextureSheetParticle {
         this.setLocationFromBoundingbox();
     }
 
-    public float getQuadSize(float pScaleFactor) {
-        float f = ((float) this.age + pScaleFactor) / (float) this.lifetime;
-        return this.quadSize * (1.0F - f * f * 0.5F);
+    @Override
+    public void tick() {
+        super.tick();
+        fadeOut();
+    }
+
+    private void fadeOut() {
+        //fades out in last 30 tick of particles life
+        if (this.age >= this.lifetime - 30 && this.alpha > 0.01F) {
+            this.alpha -= 0.033F;
+        }
     }
 
     public int getLightColor(float pPartialTick) {
@@ -39,7 +63,6 @@ public class ModFlameParticle extends TextureSheetParticle {
         if (j > 240) {
             j = 240;
         }
-
         return j | k << 16;
     }
 
