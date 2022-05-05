@@ -6,10 +6,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DisorientedParticle extends TextureSheetParticle {
+public class FallingSmokeParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected DisorientedParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected FallingSmokeParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
         this.sprites = spriteSet;
 
@@ -17,9 +17,9 @@ public class DisorientedParticle extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
 
-        this.quadSize *= 0.75F;
-        this.friction = 0.5F;
-        this.gravity = 0.0f;
+        this.quadSize *= 1.6F;
+        this.friction = 0.2F;
+        this.gravity = 0.2f;
 
         this.hasPhysics = true;
 
@@ -41,14 +41,6 @@ public class DisorientedParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        fadeOut();
-    }
-
-    private void fadeOut() {
-        //fades out in last 30 tick of particles' life
-        if (this.age >= this.lifetime - 30 && this.alpha > 0.01F) {
-            this.alpha -= 0.033F;
-        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -60,7 +52,7 @@ public class DisorientedParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double XSpeed, double YSpeed, double ZSpeed) {
-            return new DisorientedParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
+            return new FallingSmokeParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
             //dont forget to change ^
         }
     }

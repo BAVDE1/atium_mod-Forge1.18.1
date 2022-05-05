@@ -55,7 +55,7 @@ public class AtiumSword extends SwordItem {
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
-        if (chance < 1) { //10%
+        if (chance < 0.1) { //10%
             double d1 = pAttacker.getX() - pTarget.getX();
             double d0;
             for(d0 = pAttacker.getZ() - pTarget.getZ(); d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D) {
@@ -64,7 +64,8 @@ public class AtiumSword extends SwordItem {
             pTarget.knockback(2.5F, d1, d0);
             pTarget.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 4.0f, 1.0F);
             for (int i = 0; i < 16; i++) {
-                this.minecraft.particleEngine.createTrackingEmitter(pTarget, ParticleTypes.LARGE_SMOKE);
+                this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), pTarget.getRandomX(1), pTarget.getRandomY(), pTarget.getRandomZ(1), 0, 0, 0);
+                //this.minecraft.particleEngine.createTrackingEmitter(pTarget, ParticleTypes.LARGE_SMOKE);
                 //this.minecraft.level.addParticle(ParticleTypes.LARGE_SMOKE, pTarget.getRandomX(level.random.nextFloat()), pTarget.getRandomY(), pTarget.getRandomZ(level.random.nextFloat()), 0, 0, 0);
             }
         }
@@ -72,14 +73,14 @@ public class AtiumSword extends SwordItem {
 
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
-        if (chance < 1) { //10%
+        if (chance < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
             }
             if (!pTarget.hasEffect(ModMobEffects.DISORIENTED.get())) {
                 pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100));
             }
-            pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 5.0F, 1.0F);
+            pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 6.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.DISORIENTED_PARTICLES.get());
         }
     }
