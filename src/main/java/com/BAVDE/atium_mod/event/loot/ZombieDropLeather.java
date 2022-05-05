@@ -34,8 +34,7 @@ public class ZombieDropLeather extends LootModifier {
 
         @Override
         public ZombieDropLeather read(ResourceLocation name, JsonObject object, LootItemCondition[] conditionsIn) {
-            Item addition = ForgeRegistries.ITEMS.getValue(
-                    new ResourceLocation(GsonHelper.getAsString(object, "addition")));
+            Item addition = ForgeRegistries.ITEMS.getValue(new ResourceLocation(GsonHelper.getAsString(object, "addition")));
             return new ZombieDropLeather(conditionsIn, addition);
         }
 

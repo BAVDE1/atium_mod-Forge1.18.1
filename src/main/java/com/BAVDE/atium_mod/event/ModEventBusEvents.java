@@ -6,10 +6,7 @@ import com.BAVDE.atium_mod.event.loot.HuskDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieVillagerDropLeather;
 import com.BAVDE.atium_mod.particle.ModParticles;
-import com.BAVDE.atium_mod.particle.custom.BlindnessParticle;
-import com.BAVDE.atium_mod.particle.custom.DisorientedParticle;
-import com.BAVDE.atium_mod.particle.custom.FallingSmokeParticle;
-import com.BAVDE.atium_mod.particle.custom.ModSnowflakeParticle;
+import com.BAVDE.atium_mod.particle.custom.*;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.SnowflakeParticle;
@@ -58,5 +55,7 @@ public class ModEventBusEvents {
                 DisorientedParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FALLING_SMOKE_PARTICLES.get(),
                 FallingSmokeParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.MOD_FLAME_PARTICLES.get(),
+                ModFlameParticle.Provider::new);
     }
 }

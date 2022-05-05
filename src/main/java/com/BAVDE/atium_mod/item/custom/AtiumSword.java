@@ -47,6 +47,8 @@ public class AtiumSword extends SwordItem {
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 2 -> steel(pTarget, pAttacker);
                 case 3 -> tin(pTarget, pAttacker);
+                case 4 -> pewter(pTarget, pAttacker);
+                case 5 -> brass(pTarget, pAttacker);
                 case 6 -> zinc(pTarget, pAttacker);
             }
         }
@@ -58,7 +60,7 @@ public class AtiumSword extends SwordItem {
         if (chance < 0.1) { //10%
             double d1 = pAttacker.getX() - pTarget.getX();
             double d0;
-            for(d0 = pAttacker.getZ() - pTarget.getZ(); d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D) {
+            for (d0 = pAttacker.getZ() - pTarget.getZ(); d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D) {
                 d1 = (Math.random() - Math.random()) * 0.01D;
             }
             pTarget.knockback(2.5F, d1, d0);
@@ -78,10 +80,38 @@ public class AtiumSword extends SwordItem {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
             }
             if (!pTarget.hasEffect(ModMobEffects.DISORIENTED.get())) {
-                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100));
+                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100), pAttacker);
             }
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 6.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.DISORIENTED_PARTICLES.get());
+        }
+    }
+
+    private void pewter(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 0.1) { //10%
+            if (!pTarget.hasEffect(MobEffects.WEAKNESS)) {
+                pTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100), pAttacker);
+            }
+            if (!pAttacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
+                pAttacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100), pAttacker);
+            }
+            pTarget.playSound(SoundEvents.TRIDENT_RETURN, 4.0F, 1.0F);
+            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ParticleTypes.ENCHANTED_HIT);
+        }
+    }
+
+    private void brass(LivingEntity pTarget, LivingEntity pAttacker) {
+        var chance = Math.random();
+        if (chance < 1) { //10%
+            if (!pTarget.isOnFire()) {
+                pTarget.setSecondsOnFire(5);
+            } else {
+                int fireTicks = pTarget.getRemainingFireTicks();
+                pTarget.setRemainingFireTicks(fireTicks + 80);
+            }
+            pTarget.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
+            this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.MOD_FLAME_PARTICLES.get());
         }
     }
 
