@@ -21,7 +21,7 @@ public class ModFlameParticle extends TextureSheetParticle {
 
         this.hasPhysics = true;
 
-        this.lifetime = 60 + this.random.nextInt(20);
+        this.lifetime = 30 + this.random.nextInt(20);
     }
 
     public ParticleRenderType getRenderType() {
