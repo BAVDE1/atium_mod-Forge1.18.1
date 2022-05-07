@@ -112,13 +112,13 @@
   "tooltip.atium_mod.atium_boots.tooltip.zinc.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_boots.tooltip.gold.ctrl": "§8Desc",
   //Atium Sword
-  "tooltip.atium_mod.atium_sword.tooltip.iron.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.iron.ctrl": "§8Hold r-click to slowly pull mobs towards player",
   "tooltip.atium_mod.atium_sword.tooltip.steel.ctrl": "§810% chance to deal massive knockback to enemies",
   "tooltip.atium_mod.atium_sword.tooltip.tin.ctrl": "§810% chance to blind & disorient enemies",
   "tooltip.atium_mod.atium_sword.tooltip.pewter.ctrl": "§810% chance to give target weakness & attacker strength",
   "tooltip.atium_mod.atium_sword.tooltip.brass.ctrl": "§810% chance to set enemies on fire",
   "tooltip.atium_mod.atium_sword.tooltip.zinc.ctrl": "§810% chance to completely freeze & slow enemies",
-  "tooltip.atium_mod.atium_sword.tooltip.gold.ctrl": "§810% chance to cast a cloud of healing at your position",
+  "tooltip.atium_mod.atium_sword.tooltip.gold.ctrl": "§810% chance to create a cloud of healing",
   //Atium Pickaxe
   "tooltip.atium_mod.atium_pickaxe.tooltip.iron.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_pickaxe.tooltip.steel.ctrl": "§8Desc",

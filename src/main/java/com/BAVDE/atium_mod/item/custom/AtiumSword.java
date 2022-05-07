@@ -33,7 +33,6 @@ public class AtiumSword extends SwordItem {
     public AtiumSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         this.minecraft = Minecraft.getInstance();
-        //this.level = Minecraft.getInstance().level; //this is null
     }
 
     @Override
@@ -83,9 +82,12 @@ public class AtiumSword extends SwordItem {
                 //used to divide push amount to slow it down
                 int modifier = 70;
                 entity.push((pX / modifier), 0, (pZ / modifier));
+                //particle
                 var chance = Math.random();
-                if (chance < 0.05) {
-                    this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+                if (chance < 0.025) {
+                    if (entity.isOnGround()) {
+                        this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+                    }
                 }
             }
         }
