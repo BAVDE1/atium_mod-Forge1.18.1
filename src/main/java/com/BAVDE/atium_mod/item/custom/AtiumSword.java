@@ -69,17 +69,24 @@ public class AtiumSword extends SwordItem {
             //sets range entities are detected in (5x5x5)
             AABB aabb = pPlayer.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
             //stores all nearby living entities in list
-            List<LivingEntity> entities = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
+            List<LivingEntity> entityList = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
             //loops through every entity in the list above
-            for (int i = 0; i < entities.size(); i++) {
-                LivingEntity entity = entities.get(i);
+            for (int i = 0; i < entityList.size(); i++) {
+                //grabs each individual entity each loop
+                LivingEntity entity = entityList.get(i);
                 //push direction code
                 double pX = pPlayer.getX() - entity.getX();
                 double pZ;
                 for (pZ = pPlayer.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
-                entity.push((pX / 75), 0, (pZ / 75));
+                //used to divide push amount to slow it down
+                int modifier = 70;
+                entity.push((pX / modifier), 0, (pZ / modifier));
+                var chance = Math.random();
+                if (chance < 0.05) {
+                    this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+                }
             }
         }
         super.onUseTick(pLevel, pPlayer, pStack, pRemainingUseDuration);
