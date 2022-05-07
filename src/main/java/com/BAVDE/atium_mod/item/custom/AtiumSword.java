@@ -51,18 +51,22 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        return super.use(pLevel, pPlayer, pUsedHand);
-    }
-
-    @Override
-    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+        pPlayer.startUsingItem(pUsedHand);
+        return InteractionResultHolder.consume(itemstack);
     }
 
     @Override
     public UseAnim getUseAnimation(ItemStack pStack) {
         return UseAnim.BLOCK;
     }
+
+/*
+    @Override
+    public int getUseDuration(ItemStack pStack) {
+        return 72000;
+    }
+*/
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
@@ -148,7 +152,7 @@ public class AtiumSword extends SwordItem {
             areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL));
 
             this.level.addFreshEntity(areaeffectcloud);
-            this.level.playSound((Player) pAttacker, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 3.0F, 1.5F + level.random.nextFloat() * 2.0F);
+            this.level.playSound((Player) pAttacker, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 3.0F, 1.5F);
             //pAttacker.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 3.0F, 1.5F + this.level.random.nextFloat() * 2.0F);
         }
     }
