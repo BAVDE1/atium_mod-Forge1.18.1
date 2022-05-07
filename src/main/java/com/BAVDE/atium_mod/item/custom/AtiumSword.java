@@ -64,18 +64,25 @@ public class AtiumSword extends SwordItem {
     }
 
     @Override
-    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+    public void onUseTick(Level pLevel, LivingEntity pPlayer, ItemStack pStack, int pRemainingUseDuration) {
         if (pStack.getTag().contains("atium_mod.metal") && pStack.getTag().getInt("atium_mod.metal") == 1) {
-            AABB aabb = pLivingEntity.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
-            List<LivingEntity> entities = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pLivingEntity, aabb);
+            //sets range entities are detected in (5x5x5)
+            AABB aabb = pPlayer.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+            //stores all nearby living entities in list
+            List<LivingEntity> entities = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
+            //loops through every entity in the list above
             for (int i = 0; i < entities.size(); i++) {
                 LivingEntity entity = entities.get(i);
-                var large = Math.random() / 3;
-                var small = Math.random() / 5;
-                entity.push(small, 0, large);
+                //push direction code
+                double pX = pPlayer.getX() - entity.getX();
+                double pZ;
+                for (pZ = pPlayer.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                    pX = (Math.random() - Math.random()) * 0.01D;
+                }
+                entity.push((pX / 75), 0, (pZ / 75));
             }
         }
-        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+        super.onUseTick(pLevel, pPlayer, pStack, pRemainingUseDuration);
     }
 
     @Override
@@ -91,12 +98,12 @@ public class AtiumSword extends SwordItem {
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
         if (chance < 0.1) { //10%
-            double d1 = pAttacker.getX() - pTarget.getX();
-            double d0;
-            for (d0 = pAttacker.getZ() - pTarget.getZ(); d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D) {
-                d1 = (Math.random() - Math.random()) * 0.01D;
+            double pX = pAttacker.getX() - pTarget.getX();
+            double pZ;
+            for (pZ = pAttacker.getZ() - pTarget.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                pX = (Math.random() - Math.random()) * 0.01D;
             }
-            pTarget.knockback(2.5F, d1, d0);
+            pTarget.knockback(2.5F, pX, pZ);
             pTarget.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 4.0f, 1.0F);
             for (int i = 0; i < 16; i++) {
                 this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), pTarget.getRandomX(1), pTarget.getRandomY(), pTarget.getRandomZ(1), 0, 0, 0);
