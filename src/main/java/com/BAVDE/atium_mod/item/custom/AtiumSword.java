@@ -9,15 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 
@@ -48,6 +47,21 @@ public class AtiumSword extends SwordItem {
             }
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        return super.use(pLevel, pPlayer, pUsedHand);
+    }
+
+    @Override
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BLOCK;
     }
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
@@ -96,7 +110,7 @@ public class AtiumSword extends SwordItem {
 
     private void brass(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
-        if (chance < 1) { //10%
+        if (chance < 0.1) { //10%
             if (!pTarget.isOnFire()) {
                 pTarget.setSecondsOnFire(5);
             } else {
@@ -126,16 +140,16 @@ public class AtiumSword extends SwordItem {
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
             areaeffectcloud.setOwner((LivingEntity)pAttacker);
-            areaeffectcloud.setRadius(1.5F);
+            areaeffectcloud.setRadius(3.0F);
             areaeffectcloud.setRadiusOnUse(-0.3F);
             areaeffectcloud.setWaitTime(4);
             areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)areaeffectcloud.getDuration());
-            areaeffectcloud.setPotion(Potions.REGENERATION);
-            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.REGENERATION));
+            areaeffectcloud.setPotion(Potions.HEALING);
+            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL));
 
             this.level.addFreshEntity(areaeffectcloud);
             this.level.playSound((Player) pAttacker, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 3.0F, 1.5F + level.random.nextFloat() * 2.0F);
-            pAttacker.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 3.0F, 1.5F + this.level.random.nextFloat() * 2.0F);
+            //pAttacker.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 3.0F, 1.5F + this.level.random.nextFloat() * 2.0F);
         }
     }
 

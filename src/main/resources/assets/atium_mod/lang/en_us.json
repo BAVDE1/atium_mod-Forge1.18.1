@@ -118,7 +118,7 @@
   "tooltip.atium_mod.atium_sword.tooltip.pewter.ctrl": "§810% chance to give target weakness & attacker strength",
   "tooltip.atium_mod.atium_sword.tooltip.brass.ctrl": "§810% chance to set enemies on fire",
   "tooltip.atium_mod.atium_sword.tooltip.zinc.ctrl": "§810% chance to completely freeze & slow enemies",
-  "tooltip.atium_mod.atium_sword.tooltip.gold.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_sword.tooltip.gold.ctrl": "§810% chance to cast a cloud of healing at your position",
   //Atium Pickaxe
   "tooltip.atium_mod.atium_pickaxe.tooltip.iron.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_pickaxe.tooltip.steel.ctrl": "§8Desc",
