@@ -14,11 +14,14 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -52,21 +55,38 @@ public class AtiumSword extends SwordItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        pPlayer.startUsingItem(pUsedHand);
-        return InteractionResultHolder.consume(itemstack);
+        if (pPlayer.getMainHandItem().getTag().contains("atium_mod.metal") && pPlayer.getMainHandItem().getTag().getInt("atium_mod.metal") == 1) {
+            pPlayer.startUsingItem(pUsedHand);
+            return InteractionResultHolder.consume(itemstack);
+        } else {
+            return super.use(pLevel, pPlayer, pUsedHand);
+        }
+    }
+
+    @Override
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (pStack.getTag().contains("atium_mod.metal") && pStack.getTag().getInt("atium_mod.metal") == 1) {
+            AABB aabb = pLivingEntity.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+            List<LivingEntity> entities = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pLivingEntity, aabb);
+            for (int i = 0; i < entities.size(); i++) {
+                LivingEntity entity = entities.get(i);
+                var large = Math.random() / 3;
+                var small = Math.random() / 5;
+                entity.push(small, 0, large);
+            }
+        }
+        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
     }
 
     @Override
     public UseAnim getUseAnimation(ItemStack pStack) {
-        return UseAnim.BLOCK;
+        return UseAnim.BOW;
     }
 
-/*
     @Override
     public int getUseDuration(ItemStack pStack) {
         return 72000;
     }
-*/
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
@@ -140,20 +160,18 @@ public class AtiumSword extends SwordItem {
 
     private void gold(LivingEntity pTarget, LivingEntity pAttacker) {
         var chance = Math.random();
-        if (chance < 1) { //10%
+        if (chance < 0.1) { //10%
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
-            areaeffectcloud.setOwner((LivingEntity)pAttacker);
+            areaeffectcloud.setOwner((LivingEntity) pAttacker);
             areaeffectcloud.setRadius(3.0F);
             areaeffectcloud.setRadiusOnUse(-0.3F);
             areaeffectcloud.setWaitTime(4);
-            areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)areaeffectcloud.getDuration());
+            areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
             areaeffectcloud.setPotion(Potions.HEALING);
             areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL));
 
             this.level.addFreshEntity(areaeffectcloud);
-            this.level.playSound((Player) pAttacker, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 3.0F, 1.5F);
-            //pAttacker.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 3.0F, 1.5F + this.level.random.nextFloat() * 2.0F);
         }
     }
 
