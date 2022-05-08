@@ -26,16 +26,9 @@ public class AtiumChestplate extends ArmorItem {
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
-            //on hurt
-            if (player.isHurt()) {
-                LivingEntity enemy = player.getLastHurtByMob();
-                switch (currentMetal) {
-                    case 2 -> steel(level, player);
-                }
-            }
-            //passive
             switch (currentMetal) {
                 case 1 -> iron(level, player);
+                //steel is in ModEvents
                 case 9 -> gold(stack, level, player);
             }
         }
@@ -57,24 +50,6 @@ public class AtiumChestplate extends ArmorItem {
                 }
                 int modifier = 80;
                 itemEntity.push((pX / modifier), 0, (pZ / modifier));
-            }
-        }
-    }
-
-    private void steel(Level level, Player player) {
-        var chance = Math.random();
-        if (chance < 1) { //15%
-            //code explained in iron method, atium sword class
-            AABB aabb = player.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
-            List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
-            for (int i = 0; i < entityList.size(); i++) {
-                LivingEntity entity = entityList.get(i);
-                double pX = player.getX() - entity.getX();
-                double pZ;
-                for (pZ = player.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
-                    pX = (Math.random() - Math.random()) * 0.01D;
-                }
-                entity.knockback(2.0F, pX, pZ);
             }
         }
     }
