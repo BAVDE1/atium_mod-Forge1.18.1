@@ -54,6 +54,7 @@ public class AtiumSword extends SwordItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+        //if iron infused
         if (pPlayer.getMainHandItem().getTag().contains("atium_mod.metal") && pPlayer.getMainHandItem().getTag().getInt("atium_mod.metal") == 1) {
             pPlayer.startUsingItem(pUsedHand);
             return InteractionResultHolder.consume(itemstack);
@@ -65,31 +66,7 @@ public class AtiumSword extends SwordItem {
     @Override
     public void onUseTick(Level pLevel, LivingEntity pPlayer, ItemStack pStack, int pRemainingUseDuration) {
         if (pStack.getTag().contains("atium_mod.metal") && pStack.getTag().getInt("atium_mod.metal") == 1) {
-            //sets range entities are detected in (5x5x5)
-            AABB aabb = pPlayer.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
-            //stores all nearby living entities in list
-            List<LivingEntity> entityList = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
-            //loops through every entity in the list above
-            for (int i = 0; i < entityList.size(); i++) {
-                //grabs each individual entity each loop
-                LivingEntity entity = entityList.get(i);
-                //push direction code
-                double pX = pPlayer.getX() - entity.getX();
-                double pZ;
-                for (pZ = pPlayer.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
-                    pX = (Math.random() - Math.random()) * 0.01D;
-                }
-                //used to divide push amount to slow it down
-                int modifier = 70;
-                entity.push((pX / modifier), 0, (pZ / modifier));
-                //particle
-                var chance = Math.random();
-                if (chance < 0.025) {
-                    if (entity.isOnGround()) {
-                        this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
-                    }
-                }
-            }
+            iron(pLevel, pPlayer);
         }
         super.onUseTick(pLevel, pPlayer, pStack, pRemainingUseDuration);
     }
@@ -102,6 +79,36 @@ public class AtiumSword extends SwordItem {
     @Override
     public int getUseDuration(ItemStack pStack) {
         return 72000;
+    }
+
+    /**** INFUSION FUNCTIONALITIES ****/
+
+    private void iron(Level pLevel, LivingEntity pPlayer) {
+        //sets range entities are detected in (5x5x5)
+        AABB aabb = pPlayer.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+        //stores all nearby living entities in list
+        List<LivingEntity> entityList = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
+        //loops through every entity in the list above
+        for (int i = 0; i < entityList.size(); i++) {
+            //grabs each individual entity each loop
+            LivingEntity entity = entityList.get(i);
+            //push direction code
+            double pX = pPlayer.getX() - entity.getX();
+            double pZ;
+            for (pZ = pPlayer.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                pX = (Math.random() - Math.random()) * 0.01D;
+            }
+            //used to divide push amount to slow it down
+            int modifier = 70;
+            entity.push((pX / modifier), 0, (pZ / modifier));
+            //particle
+            var chance = Math.random();
+            if (chance < 0.025) {
+                if (entity.isOnGround()) {
+                    this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+                }
+            }
+        }
     }
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
@@ -191,6 +198,7 @@ public class AtiumSword extends SwordItem {
         }
     }
 
+    //hover text
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {

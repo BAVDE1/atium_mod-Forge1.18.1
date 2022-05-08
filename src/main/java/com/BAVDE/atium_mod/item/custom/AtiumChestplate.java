@@ -1,5 +1,6 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -7,11 +8,17 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -25,8 +32,55 @@ public class AtiumChestplate extends ArmorItem {
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
+            //on hurt
+            if (player.isHurt()) {
+                LivingEntity enemy = player.getLastHurtByMob();
+                switch (currentMetal) {
+                    case 2 -> steel(stack, level, player);
+                }
+            }
+            //passive
             switch (currentMetal) {
+                case 1 -> iron(level, player);
                 case 9 -> gold(stack, level, player);
+            }
+        }
+    }
+
+    /**** INFUSION FUNCTIONALITIES ****/
+
+    private void iron(Level level, Player player) {
+        if (player.isCrouching()) {
+            //code explained in iron method, atium sword class
+            AABB aabb = player.getBoundingBox().inflate(6.0D, 6.0D, 6.0D);
+            List<ItemEntity> itemEntityList = level.getEntitiesOfClass(ItemEntity.class, aabb);
+            for (int i = 0; i < itemEntityList.size(); i++) {
+                ItemEntity itemEntity = itemEntityList.get(i);
+                double pX = player.getX() - itemEntity.getX();
+                double pZ;
+                for (pZ = player.getZ() - itemEntity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                    pX = (Math.random() - Math.random()) * 0.01D;
+                }
+                int modifier = 80;
+                itemEntity.push((pX / modifier), 0, (pZ / modifier));
+            }
+        }
+    }
+
+    private void steel(ItemStack stack, Level level, Player player) {
+        var chance = Math.random();
+        if (chance < 1) { //15%
+            //code explained in iron method, atium sword class
+            AABB aabb = player.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+            List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
+            for (int i = 0; i < entityList.size(); i++) {
+                LivingEntity entity = entityList.get(i);
+                double pX = player.getX() - entity.getX();
+                double pZ;
+                for (pZ = player.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                    pX = (Math.random() - Math.random()) * 0.01D;
+                }
+                entity.knockback(1.5F, pX, pZ);
             }
         }
     }
@@ -42,6 +96,7 @@ public class AtiumChestplate extends ArmorItem {
         }
     }
 
+    //hover text
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {
