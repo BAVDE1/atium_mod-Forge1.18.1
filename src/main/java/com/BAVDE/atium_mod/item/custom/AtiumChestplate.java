@@ -1,14 +1,10 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -16,8 +12,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
@@ -36,7 +30,7 @@ public class AtiumChestplate extends ArmorItem {
             if (player.isHurt()) {
                 LivingEntity enemy = player.getLastHurtByMob();
                 switch (currentMetal) {
-                    case 2 -> steel(stack, level, player);
+                    case 2 -> steel(level, player);
                 }
             }
             //passive
@@ -52,7 +46,7 @@ public class AtiumChestplate extends ArmorItem {
     private void iron(Level level, Player player) {
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
-            AABB aabb = player.getBoundingBox().inflate(6.0D, 6.0D, 6.0D);
+            AABB aabb = player.getBoundingBox().inflate(8.0D, 5.0D, 8.0D);
             List<ItemEntity> itemEntityList = level.getEntitiesOfClass(ItemEntity.class, aabb);
             for (int i = 0; i < itemEntityList.size(); i++) {
                 ItemEntity itemEntity = itemEntityList.get(i);
@@ -67,7 +61,7 @@ public class AtiumChestplate extends ArmorItem {
         }
     }
 
-    private void steel(ItemStack stack, Level level, Player player) {
+    private void steel(Level level, Player player) {
         var chance = Math.random();
         if (chance < 1) { //15%
             //code explained in iron method, atium sword class
@@ -80,7 +74,7 @@ public class AtiumChestplate extends ArmorItem {
                 for (pZ = player.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
-                entity.knockback(1.5F, pX, pZ);
+                entity.knockback(2.0F, pX, pZ);
             }
         }
     }
