@@ -27,7 +27,7 @@ public class ModEvents {
     public final Random random = new Random();
 
     @SubscribeEvent
-    public static void atiumChestplateHurtInfusions(LivingHurtEvent livingHurtEvent) {
+    public static void entityHurtEvent(LivingHurtEvent livingHurtEvent) {
         LivingEntity livingEntity = livingHurtEvent.getEntityLiving();
         ItemStack chestplateItem = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
         Level level = livingEntity.getLevel();
@@ -53,7 +53,7 @@ public class ModEvents {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
                 livingEntity.playSound(SoundEvents.EVOKER_CAST_SPELL, 4.0F, 1.0F);
-                entity.knockback(2.0F, pX, pZ);
+                entity.knockback(1.0F, pX, pZ);
             }
         }
     }

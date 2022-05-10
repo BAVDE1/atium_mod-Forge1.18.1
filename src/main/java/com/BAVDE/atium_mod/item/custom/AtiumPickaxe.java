@@ -1,8 +1,11 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.particle.ModParticles;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
@@ -13,8 +16,40 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AtiumPickaxe extends PickaxeItem {
+    public Minecraft minecraft;
+
     public AtiumPickaxe(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+        this.minecraft = Minecraft.getInstance();
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        createParticleBall(0.7D, 4, pAttacker);
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    private void createParticleBall(double pSpeed, int pSize, LivingEntity pAttacker) {
+        double d0 = pAttacker.getX();
+        double d1 = pAttacker.getY();
+        double d2 = pAttacker.getZ();
+
+        Level level = pAttacker.getLevel();
+
+        for(int i = -pSize; i <= pSize; ++i) {
+            for(int j = -pSize; j <= pSize; ++j) {
+                for(int k = -pSize; k <= pSize; ++k) {
+                    double d3 = (double)j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d4 = (double)i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d5 = (double)k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / pSpeed + level.random.nextGaussian() * 0.05D;
+                    this.minecraft.particleEngine.createParticle(ModParticles.FORCE_FIELD_PARTICLES.get(), d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+                    if (i != -pSize && i != pSize && j != -pSize && j != pSize) {
+                        k += pSize * 2 - 1;
+                    }
+                }
+            }
+        }
     }
 
     @Override

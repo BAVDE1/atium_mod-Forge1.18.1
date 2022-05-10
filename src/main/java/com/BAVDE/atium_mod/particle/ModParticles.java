@@ -27,6 +27,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> MOD_FLAME_PARTICLES =
             PARTICLE_TYPES.register("mod_flame_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> FORCE_FIELD_PARTICLES =
+            PARTICLE_TYPES.register("force_field_particles", () -> new SimpleParticleType(true));
+
     //register particles in ModEventBusEvents
 
     public static void register(IEventBus eventBus) {

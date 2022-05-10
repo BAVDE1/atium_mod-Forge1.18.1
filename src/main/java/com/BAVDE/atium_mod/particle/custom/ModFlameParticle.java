@@ -48,15 +48,15 @@ public class ModFlameParticle extends TextureSheetParticle {
 
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprite;
+        private final SpriteSet sprites;
 
         public Provider(SpriteSet pSprites) {
-            this.sprite = pSprites;
+            this.sprites = pSprites;
         }
 
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
             ModFlameParticle flameparticle = new ModFlameParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-            flameparticle.pickSprite(this.sprite);
+            flameparticle.pickSprite(this.sprites);
             return flameparticle;
         }
     }

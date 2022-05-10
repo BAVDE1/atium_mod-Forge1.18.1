@@ -6,10 +6,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DisorientedParticle extends TextureSheetParticle {
+public class ForceFieldParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected DisorientedParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected ForceFieldParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
         this.sprites = spriteSet;
 
@@ -18,17 +18,17 @@ public class DisorientedParticle extends TextureSheetParticle {
         this.zd = zd;
 
         this.quadSize *= 0.75F;
-        this.friction = 0.5F;
+        this.friction = 0.8F;
         this.gravity = 0.0f;
 
         this.hasPhysics = true;
 
-        this.lifetime = 60 + this.random.nextInt(20);
+        this.lifetime = 75;
         this.setSpriteFromAge(spriteSet);
 
-        this.rCol = 1f;
-        this.gCol = 1f;
-        this.bCol = 1f;
+        //colour needs to be (255 - rgbNumber)
+        this.setColor(98, 47, 4);
+        this.alpha = 0.7F;
 
         this.tick();
     }
@@ -45,9 +45,9 @@ public class DisorientedParticle extends TextureSheetParticle {
     }
 
     private void fadeOut() {
-        if (this.age >= this.lifetime - 30 && this.alpha > 0.01F) {
-            //   1 / 30 = vv (round down)
-            this.alpha -= 0.033;
+        if (this.age >= this.lifetime - 40 && this.alpha > 0.01F) {
+            //   1 / 40 = vv (round down)
+            this.alpha -= 0.025;
         }
     }
 
@@ -60,8 +60,9 @@ public class DisorientedParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double XSpeed, double YSpeed, double ZSpeed) {
-            return new DisorientedParticle(level, x, y, z, this.sprites, XSpeed, YSpeed, ZSpeed);
-            //dont forget to change ^
+            ForceFieldParticle forceFieldParticle = new ForceFieldParticle(level, x, y, z, sprites , XSpeed, YSpeed, ZSpeed);
+            forceFieldParticle.pickSprite(this.sprites);
+            return forceFieldParticle;
         }
     }
 }
