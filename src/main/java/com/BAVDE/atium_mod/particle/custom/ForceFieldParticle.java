@@ -18,7 +18,7 @@ public class ForceFieldParticle extends TextureSheetParticle {
         this.zd = zd;
 
         this.quadSize *= 0.75F;
-        this.friction = 0.8F;
+        this.friction = 0.9F;
         this.gravity = 0.0f;
 
         this.hasPhysics = true;

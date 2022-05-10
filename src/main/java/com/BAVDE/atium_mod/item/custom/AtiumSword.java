@@ -112,8 +112,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             double pX = pAttacker.getX() - pTarget.getX();
             double pZ;
             for (pZ = pAttacker.getZ() - pTarget.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
@@ -128,8 +127,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
             }
@@ -142,8 +140,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void pewter(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.WEAKNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100), pAttacker);
             }
@@ -156,8 +153,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void brass(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             if (!pTarget.isOnFire()) {
                 pTarget.setSecondsOnFire(5);
             } else {
@@ -170,8 +166,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void zinc(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             pTarget.setTicksFrozen(139);
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 3), pAttacker);
@@ -182,8 +177,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void gold(LivingEntity pTarget, LivingEntity pAttacker) {
-        var chance = Math.random();
-        if (chance < 0.1) { //10%
+        if (Math.random() < 0.1) { //10%
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
             areaeffectcloud.setOwner((LivingEntity) pAttacker);
