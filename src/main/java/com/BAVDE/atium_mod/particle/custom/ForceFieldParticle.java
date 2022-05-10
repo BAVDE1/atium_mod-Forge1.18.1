@@ -21,9 +21,9 @@ public class ForceFieldParticle extends TextureSheetParticle {
         this.friction = 0.9F;
         this.gravity = 0.0f;
 
-        this.hasPhysics = true;
+        this.hasPhysics = false;
 
-        this.lifetime = 75;
+        this.lifetime = 70;
         this.setSpriteFromAge(spriteSet);
 
         //colour needs to be (255 - rgbNumber)

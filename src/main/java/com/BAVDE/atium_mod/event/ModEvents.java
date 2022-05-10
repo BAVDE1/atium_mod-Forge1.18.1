@@ -5,9 +5,11 @@ import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -22,12 +24,15 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = AtiumMod.MOD_ID)
 public class ModEvents {
     public final Random random = new Random();
+    //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
 
     @SubscribeEvent
     public static void entityHurtEvent(LivingHurtEvent livingHurtEvent) {
         LivingEntity player = livingHurtEvent.getEntityLiving();
-        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
         Level level = player.getLevel();
+
+        //atium chestplate
+        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
         if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
             int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
@@ -37,12 +42,11 @@ public class ModEvents {
     }
 
     private static void chestplateSteel(Level level, LivingEntity player) {
-        if (Math.random() < 1) { //20%
-            //code explained in iron method, atium sword class
-            AABB aabb = player.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+        if (Math.random() < 0.15) { //15%
+            //code explained in iron method, atium sword
+            AABB aabb = player.getBoundingBox().inflate(6.0D, 6.0D, 6.0D);
             List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
-            for (int i = 0; i < entityList.size(); i++) {
-                LivingEntity entity = entityList.get(i);
+            for (LivingEntity entity : entityList) {
                 double pX = player.getX() - entity.getX();
                 double pZ;
                 for (pZ = player.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
@@ -50,25 +54,24 @@ public class ModEvents {
                 }
                 entity.knockback(1.0F, pX, pZ);
             }
-            player.playSound(SoundEvents.EVOKER_CAST_SPELL, 4.0F, 1.0F);
-            createForceFieldParticles(0.7D, 4, player);
+            //sound not working atm
+            level.playSound((Player)player,player,SoundEvents.EVOKER_CAST_SPELL,SoundSource.PLAYERS,4.0F,1.0F);
+            createForceFieldParticles(0.7D,4, player);
         }
     }
 
     private static void createForceFieldParticles(double pSpeed, int pSize, LivingEntity player) {
+        Level level = player.getLevel();
+        Minecraft minecraft = Minecraft.getInstance();
         double d0 = player.getX();
         double d1 = player.getY();
         double d2 = player.getZ();
-
-        Level level = player.getLevel();
-        Minecraft minecraft = Minecraft.getInstance();
-
-        for(int i = -pSize; i <= pSize; ++i) {
-            for(int j = -pSize; j <= pSize; ++j) {
-                for(int k = -pSize; k <= pSize; ++k) {
-                    double d3 = (double)j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
-                    double d4 = (double)i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
-                    double d5 = (double)k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+        for (int i = -pSize; i <= pSize; ++i) {
+            for (int j = -pSize; j <= pSize; ++j) {
+                for (int k = -pSize; k <= pSize; ++k) {
+                    double d3 = (double) j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d4 = (double) i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d5 = (double) k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
                     double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / pSpeed + level.random.nextGaussian() * 0.05D;
                     minecraft.particleEngine.createParticle(ModParticles.FORCE_FIELD_PARTICLES.get(), d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
                     if (i != -pSize && i != pSize && j != -pSize && j != pSize) {
