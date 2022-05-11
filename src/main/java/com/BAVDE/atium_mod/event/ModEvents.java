@@ -7,16 +7,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -44,6 +48,23 @@ public class ModEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void projectileHurtEntity(ProjectileImpactEvent projectileImpactEvent) {
+        if (projectileImpactEvent.getEntity().isAttackable()) {
+            LivingEntity player = (LivingEntity) projectileImpactEvent.getEntity();
+            Level level = player.getLevel();
+
+            //atium chestplate
+            ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
+            if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
+                int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
+                switch (currentMetal) {
+                    case 6 -> chestplateZinc(level, player, projectileImpactEvent);
+                }
+            }
+        }
+    }
+
     private static void chestplateSteel(Level level, LivingEntity player) {
         if (Math.random() < 0.15) { //15%
             //code explained in iron method, atium sword
@@ -58,8 +79,8 @@ public class ModEvents {
                 entity.knockback(1.0F, pX, pZ);
             }
             //sound not working atm
-            level.playSound((Player)player,player,SoundEvents.EVOKER_CAST_SPELL,SoundSource.PLAYERS,4.0F,1.0F);
-            createForceFieldParticles(0.7D,4, player);
+            level.playSound((Player) player, player, SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 4.0F, 1.0F);
+            createForceFieldParticles(0.7D, 4, player);
         }
     }
 
@@ -76,6 +97,18 @@ public class ModEvents {
             }
             pAttacker.knockback(0.3F, pX, pZ);
         }
+    }
+
+    private static void chestplateZinc(Level level, LivingEntity player, ProjectileImpactEvent projectileImpactEvent) {
+        Projectile projectile = projectileImpactEvent.getProjectile();
+        //projectileImpactEvent.setCanceled(true);
+        double pX = player.getX() - projectile.getX();
+        double pZ;
+        for (pZ = player.getZ() - projectile.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+            pX = (Math.random() - Math.random()) * 0.01D;
+        }
+        projectile.shoot(pX, 0, pZ, 1.0F, 0.0F);
+        projectile.playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
     }
 
     private static void createForceFieldParticles(double pSpeed, int pSize, LivingEntity player) {
