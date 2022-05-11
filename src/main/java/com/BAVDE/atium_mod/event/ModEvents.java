@@ -6,6 +6,7 @@ import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -37,6 +39,7 @@ public class ModEvents {
             int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
                 case 2 -> chestplateSteel(level, player);
+                case 5 -> chestplateBrass(player, livingHurtEvent);
             }
         }
     }
@@ -57,6 +60,21 @@ public class ModEvents {
             //sound not working atm
             level.playSound((Player)player,player,SoundEvents.EVOKER_CAST_SPELL,SoundSource.PLAYERS,4.0F,1.0F);
             createForceFieldParticles(0.7D,4, player);
+        }
+    }
+
+    private static void chestplateBrass(LivingEntity player, LivingHurtEvent livingHurtEvent) {
+        if (Math.random() < 0.15) { //15%
+            LivingEntity pAttacker = (LivingEntity) livingHurtEvent.getSource().getEntity();
+            pAttacker.setSecondsOnFire(5);
+            pAttacker.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
+            //knockback
+            double pX = player.getX() - pAttacker.getX();
+            double pZ;
+            for (pZ = player.getZ() - pAttacker.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                pX = (Math.random() - Math.random()) * 0.01D;
+            }
+            pAttacker.knockback(0.3F, pX, pZ);
         }
     }
 

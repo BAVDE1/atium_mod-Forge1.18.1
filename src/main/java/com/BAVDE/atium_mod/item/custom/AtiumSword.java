@@ -89,9 +89,8 @@ public class AtiumSword extends SwordItem {
         //stores all nearby living entities in list
         List<LivingEntity> entityList = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
         //loops through every entity in the list above
-        for (int i = 0; i < entityList.size(); i++) {
+        for (LivingEntity entity : entityList) {
             //grabs each individual entity each loop
-            LivingEntity entity = entityList.get(i);
             //push direction code
             double pX = pPlayer.getX() - entity.getX();
             double pZ;

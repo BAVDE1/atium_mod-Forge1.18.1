@@ -41,8 +41,7 @@ public class AtiumChestplate extends ArmorItem {
             //code explained in iron method, atium sword class
             AABB aabb = player.getBoundingBox().inflate(8.0D, 5.0D, 8.0D);
             List<ItemEntity> itemEntityList = level.getEntitiesOfClass(ItemEntity.class, aabb);
-            for (int i = 0; i < itemEntityList.size(); i++) {
-                ItemEntity itemEntity = itemEntityList.get(i);
+            for (ItemEntity itemEntity : itemEntityList) {
                 double pX = player.getX() - itemEntity.getX();
                 double pZ;
                 for (pZ = player.getZ() - itemEntity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
