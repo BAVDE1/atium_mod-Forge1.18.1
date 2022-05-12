@@ -53,8 +53,7 @@ public class ModEvents {
 
     /*@SubscribeEvent
     public static void projectileHurtEntity(ProjectileImpactEvent projectileImpactEvent) {
-        Projectile projectile = projectileImpactEvent.getProjectile();
-
+        LivingEntity player = (LivingEntity) projectileImpactEvent;
         Level level = player.getLevel();
 
         //atium chestplate
@@ -104,12 +103,15 @@ public class ModEvents {
     private static void chestplateZinc(Level level, LivingEntity player, LivingHurtEvent livingHurtEvent) {
         if (livingHurtEvent.getSource().getDirectEntity() instanceof AbstractArrow) {
             if (Math.random() < 1) { //15%
-                livingHurtEvent.setCanceled(true);
-                level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 4.0F, 1.0F, false);
+                if (livingHurtEvent.isCancelable()) {
+                    ((AbstractArrow) livingHurtEvent.getSource().getDirectEntity()).setKnockback(1);
+                    livingHurtEvent.setCanceled(true);
+                    livingHurtEvent.setAmount(0);
+                    livingHurtEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
+                }
             }
         }
     }
-
 
     private static void createForceFieldParticles(double pSpeed, int pSize, LivingEntity player) {
         Level level = player.getLevel();
