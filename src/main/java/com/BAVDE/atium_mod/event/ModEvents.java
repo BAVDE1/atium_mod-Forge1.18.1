@@ -22,6 +22,7 @@ import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -63,7 +64,31 @@ public class ModEvents {
             switch (currentMetal) {
                 case 2 -> chestplateSteel(level, player);
                 case 5 -> chestplateBrass(player, livingHurtEvent);
-                //case 6 -> chestplateZinc(level, player, livingHurtEvent);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void equipmentChangeEvent(LivingEquipmentChangeEvent livingEquipmentChangeEvent){
+        LivingEntity player = livingEquipmentChangeEvent.getEntityLiving();
+        ItemStack itemStackTo = livingEquipmentChangeEvent.getTo();
+        ItemStack itemStackFrom = livingEquipmentChangeEvent.getFrom();
+
+        //atium chestplate
+        if (livingEquipmentChangeEvent.getTo().getEquipmentSlot() == EquipmentSlot.CHEST) {
+            //ON
+            if (itemStackTo.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackTo.getTag().contains("atium_mod.metal")){
+                int currentMetal = itemStackTo.getTag().getInt("atium_mod.metal");
+                switch (currentMetal) {
+                    case 4 -> chestplatePewterOn(player);
+                }
+            }
+            //OFF
+            if (itemStackFrom.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackFrom.getTag().contains("atium_mod.metal")) {
+                int currentMetal = itemStackTo.getTag().getInt("atium_mod.metal");
+                switch (currentMetal) {
+                    case 4 -> chestplatePewterOff(player);
+                }
             }
         }
     }
@@ -100,6 +125,13 @@ public class ModEvents {
             }
             pAttacker.knockback(0.3F, pX, pZ);
         }
+    }
+
+    private static void chestplatePewterOn(LivingEntity player) {
+        player.setHealth(player.getMaxHealth() + 2);
+    }
+    private static void chestplatePewterOff(LivingEntity player) {
+        player.setHealth(player.getMaxHealth() - 2);
     }
 
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {

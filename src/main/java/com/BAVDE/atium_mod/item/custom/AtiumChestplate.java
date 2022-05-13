@@ -5,8 +5,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -26,9 +30,12 @@ public class AtiumChestplate extends ArmorItem {
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+            switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1 -> iron(level, player);
-                //steel is in ModEvents
+                //2 steel is in ModEvents
+                //4 pewter is in ModEvents
+                //5 brass is in ModEvents
+                //6 zinc is in ModEvents
                 case 9 -> gold(stack, level, player);
             }
         }
