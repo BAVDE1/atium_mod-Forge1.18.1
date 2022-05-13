@@ -21,6 +21,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +34,22 @@ import java.util.Random;
 public class ModEvents {
     public final Random random = new Random();
     //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+    //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
+
+    @SubscribeEvent
+    public static void entityAttackEvent(LivingAttackEvent livingAttackEvent){
+        LivingEntity player = livingAttackEvent.getEntityLiving();
+        Level level = player.getLevel();
+
+        //atium chestplate
+        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
+            int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+                case 6 -> chestplateZinc(livingAttackEvent);
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void entityHurtEvent(LivingHurtEvent livingHurtEvent) {
@@ -46,25 +63,10 @@ public class ModEvents {
             switch (currentMetal) {
                 case 2 -> chestplateSteel(level, player);
                 case 5 -> chestplateBrass(player, livingHurtEvent);
-                case 6 -> chestplateZinc(level, player, livingHurtEvent);
+                //case 6 -> chestplateZinc(level, player, livingHurtEvent);
             }
         }
     }
-
-    /*@SubscribeEvent
-    public static void projectileHurtEntity(ProjectileImpactEvent projectileImpactEvent) {
-        LivingEntity player = (LivingEntity) projectileImpactEvent;
-        Level level = player.getLevel();
-
-        //atium chestplate
-        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
-                case 6 -> chestplateZinc(level, player, projectileImpactEvent);
-            }
-        }
-    }*/
 
     private static void chestplateSteel(Level level, LivingEntity player) {
         if (Math.random() < 0.15) { //15%
@@ -100,14 +102,12 @@ public class ModEvents {
         }
     }
 
-    private static void chestplateZinc(Level level, LivingEntity player, LivingHurtEvent livingHurtEvent) {
-        if (livingHurtEvent.getSource().getDirectEntity() instanceof AbstractArrow) {
-            if (Math.random() < 1) { //15%
-                if (livingHurtEvent.isCancelable()) {
-                    ((AbstractArrow) livingHurtEvent.getSource().getDirectEntity()).setKnockback(1);
-                    livingHurtEvent.setCanceled(true);
-                    livingHurtEvent.setAmount(0);
-                    livingHurtEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
+    private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {
+        if (livingAttackEvent.getSource().getDirectEntity() instanceof AbstractArrow) {
+            if (Math.random() < 0.15) { //15%
+                if (livingAttackEvent.isCancelable()) {
+                    livingAttackEvent.setCanceled(true);
+                    livingAttackEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
                 }
             }
         }
