@@ -20,8 +20,10 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> ATIUM_BEAD = ITEMS.register("atium_bead",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
     public static final RegistryObject<Item> ATIUM_COMPASS = ITEMS.register("atium_compass",
             () -> new AtiumCompass(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
     //Tools
     public static final RegistryObject<Item> ATIUM_SWORD = ITEMS.register("atium_sword",
             () -> new AtiumSword(ModTiers.ATIUM, 3, -2.4f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));

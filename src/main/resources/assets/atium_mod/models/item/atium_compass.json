@@ -6,9 +6,235 @@
   "overrides": [
     {
       "predicate": {
+        "angle": 0.000000,
         "using": 1
       },
-      "model": "atium_mod:item/atium_compass_using"
+      "model": "atium_mod:item/atium_compass_16"
+    },
+    {
+      "predicate": {
+        "angle": 0.015625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_17"
+    },
+    {
+      "predicate": {
+        "angle": 0.046875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_18"
+    },
+    {
+      "predicate": {
+        "angle": 0.078125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_19"
+    },
+    {
+      "predicate": {
+        "angle": 0.109375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_20"
+    },
+    {
+      "predicate": {
+        "angle": 0.140625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_21"
+    },
+    {
+      "predicate": {
+        "angle": 0.171875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_22"
+    },
+    {
+      "predicate": {
+        "angle": 0.203125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_23"
+    },
+    {
+      "predicate": {
+        "angle": 0.234375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_24"
+    },
+    {
+      "predicate": {
+        "angle": 0.265625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_25"
+    },
+    {
+      "predicate": {
+        "angle": 0.296875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_26"
+    },
+    {
+      "predicate": {
+        "angle": 0.328125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_27"
+    },
+    {
+      "predicate": {
+        "angle": 0.359375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_28"
+    },
+    {
+      "predicate": {
+        "angle": 0.390625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_29"
+    },
+    {
+      "predicate": {
+        "angle": 0.421875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_30"
+    },
+    {
+      "predicate": {
+        "angle": 0.453125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_31"
+    },
+    {
+      "predicate": {
+        "angle": 0.484375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_00"
+    },
+    {
+      "predicate": {
+        "angle": 0.515625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_01"
+    },
+    {
+      "predicate": {
+        "angle": 0.546875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_02"
+    },
+    {
+      "predicate": {
+        "angle": 0.578125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_03"
+    },
+    {
+      "predicate": {
+        "angle": 0.609375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_04"
+    },
+    {
+      "predicate": {
+        "angle": 0.640625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_05"
+    },
+    {
+      "predicate": {
+        "angle": 0.671875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_06"
+    },
+    {
+      "predicate": {
+        "angle": 0.703125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_07"
+    },
+    {
+      "predicate": {
+        "angle": 0.734375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_08"
+    },
+    {
+      "predicate": {
+        "angle": 0.765625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_09"
+    },
+    {
+      "predicate": {
+        "angle": 0.796875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_10"
+    },
+    {
+      "predicate": {
+        "angle": 0.828125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_11"
+    },
+    {
+      "predicate": {
+        "angle": 0.859375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_12"
+    },
+    {
+      "predicate": {
+        "angle": 0.890625,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_13"
+    },
+    {
+      "predicate": {
+        "angle": 0.921875,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_14"
+    },
+    {
+      "predicate": {
+        "angle": 0.953125,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_15"
+    },
+    {
+      "predicate": {
+        "angle": 0.984375,
+        "using": 1
+      },
+      "model": "atium_mod:item/atium_compass_16"
     }
   ]
+}
 }

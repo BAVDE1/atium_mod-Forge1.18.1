@@ -2,5 +2,41 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "atium_mod:item/atium_compass_12"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        8,
+        0,
+        0
+      ],
+      "translation": [
+        -2,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        8,
+        0,
+        0
+      ],
+      "translation": [
+        2,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    }
   }
 }
