@@ -3,13 +3,16 @@ package com.BAVDE.atium_mod.util;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.item.ModTiers;
 import com.BAVDE.atium_mod.item.custom.AtiumCompass;
+import com.BAVDE.atium_mod.world.feature.ModConfiguredFeatures;
 import com.google.common.collect.Maps;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.LocateCommand;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CompassItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -77,11 +81,12 @@ public class ModItemProperties {
                         clientLevel = (ClientLevel) entity.level;
                     }
 
-                    BlockPos blockpos = this.getSpawnPosition(clientLevel);
+                    //position to point towards
+                    BlockPos blockpos = this.getStructurePosition(clientLevel);
                     long gameTime = clientLevel.getGameTime();
 
                     if (blockpos != null && !(entity.position().distanceToSqr((double) blockpos.getX() + 0.5D, entity.position().y(), (double) blockpos.getZ() + 0.5D) < (double) 1.0E-5F)) {
-                        //direction wobble
+                        //point to structure wobble
                         double d1;
                         d1 = livingEntity.getYRot();
                         d1 = Mth.positiveModulo(d1 / 360.0D, 1.0D);

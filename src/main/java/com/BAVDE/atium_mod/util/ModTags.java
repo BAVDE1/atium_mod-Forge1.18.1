@@ -1,13 +1,22 @@
 package com.BAVDE.atium_mod.util;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import net.minecraft.commands.arguments.ResourceOrTagLocationArgument;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ConfiguredStructureTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
     public static class Blocks {
@@ -43,6 +52,14 @@ public class ModTags {
         }
         private static TagKey<Item> forgeTag(String name) {
             return ItemTags.create(new ResourceLocation("forge", name));
+        }
+    }
+
+    public static class StructureTags {
+        public static final TagKey<ConfiguredStructureFeature<?, ?>> ATIUM_GEODE_LOCATE = create("atium_geode_locate");
+
+        private static TagKey<ConfiguredStructureFeature<?, ?>> create(String string) {
+            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(string));
         }
     }
 }
