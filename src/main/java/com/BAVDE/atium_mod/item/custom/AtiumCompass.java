@@ -1,12 +1,11 @@
 package com.BAVDE.atium_mod.item.custom;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.commands.arguments.ResourceOrTagLocationArgument;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.gametest.framework.StructureUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
@@ -20,7 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -71,37 +69,26 @@ public class AtiumCompass extends Item {
     }
 
     private static void findStructure(Level level, Player player, ItemStack itemStack) {
-        if (level instanceof ServerLevel) {
-            ServerLevel serverlevel = (ServerLevel) level;
+        if (level instanceof ServerLevel serverLevel) {
+            //configured structure registry
+            Registry<ConfiguredStructureFeature<?, ?>> registry = serverLevel.registryAccess().registryOrThrow(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY);
+            //resource location of structure
+            ResourceKey<ConfiguredStructureFeature<?, ?>> structureKey = ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, ResourceLocation.tryParse("atium_mod:atium_geode"));
 
-            @SuppressWarnings("deprecation")
-            StructureFeature<?> structure = Registry.STRUCTURE_FEATURE.get(ResourceLocation.tryParse("atium_mod:atium_geode"));
-            ResourceLocation resourceLocation = structure.getRegistryName();
+            //holder set of structureKey
+            HolderSet<ConfiguredStructureFeature<?, ?>> featureHolderSet = registry.getHolder(structureKey).map((holders) -> {
+                return HolderSet.direct(holders);
+            }).orElse(null);
 
-            ChunkGenerator generator = serverlevel.getChunkSource().getGenerator();
-            HolderSet<ConfiguredStructureFeature<?, ?>> holderSet = serverlevel
-                    .registryAccess().registryOrThrow(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY)
-                    .getHolder(ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
-                            new ResourceLocation(resourceLocation.getNamespace(),
-                                    resourceLocation.getPath().replace("endcity", "end_city"))
-                    )).map(HolderSet::direct).orElseThrow();
+            //gets location of the nearest structure
+            Pair<BlockPos, Holder<ConfiguredStructureFeature<?, ?>>> pair =
+                    serverLevel.getChunkSource().getGenerator().findNearestMapFeature(
+                    serverLevel, featureHolderSet, player.blockPosition(), 100, false);
 
-            Pair<BlockPos, Holder<ConfiguredStructureFeature<?, ?>>> result = generator.findNearestMapFeature(
-                    serverlevel, holderSet, player.blockPosition(), 100, false);
-
-            BlockPos blockPos = new BlockPos(result.getFirst());
-            player.sendMessage(new TranslatableComponent("structure pos: " + blockPos), player.getUUID());
+            //if structure is present in dimension get block pos
+            BlockPos structurePos = pair != null ? pair.getFirst() : null;
+            player.sendMessage(new TranslatableComponent("structure pos: " + structurePos), Util.NIL_UUID);
         }
-    }
-
-    public static List<ResourceLocation> getAllowedStructuresRes(Player player) {
-        final List<ResourceLocation> result = new ArrayList<>();
-        for (StructureFeature<?> structureFeature : ForgeRegistries.STRUCTURE_FEATURES) {
-            ResourceLocation res = structureFeature.getRegistryName();
-            result.add(res);
-        }
-        player.sendMessage(new TranslatableComponent("structures Location: " + result), player.getUUID());
-        return result;
     }
 
     private static void removeLocationTag(ItemStack itemStack) {
