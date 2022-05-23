@@ -84,7 +84,7 @@ public class AtiumCompass extends Item {
             //gets location of the nearest structure
             Pair<BlockPos, Holder<ConfiguredStructureFeature<?, ?>>> pair =
                     serverLevel.getChunkSource().getGenerator().findNearestMapFeature(
-                    serverLevel, featureHolderSet, player.blockPosition(), 100, false);
+                            serverLevel, featureHolderSet, player.blockPosition(), 100, false);
 
             //if structure is present in dimension get block pos
             BlockPos structurePos = pair != null ? pair.getFirst() : null;
@@ -100,13 +100,22 @@ public class AtiumCompass extends Item {
     }
 
     private static void removeLocation(ItemStack itemStack) {
-        itemStack.getTag().remove("Location");
+        CompoundTag compoundtag = itemStack.getTag();
+        if (compoundtag != null) {
+            if (compoundtag.contains("Location")) {
+                itemStack.getTag().remove("Location");
+            }
+        }
     }
 
     public static Tag getLocation(ItemStack itemStack) {
         CompoundTag compoundtag = itemStack.getTag();
-        if (compoundtag.contains("Location")) {
-            return compoundtag.get("Location");
+        if (compoundtag != null) {
+            if (compoundtag.contains("Location")) {
+                return compoundtag.get("Location");
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

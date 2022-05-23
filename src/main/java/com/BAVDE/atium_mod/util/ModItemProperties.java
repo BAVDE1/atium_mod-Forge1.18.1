@@ -35,7 +35,6 @@ public class ModItemProperties {
         InfusableItem(ModItems.ATIUM_HOE.get());
 
         ModCompassItemUse(ModItems.ATIUM_COMPASS.get());
-        ModCompassItemSearch(ModItems.ATIUM_COMPASS.get());
         ModCompassItemWobble(ModItems.ATIUM_COMPASS.get());
     }
 
@@ -57,15 +56,10 @@ public class ModItemProperties {
         });
     }
 
-    static void ModCompassItemSearch(Item item) {
-        ItemProperties.register(item, new ResourceLocation("searching"), (itemStack, clientLevel, livingEntity, i) -> {
-            return livingEntity != null && AtiumCompass.getLocation(itemStack) == null ? 1.0F : 0.0F;
-        });
-    }
-
     static void ModCompassItemWobble(Item item) {
         ItemProperties.register(item, new ResourceLocation("angle"), new ClampedItemPropertyFunction() {
             private final ModItemProperties.CompassWobble wobble = new ModItemProperties.CompassWobble();
+            private final ModItemProperties.CompassWobble wobbleRandom = new ModItemProperties.CompassWobble();
 
             @Override
             public float unclampedCall(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int pSeed) {
@@ -101,8 +95,12 @@ public class ModItemProperties {
                         }
                         return Mth.positiveModulo((float) d3, 1.0F);
                     } else {
-                        //will do compass searching texture
-                        return 0.0F;
+                        //random wobble
+                        if (this.wobbleRandom.shouldUpdate(gameTime)) {
+                            this.wobbleRandom.update(gameTime, Math.random());
+                        }
+                        double d0 = this.wobbleRandom.rotation + (double)((float)this.hash(pSeed) / 2.14748365E9F);
+                        return Mth.positiveModulo((float)d0, 1.0F);
                     }
                 }
             }
@@ -117,8 +115,12 @@ public class ModItemProperties {
 
             private BlockPos getStructureBlockPos(ItemStack itemStack, ClientLevel clientLevel) {
                 if (item instanceof AtiumCompass) {
-                    //if clientlevel (player) is in overworld, return structure blockpos, else null
-                    return clientLevel.dimensionType().natural() ? NbtUtils.readBlockPos(itemStack.getOrCreateTag().getCompound("Location")) : null;
+                    if (AtiumCompass.getLocation(itemStack) != null) {
+                        //if clientlevel (player) is in overworld, return structure blockpos, else null
+                        return clientLevel.dimensionType().natural() ? NbtUtils.readBlockPos(itemStack.getOrCreateTag().getCompound("Location")) : null;
+                    } else {
+                        return null;
+                    }
                 } else {
                     return null;
                 }

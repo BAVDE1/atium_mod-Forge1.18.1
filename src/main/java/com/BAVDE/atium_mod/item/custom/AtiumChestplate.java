@@ -5,6 +5,9 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +30,7 @@ public class AtiumChestplate extends ArmorItem {
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1 -> iron(level, player);
                 //2 steel is in ModEvents
+                case 3 -> tin(player);
                 //4 pewter is in ModEvents
                 //5 brass is in ModEvents
                 //6 zinc is in ModEvents
@@ -51,6 +55,12 @@ public class AtiumChestplate extends ArmorItem {
                 int modifier = 80;
                 itemEntity.push((pX / modifier), 0, (pZ / modifier));
             }
+        }
+    }
+
+    private void tin(Player player) {
+        if (player.getHealth() <= 6) {
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5));
         }
     }
 

@@ -6,16 +6,8 @@
   "overrides": [
     {
       "predicate": {
-        "using": 1,
-        "searching": 1
-      },
-      "model": "atium_mod:item/atium_compass_searching"
-    },
-    {
-      "predicate": {
         "angle": 0.000000,
-        "using": 1,
-        "searching": 0
+        "using": 1
       },
       "model": "atium_mod:item/atium_compass_16"
     },
