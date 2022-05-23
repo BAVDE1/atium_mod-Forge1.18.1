@@ -1,17 +1,13 @@
 package com.BAVDE.atium_mod.event;
 
 import com.BAVDE.atium_mod.AtiumMod;
-import com.BAVDE.atium_mod.command.Locate2Command;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
@@ -30,20 +26,12 @@ import net.minecraftforge.server.command.ConfigCommand;
 
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AtiumMod.MOD_ID)
 public class ModEvents {
     public final Random random = new Random();
     //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
     //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
-
-    @SubscribeEvent
-    public static void onCommandsRegister(RegisterCommandsEvent event) {
-        new Locate2Command(event.getDispatcher());
-
-        ConfigCommand.register(event.getDispatcher());
-    }
 
     @SubscribeEvent
     public static void entityAttackEvent(LivingAttackEvent livingAttackEvent){

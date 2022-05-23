@@ -2,11 +2,14 @@ package com.BAVDE.atium_mod.item.custom;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,13 +20,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AtiumCompass extends Item {
@@ -31,21 +33,20 @@ public class AtiumCompass extends Item {
         super(pProperties);
     }
 
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
         pPlayer.startUsingItem(pUsedHand);
+        removeLocation(itemstack);
         setUsing(itemstack, true);
         findStructure(pLevel, pPlayer, itemstack);
-        //getAllowedStructuresRes(pPlayer);
         return InteractionResultHolder.consume(itemstack);
     }
 
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
         setUsing(pStack, false);
-        //deleteStructureLocation(pStack);
+        removeLocation(pStack);
     }
 
     @Override
@@ -87,11 +88,38 @@ public class AtiumCompass extends Item {
 
             //if structure is present in dimension get block pos
             BlockPos structurePos = pair != null ? pair.getFirst() : null;
-            player.sendMessage(new TranslatableComponent("structure pos: " + structurePos), Util.NIL_UUID);
+            if (structurePos != null) {
+                addLocation(itemStack, structurePos);
+            }
         }
     }
 
-    private static void removeLocationTag(ItemStack itemStack) {
+    private static void addLocation(ItemStack itemStack, BlockPos blockPos) {
+        CompoundTag compoundtag = itemStack.getOrCreateTag();
+        compoundtag.put("Location", NbtUtils.writeBlockPos(blockPos));
+    }
+
+    private static void removeLocation(ItemStack itemStack) {
         itemStack.getTag().remove("Location");
+    }
+
+    public static Tag getLocation(ItemStack itemStack) {
+        CompoundTag compoundtag = itemStack.getTag();
+        if (compoundtag.contains("Location")) {
+            return compoundtag.get("Location");
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (Screen.hasControlDown()) {
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl1"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl2"));
+        } else {
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip"));
+        }
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }
