@@ -59,8 +59,8 @@ public class AtiumChestplate extends ArmorItem {
     }
 
     private void tin(Player player) {
-        if (player.getHealth() <= 6) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5));
+        if (player.getHealth() <= 6 && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15));
         }
     }
 

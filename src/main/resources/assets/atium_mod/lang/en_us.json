@@ -71,6 +71,7 @@
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
 
   //Tool Tips
+  //Infusions generic
   "tooltip.atium_mod.tooltip.iron": "§7Iron Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.steel": "§7Steel Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.tin": "§7Tin Infused §8[CTRL]",
@@ -87,15 +88,15 @@
   //Atium helmet
   "tooltip.atium_mod.atium_helmet.tooltip.iron.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_helmet.tooltip.steel.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_helmet.tooltip.tin.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.tin.ctrl": "§8Gain night vision while crouching",
   "tooltip.atium_mod.atium_helmet.tooltip.pewter.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_helmet.tooltip.brass.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.brass.ctrl": "§8Gain water breathing while touching water",
   "tooltip.atium_mod.atium_helmet.tooltip.zinc.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_helmet.tooltip.gold.ctrl": "§8Desc",
   //Atium Chestplate
   "tooltip.atium_mod.atium_chestplate.tooltip.iron.ctrl": "§8Crouch to slowly pull items towards player",
   "tooltip.atium_mod.atium_chestplate.tooltip.steel.ctrl": "§815% chance to push all nearby enemies away",
-  "tooltip.atium_mod.atium_chestplate.tooltip.tin.ctrl": "§8Gain resistance if health is low",
+  "tooltip.atium_mod.atium_chestplate.tooltip.tin.ctrl": "§8Gain resistance if your health is low",
   "tooltip.atium_mod.atium_chestplate.tooltip.pewter.ctrl": "§8Gives 2 permanent hearts while equipped",
   "tooltip.atium_mod.atium_chestplate.tooltip.brass.ctrl": "§815% chance to set attacker on fire",
   "tooltip.atium_mod.atium_chestplate.tooltip.zinc.ctrl": "§815% chance to deflect projectiles",
