@@ -90,9 +90,9 @@
   "tooltip.atium_mod.atium_helmet.tooltip.steel.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_helmet.tooltip.tin.ctrl": "§8Gain night vision while crouching",
   "tooltip.atium_mod.atium_helmet.tooltip.pewter.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_helmet.tooltip.brass.ctrl": "§8Gain water breathing while touching water",
+  "tooltip.atium_mod.atium_helmet.tooltip.brass.ctrl": "§8Gain water breathing for 6 seconds when entering water",
   "tooltip.atium_mod.atium_helmet.tooltip.zinc.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_helmet.tooltip.gold.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.gold.ctrl": "§8Heals a random atium mod armour piece that is equipped by 1",
   //Atium Chestplate
   "tooltip.atium_mod.atium_chestplate.tooltip.iron.ctrl": "§8Crouch to slowly pull items towards player",
   "tooltip.atium_mod.atium_chestplate.tooltip.steel.ctrl": "§815% chance to push all nearby enemies away",

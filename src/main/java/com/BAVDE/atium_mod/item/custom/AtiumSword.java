@@ -128,10 +128,10 @@ public class AtiumSword extends SwordItem {
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
         if (Math.random() < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100, false, false), pAttacker);
             }
             if (!pTarget.hasEffect(ModMobEffects.DISORIENTED.get())) {
-                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), 100, 0, false, false), pAttacker);
             }
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 6.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.DISORIENTED_PARTICLES.get());
@@ -168,7 +168,7 @@ public class AtiumSword extends SwordItem {
         if (Math.random() < 0.1) { //10%
             pTarget.setTicksFrozen(139);
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 3), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 3, false, false), pAttacker);
             }
             pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());

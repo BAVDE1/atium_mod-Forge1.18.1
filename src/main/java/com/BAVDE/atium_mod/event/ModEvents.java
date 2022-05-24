@@ -6,6 +6,7 @@ import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -78,6 +79,12 @@ public class ModEvents {
                 }
             }
             //OFF
+            if (itemStackFrom.getItem() == ModItems.ATIUM_HELMET.get() && itemStackFrom.getTag().contains("atium_mod.metal")) {
+                int currentMetal = itemStackFrom.getTag().getInt("atium_mod.metal");
+                switch (currentMetal) {
+                    case 3 -> helmetTinOff(player);
+                }
+            }
             if (itemStackFrom.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackFrom.getTag().contains("atium_mod.metal")) {
                 int currentMetal = itemStackFrom.getTag().getInt("atium_mod.metal");
                 switch (currentMetal) {
@@ -105,6 +112,12 @@ public class ModEvents {
             //sound not working atm
             level.playSound((Player) player, player, SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 4.0F, 1.0F);
             createForceFieldParticles(0.7D, 4, player);
+        }
+    }
+
+    private static void helmetTinOff(LivingEntity player) {
+        if (player.hasEffect(MobEffects.NIGHT_VISION)) {
+            player.removeEffect(MobEffects.NIGHT_VISION);
         }
     }
 
