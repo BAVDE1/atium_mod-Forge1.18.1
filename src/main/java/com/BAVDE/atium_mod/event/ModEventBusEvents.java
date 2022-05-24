@@ -59,5 +59,7 @@ public class ModEventBusEvents {
                 ModFlameParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FORCE_FIELD_PARTICLES.get(),
                 ForceFieldParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.DETECTION_PARTICLES.get(),
+                DetectionParticle.Provider::new);
     }
 }
