@@ -44,7 +44,8 @@ public class AtiumChestplate extends ArmorItem {
     private void iron(Level level, Player player) {
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
-            AABB aabb = player.getBoundingBox().inflate(8.0D, 5.0D, 8.0D);
+            var range = 8.0D;
+            AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<ItemEntity> itemEntityList = level.getEntitiesOfClass(ItemEntity.class, aabb);
             for (ItemEntity itemEntity : itemEntityList) {
                 double pX = player.getX() - itemEntity.getX();

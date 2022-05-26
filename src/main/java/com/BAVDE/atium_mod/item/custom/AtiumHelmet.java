@@ -1,5 +1,6 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.gui.screens.Screen;
@@ -53,7 +54,7 @@ public class AtiumHelmet extends ArmorItem {
             for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
                 Block block = level.getBlockState(pos.immutable()).getBlock();
                 if (checkForMetalOre(block)) {
-                    if (player.level.isClientSide && Math.random() < 0.5) {
+                    if (player.level.isClientSide && Math.random() < 0.3) {
                         player.level.addParticle(ModParticles.ORE_DETECTION_PARTICLES.get(), true, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
                     }
                 }
@@ -68,7 +69,7 @@ public class AtiumHelmet extends ArmorItem {
             for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
                 Block block = level.getBlockState(pos.immutable()).getBlock();
                 if (checkForMetalOre(block)) {
-                    if (player.level.isClientSide && Math.random() < 0.5) {
+                    if (player.level.isClientSide && Math.random() < 0.3) {
                         player.level.addParticle(ModParticles.ORE_DETECTION_PARTICLES.get(), true, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
                     }
                 }
@@ -77,7 +78,10 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static boolean checkForMetalOre(Block block) {
-        return block == Blocks.IRON_ORE;
+        return block == Blocks.GOLD_ORE || block == Blocks.RAW_GOLD_BLOCK || block == Blocks.DEEPSLATE_GOLD_ORE || block == Blocks.NETHER_GOLD_ORE
+                || block == Blocks.IRON_ORE || block == Blocks.RAW_IRON_BLOCK || block == Blocks.DEEPSLATE_IRON_ORE
+                || block == Blocks.COPPER_ORE || block == Blocks.RAW_COPPER_BLOCK || block == Blocks.DEEPSLATE_COPPER_ORE
+                || block == ModBlocks.ATIUM_ORE.get();
     }
 
     private static void tin(LivingEntity player) {
@@ -98,7 +102,8 @@ public class AtiumHelmet extends ArmorItem {
 
     private static void zinc(Level level, LivingEntity player) {
         if (player.isCrouching()) {
-            AABB aabb = player.getBoundingBox().inflate(12.0D, 12.0D, 12.0D);
+            var range = 12.0D;
+            AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
             for (LivingEntity entity : entityList) {
                 double pX = player.getX() - entity.getX();

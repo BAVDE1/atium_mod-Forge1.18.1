@@ -32,6 +32,8 @@ public class ModEvents {
     //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
     //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
 
+    /**** EVENTS ****/
+
     @SubscribeEvent
     public static void entityAttackEvent(LivingAttackEvent livingAttackEvent){
         LivingEntity player = livingAttackEvent.getEntityLiving();
@@ -99,7 +101,8 @@ public class ModEvents {
     private static void chestplateSteel(Level level, LivingEntity player) {
         if (Math.random() < 0.15) { //15%
             //code explained in iron method, atium sword
-            AABB aabb = player.getBoundingBox().inflate(6.0D, 6.0D, 6.0D);
+            var range = 6.0D;
+            AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
             for (LivingEntity entity : entityList) {
                 double pX = player.getX() - entity.getX();
@@ -148,7 +151,7 @@ public class ModEvents {
 
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {
         if (livingAttackEvent.getSource().getDirectEntity() instanceof AbstractArrow) {
-            if (Math.random() < 0.15) { //15%
+            if (Math.random() < 0.2) { //15%
                 if (livingAttackEvent.isCancelable()) {
                     livingAttackEvent.setCanceled(true);
                     livingAttackEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);

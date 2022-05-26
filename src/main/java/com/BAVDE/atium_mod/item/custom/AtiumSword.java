@@ -85,7 +85,8 @@ public class AtiumSword extends SwordItem {
 
     private void iron(Level pLevel, LivingEntity pPlayer) {
         //sets range entities are detected in (5x5x5)
-        AABB aabb = pPlayer.getBoundingBox().inflate(5.0D, 5.0D, 5.0D);
+        var range = 5.0D;
+        AABB aabb = pPlayer.getBoundingBox().inflate(range, range, range);
         //stores all nearby living entities in list
         List<LivingEntity> entityList = pLevel.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, pPlayer, aabb);
         //loops through every entity in the list above
