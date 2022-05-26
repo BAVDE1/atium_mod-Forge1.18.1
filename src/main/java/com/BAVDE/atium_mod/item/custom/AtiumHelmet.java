@@ -2,23 +2,16 @@ package com.BAVDE.atium_mod.item.custom;
 
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -26,11 +19,12 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 public class AtiumHelmet extends ArmorItem {
     public AtiumHelmet(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
@@ -42,12 +36,48 @@ public class AtiumHelmet extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 1 -> iron(level, player);
+                case 2 -> steel(level, player);
                 case 3 -> tin(player);
                 case 5 -> brass(player);
                 case 6 -> zinc(level, player);
                 case 9 -> gold(stack, player, level);
             }
         }
+    }
+
+    private static void iron(Level level, LivingEntity player) {
+        if (player.isCrouching()) {
+            int range = 8;
+
+            for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
+                Block block = level.getBlockState(pos.immutable()).getBlock();
+                if (checkForMetalOre(block)) {
+                    if (player.level.isClientSide && Math.random() < 0.5) {
+                        player.level.addParticle(ModParticles.ORE_DETECTION_PARTICLES.get(), true, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void steel(Level level, LivingEntity player) {
+        if (player.isCrouching()) {
+            int range = 16;
+
+            for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
+                Block block = level.getBlockState(pos.immutable()).getBlock();
+                if (checkForMetalOre(block)) {
+                    if (player.level.isClientSide && Math.random() < 0.5) {
+                        player.level.addParticle(ModParticles.ORE_DETECTION_PARTICLES.get(), true, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean checkForMetalOre(Block block) {
+        return block == Blocks.IRON_ORE;
     }
 
     private static void tin(LivingEntity player) {
@@ -77,7 +107,7 @@ public class AtiumHelmet extends ArmorItem {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
                 if (player.level.isClientSide) {
-                    player.level.addParticle(ModParticles.DETECTION_PARTICLES.get(), true, entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 0, 0, 0);
+                    player.level.addParticle(ModParticles.MOB_DETECTION_PARTICLES.get(), true, entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 0, 0, 0);
                 }
                 //entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 2, 0, false, false, false), player);
             }

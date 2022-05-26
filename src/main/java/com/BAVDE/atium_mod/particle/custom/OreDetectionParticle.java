@@ -15,10 +15,10 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DetectionParticle extends TextureSheetParticle {
+public class OreDetectionParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected DetectionParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected OreDetectionParticle(ClientLevel level, double xCoord, double yCoord, double zCoord, SpriteSet spriteSet, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
         this.sprites = spriteSet;
 
@@ -47,7 +47,7 @@ public class DetectionParticle extends TextureSheetParticle {
         return new ParticleRenderType() {
             @Override
             public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
-                RenderSystem.depthMask(true);
+                RenderSystem.depthMask(false);
                 RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
                 RenderSystem.enableBlend();
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -71,16 +71,8 @@ public class DetectionParticle extends TextureSheetParticle {
 
     @Override
     protected int getLightColor(float pPartialTick) {
-        float f = ((float) this.age + pPartialTick) / (float) this.lifetime;
-        f = Mth.clamp(f, 0.0F, 1.0F);
-        int i = super.getLightColor(pPartialTick);
-        int j = i & 255;
-        int k = i >> 16 & 255;
-        j += (int) (f * 15.0F * 16.0F);
-        if (j > 240) {
-            j = 240;
-        }
-        return j | k << 16;    }
+        return 255;
+    }
 
     private void fadeOut() {
         if (this.age >= this.lifetime - 40 && this.alpha > 0.01F) {
@@ -98,9 +90,9 @@ public class DetectionParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double XSpeed, double YSpeed, double ZSpeed) {
-            DetectionParticle detectionParticle = new DetectionParticle(level, x, y, z, sprites , XSpeed, YSpeed, ZSpeed);
-            detectionParticle.pickSprite(this.sprites);
-            return detectionParticle;
+            OreDetectionParticle oreDetectionParticle = new OreDetectionParticle(level, x, y, z, sprites , XSpeed, YSpeed, ZSpeed);
+            oreDetectionParticle.pickSprite(this.sprites);
+            return oreDetectionParticle;
         }
     }
 }

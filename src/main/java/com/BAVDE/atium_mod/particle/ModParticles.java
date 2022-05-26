@@ -30,8 +30,11 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> FORCE_FIELD_PARTICLES =
             PARTICLE_TYPES.register("force_field_particles", () -> new SimpleParticleType(true));
 
-    public static final RegistryObject<SimpleParticleType> DETECTION_PARTICLES =
-            PARTICLE_TYPES.register("detection_particles", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> MOB_DETECTION_PARTICLES =
+            PARTICLE_TYPES.register("mob_detection_particles", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> ORE_DETECTION_PARTICLES =
+            PARTICLE_TYPES.register("ore_detection_particles", () -> new SimpleParticleType(true));
 
     //register particles in ModEventBusEvents
 

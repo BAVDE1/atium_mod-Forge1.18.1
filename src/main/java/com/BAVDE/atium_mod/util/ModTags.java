@@ -20,8 +20,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
     public static class Blocks {
-        public static final Tags.Blocks NEW_TAG = null;
 
+        public static final TagKey<Block> METAL_ORES
+                = tag("metal_ores");
 
         //tag stuff
         private static TagKey<Block> tag(String name) {
@@ -44,22 +45,12 @@ public class ModTags {
         public static final TagKey<Item> INFUSING_METALS
                 = tag("infusing_metals");
 
-
-
         //tag stuff
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(new ResourceLocation(AtiumMod.MOD_ID, name));
         }
         private static TagKey<Item> forgeTag(String name) {
             return ItemTags.create(new ResourceLocation("forge", name));
-        }
-    }
-
-    public static class StructureTags {
-        public static final TagKey<ConfiguredStructureFeature<?, ?>> ATIUM_GEODE_LOCATE = create("atium_geode_locate");
-
-        private static TagKey<ConfiguredStructureFeature<?, ?>> create(String string) {
-            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(string));
         }
     }
 }

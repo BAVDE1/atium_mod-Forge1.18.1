@@ -9,12 +9,9 @@ import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.particle.custom.*;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.saveddata.maps.MapIndex;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -59,7 +56,9 @@ public class ModEventBusEvents {
                 ModFlameParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FORCE_FIELD_PARTICLES.get(),
                 ForceFieldParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ModParticles.DETECTION_PARTICLES.get(),
-                DetectionParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.MOB_DETECTION_PARTICLES.get(),
+                MobDetectionParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.ORE_DETECTION_PARTICLES.get(),
+                OreDetectionParticle.Provider::new);
     }
 }
