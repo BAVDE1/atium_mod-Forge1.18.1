@@ -1,7 +1,10 @@
 package com.BAVDE.atium_mod.block.entity;
 
+import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -9,11 +12,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -87,7 +93,9 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         inventory.setItem(0, itemHandler.getStackInSlot(0));
         inventory.setItem(1, itemHandler.getStackInSlot(1));
+        //if is not valid craft drop item that is in result slot
         this.checkResult();
+        this.clearResultSlot();
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
@@ -108,11 +116,12 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         }
     }
 
-    //clears the result slot (2) when placed
+    //clears the result slot (2) when placed & broken - just to be sure
     public void clearResultSlot() {
         itemHandler.setStackInSlot(2, ItemStack.EMPTY);
     }
 
+    //doesn't work with itemHandler (see furnace for example?)
     @Override
     public int getContainerSize() {
         return 2;
@@ -169,5 +178,42 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+    }
+
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, InfusingTableBlockEntity pBlockEntity) {
+        //particle effect for when valid metal is in metal slot (0)
+        if (pBlockEntity.hasMetal() && Math.random() < 0.6) {
+            //pLevel.addParticle(ModParticles.INFUSION_FLAME_PARTICLES.get(), pPos.getX() + 0.5, pPos.getY() + 0.95, pPos.getZ() + 0.5, 0, 0, 0);
+        }
+    }
+
+    public static void createCraftParticles(double pSpeed, int pSize, LivingEntity player, BlockPos pos) {
+        Level level = player.getLevel();
+        Minecraft minecraft = Minecraft.getInstance();
+        //gets middle of block
+        double d0 = pos.getX() + 0.5;
+        double d1 = pos.getY() + 0.5;
+        double d2 = pos.getZ() + 0.5;
+        for (int i = -pSize; i <= pSize; ++i) {
+            for (int j = -pSize; j <= pSize; ++j) {
+                for (int k = -pSize; k <= pSize; ++k) {
+                    double d3 = (double) j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d4 = (double) i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d5 = (double) k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                    double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / pSpeed + level.random.nextGaussian() * 0.05D;
+                    minecraft.particleEngine.createParticle(ModParticles.INFUSION_CRAFT_PARTICLES.get(), d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+                    if (i != -pSize && i != pSize && j != -pSize && j != pSize) {
+                        k += pSize * 2 - 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean hasMetal() {
+        Item item = itemHandler.getStackInSlot(0).getItem();
+        return item == Items.IRON_INGOT || item == ModItems.STEEL.get() || item == ModItems.TIN.get()
+                || item == ModItems.PEWTER.get() || item == ModItems.BRASS.get() || item == ModItems.ZINC.get()
+                || item == Items.COPPER_INGOT || item == ModItems.BRONZE.get() || item == Items.GOLD_INGOT;
     }
 }

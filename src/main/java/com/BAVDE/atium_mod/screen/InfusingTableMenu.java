@@ -86,24 +86,28 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
     @Override
     protected void onTake(Player player, ItemStack itemStack) {
         BlockPos pos = blockEntity.getBlockPos();
+        BlockEntity blockEntity1 = level.getBlockEntity(pos);
         itemStack.onCraftedBy(player.level, player, itemStack.getCount());
-        this.shrinkStacks();
-        this.playSound(pos);
-        this.access.execute((level, blockPos) -> {
-            level.levelEvent(1044, blockPos, 0);
-        });
+        if (hasRecipe(blockEntity)) {
+            this.shrinkStacks();
+            if (blockEntity1 instanceof InfusingTableBlockEntity) {
+                InfusingTableBlockEntity.createCraftParticles(0.07D, 2, player, pos);
+            }
+            this.playSound(pos);
+            this.access.execute((level, blockPos) -> {
+                level.levelEvent(1044, blockPos, 0);
+            });
+        }
     }
 
     private void playSound(BlockPos pos) {
         level.playSound((Player) null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
-        level.playSound((Player) null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.3F, 0.8F + level.random.nextFloat() * 1.2F);
+        level.playSound((Player) null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.6F, 0.8F + level.random.nextFloat() * 1.2F);
     }
 
     private void shrinkStacks() {
-        if (hasRecipe(blockEntity)) {
-            blockEntity.itemHandler.extractItem(0, 1, false);
-            blockEntity.itemHandler.extractItem(1, 1, false);
-        }
+        blockEntity.itemHandler.extractItem(0, 1, false);
+        blockEntity.itemHandler.extractItem(1, 1, false);
     }
 
     @Override

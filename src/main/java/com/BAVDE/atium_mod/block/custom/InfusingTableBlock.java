@@ -1,7 +1,10 @@
 package com.BAVDE.atium_mod.block.custom;
 
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import com.BAVDE.atium_mod.particle.ModParticles;
+import com.BAVDE.atium_mod.screen.InfusingTableMenu;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
@@ -27,6 +30,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class InfusingTableBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -35,29 +40,34 @@ public class InfusingTableBlock extends BaseEntityBlock {
     }
 
     //stores the shape for the block                                                 side     height   side
-    private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 10, 16);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 10, 16);
 
     //creates the custom block shape
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
+
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
+
     @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
     }
+
     //prevents model from being invisible
     @Override
     public RenderShape getRenderShape(BlockState pState) {
@@ -94,9 +104,9 @@ public class InfusingTableBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof InfusingTableBlockEntity) {
+            if (entity instanceof InfusingTableBlockEntity) {
                 //network hooks basically synchronizes client and server side (i think)
-                NetworkHooks.openGui(((ServerPlayer)pPlayer), (InfusingTableBlockEntity)entity, pPos);
+                NetworkHooks.openGui(((ServerPlayer) pPlayer), (InfusingTableBlockEntity) entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -119,4 +129,22 @@ public class InfusingTableBlock extends BaseEntityBlock {
     public boolean isSignalSource(BlockState pState) {
         return true;
     }
+
+    //makes block tick, called in blockEntity
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.INFUSING_TABLE_BLOCK_ENTITY.get(), InfusingTableBlockEntity::tick);
+    }
+
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRandom) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof InfusingTableBlockEntity) {
+            if (((InfusingTableBlockEntity) blockEntity).hasMetal()) {
+                //pLevel.addParticle(ModParticles.INFUSION_FLAME_PARTICLES.get(), pPos.getX() + 0.5, pPos.getY() + 0.7, pPos.getZ() + 0.5, 0, 5.0E-5D, 0);
+            }
+        }
+    }
+    //tick doesn't work here lol
 }

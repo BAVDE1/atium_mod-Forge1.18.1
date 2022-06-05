@@ -36,6 +36,12 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> ORE_DETECTION_PARTICLES =
             PARTICLE_TYPES.register("ore_detection_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> INFUSION_FLAME_PARTICLES =
+            PARTICLE_TYPES.register("infusion_flame_particles", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> INFUSION_CRAFT_PARTICLES =
+            PARTICLE_TYPES.register("infusion_craft_particles", () -> new SimpleParticleType(true));
+
     //register particles in ModEventBusEvents
 
     public static void register(IEventBus eventBus) {

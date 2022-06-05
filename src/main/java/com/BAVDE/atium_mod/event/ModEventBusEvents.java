@@ -60,5 +60,9 @@ public class ModEventBusEvents {
                 MobDetectionParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.ORE_DETECTION_PARTICLES.get(),
                 OreDetectionParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.INFUSION_FLAME_PARTICLES.get(),
+                InfusionFlameParticle.FlameProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.INFUSION_CRAFT_PARTICLES.get(),
+                InfusionFlameParticle.CraftProvider::new);
     }
 }
