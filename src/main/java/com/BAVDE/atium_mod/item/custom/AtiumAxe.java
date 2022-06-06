@@ -15,6 +15,15 @@ public class AtiumAxe extends AxeItem {
     }
 
     @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            return Rarity.UNCOMMON;
+        } else {
+            return super.getRarity(pStack);
+        }
+    }
+
+    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");

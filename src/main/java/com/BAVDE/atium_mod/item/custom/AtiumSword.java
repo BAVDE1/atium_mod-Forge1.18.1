@@ -195,7 +195,7 @@ public class AtiumSword extends SwordItem {
     @Override
     public Rarity getRarity(ItemStack pStack) {
         if (pStack.getTag().contains("atium_mod.metal")) {
-            return Rarity.COMMON;
+            return Rarity.UNCOMMON;
         } else {
             return super.getRarity(pStack);
         }

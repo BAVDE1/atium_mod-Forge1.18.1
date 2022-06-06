@@ -15,10 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -30,6 +27,15 @@ import java.util.List;
 public class AtiumHelmet extends ArmorItem {
     public AtiumHelmet(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            return Rarity.UNCOMMON;
+        } else {
+            return super.getRarity(pStack);
+        }
     }
 
     @Override

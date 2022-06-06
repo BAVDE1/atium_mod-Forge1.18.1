@@ -6,10 +6,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -21,6 +18,15 @@ public class AtiumPickaxe extends PickaxeItem {
     public AtiumPickaxe(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         this.minecraft = Minecraft.getInstance();
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            return Rarity.UNCOMMON;
+        } else {
+            return super.getRarity(pStack);
+        }
     }
 
     @Override
