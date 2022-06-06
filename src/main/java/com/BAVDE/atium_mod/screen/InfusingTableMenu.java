@@ -15,6 +15,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.UpgradeRecipe;
@@ -155,28 +156,54 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     public int hasMetal() {
         //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-        ItemStack itemStack = this.slots.get(0).getItem();
+        Item item = this.slots.get(0).getItem().getItem();
         int metal = 0;
-        if (itemStack.getItem() == Items.IRON_INGOT) {
+        if (item == Items.IRON_INGOT) {
             metal = 1;
-        } else if (itemStack.getItem() == ModItems.STEEL.get()) {
+        } else if (item == ModItems.STEEL.get()) {
             metal = 2;
-        } else if (itemStack.getItem() == ModItems.TIN.get()) {
+        } else if (item == ModItems.TIN.get()) {
             metal = 3;
-        } else if (itemStack.getItem() == ModItems.PEWTER.get()) {
+        } else if (item == ModItems.PEWTER.get()) {
             metal = 4;
-        } else if (itemStack.getItem() == ModItems.BRASS.get()) {
+        } else if (item == ModItems.BRASS.get()) {
             metal = 5;
-        } else if (itemStack.getItem() == ModItems.ZINC.get()) {
+        } else if (item == ModItems.ZINC.get()) {
             metal = 6;
-        } else if (itemStack.getItem() == Items.COPPER_INGOT) {
+        } else if (item == Items.COPPER_INGOT) {
             metal = 7;
-        } else if (itemStack.getItem() == ModItems.BRONZE.get()) {
+        } else if (item == ModItems.BRONZE.get()) {
             metal = 8;
-        } else if (itemStack.getItem() == Items.GOLD_INGOT) {
+        } else if (item == Items.GOLD_INGOT) {
             metal = 9;
         }
         return metal;
+    }
+
+    public int hasItem() {
+        //1=sword, 2=pick, 3=axe, 4=shovel, 5=hoe, 6=helmet, 7=chestplate, 8=leggings, 9=boots
+        Item item = this.slots.get(1).getItem().getItem();
+        int returnValue = 0;
+        if (item == ModItems.ATIUM_SWORD.get()) {
+            returnValue = 1;
+        } else if (item == ModItems.ATIUM_PICKAXE.get()) {
+            returnValue = 2;
+        } else if (item == ModItems.ATIUM_AXE.get()) {
+            returnValue = 3;
+        } else if (item == ModItems.ATIUM_SHOVEL.get()) {
+            returnValue = 4;
+        } else if (item == ModItems.ATIUM_HOE.get()) {
+            returnValue = 5;
+        } else if (item == ModItems.ATIUM_HELMET.get()) {
+            returnValue = 6;
+        } else if (item == ModItems.ATIUM_CHESTPLATE.get()) {
+            returnValue = 7;
+        } else if (item == ModItems.ATIUM_LEGGINGS.get()) {
+            returnValue = 8;
+        } else if (item == ModItems.ATIUM_BOOTS.get()) {
+            returnValue = 9;
+        }
+        return returnValue;
     }
 
     private void copyTag() {

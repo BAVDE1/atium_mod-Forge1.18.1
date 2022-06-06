@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/infusing_table_layout.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/infusing_table_gui.png");
 
     public InfusingTableScreen(InfusingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -41,26 +41,86 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         }
 
         renderMetalDesc(pPoseStack);
+        renderInfusionDesc(pPoseStack);
     }
 
-    protected void renderMetalDesc(PoseStack pPoseStack) {
+    protected void renderMetalDesc(PoseStack poseStack) {
         final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/metal_desc.png");
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, METAL_DESC);
-        int descPosX = leftPos + 9;
-        int descPosY = topPos + 24;
+        int Xpos = leftPos + 9;
+        int Ypos = topPos + 24;
+        int height = 70;
+        int width = 57;
 
         switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-            case 1 -> blit(pPoseStack, descPosX, descPosY, 0, 0, 57, 70);
-            case 2 -> blit(pPoseStack, descPosX, descPosY, 57, 0, 57, 70);
-            case 3 -> blit(pPoseStack, descPosX, descPosY, 114, 0, 57, 70);
-            case 4 -> blit(pPoseStack, descPosX, descPosY, 171, 0, 57, 70);
-            case 5 -> blit(pPoseStack, descPosX, descPosY, 0, 70, 57, 70);
-            case 6 -> blit(pPoseStack, descPosX, descPosY, 57, 70, 57, 70);
-            case 7 -> blit(pPoseStack, descPosX, descPosY, 114, 70, 57, 70);
-            case 8 -> blit(pPoseStack, descPosX, descPosY, 171, 70, 57, 70);
-            case 9 -> blit(pPoseStack, descPosX, descPosY, 0, 140, 57, 70);
+            case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
+            case 2 -> blit(poseStack, Xpos, Ypos, 57, 0, width, height);
+            case 3 -> blit(poseStack, Xpos, Ypos, 114, 0, width, height);
+            case 4 -> blit(poseStack, Xpos, Ypos, 171, 0, width, height);
+            case 5 -> blit(poseStack, Xpos, Ypos, 0, 70, width, height);
+            case 6 -> blit(poseStack, Xpos, Ypos, 57, 70, width, height);
+            case 7 -> blit(poseStack, Xpos, Ypos, 114, 70, width, height);
+            case 8 -> blit(poseStack, Xpos, Ypos, 171, 70, width, height);
+            case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+        }
+    }
+
+    protected void renderInfusionDesc(PoseStack poseStack) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        int Xpos = leftPos + 109;
+        int Ypos = topPos + 24;
+        int height = 70;
+        int width = 57;
+
+        //1=sword, 2=pick, 3=axe, 4=shovel, 5=hoe, 6=helmet, 7=chestplate, 8=leggings, 9=boots
+        switch (menu.hasItem()) {
+            case 1: //sword
+                final ResourceLocation SWORD_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/atium/sword_desc.png");
+                RenderSystem.setShaderTexture(0, SWORD_DESC);
+                switch (menu.hasMetal()) {
+                    case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
+                    case 2 -> blit(poseStack, Xpos, Ypos, 56, 0, width, height);
+                    case 3 -> blit(poseStack, Xpos, Ypos, 112, 0, width, height);
+                    case 4 -> blit(poseStack, Xpos, Ypos, 168, 0, width, height);
+                    case 5 -> blit(poseStack, Xpos, Ypos, 0, 70, width, height);
+                    case 6 -> blit(poseStack, Xpos, Ypos, 56, 70, width, height);
+                    case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
+                    case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
+                    case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                }
+                break;
+            case 2: //pickaxe
+                break;
+            case 3: //axe
+                break;
+            case 4: //shovel
+                break;
+            case 5: //hoe
+                break;
+            case 6: //helmet
+                break;
+            case 7: //chestplate
+                final ResourceLocation CHESTPLATE_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/atium/chestplate_desc.png");
+                RenderSystem.setShaderTexture(0, CHESTPLATE_DESC);
+                switch (menu.hasMetal()) {
+                    case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
+                    case 2 -> blit(poseStack, Xpos, Ypos, 56, 0, width, height);
+                    case 3 -> blit(poseStack, Xpos, Ypos, 112, 0, width, height);
+                    case 4 -> blit(poseStack, Xpos, Ypos, 168, 0, width, height);
+                    case 5 -> blit(poseStack, Xpos, Ypos, 0, 70, width, height);
+                    case 6 -> blit(poseStack, Xpos, Ypos, 56, 70, width, height);
+                    case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
+                    case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
+                    case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                }
+                break;
+            case 8: //leggings
+                break;
+            case 9: //boots
+                break;
         }
     }
 

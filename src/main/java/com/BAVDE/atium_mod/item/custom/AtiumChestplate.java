@@ -67,6 +67,7 @@ public class AtiumChestplate extends ArmorItem {
 
     private void gold(ItemStack stack, Level level, Player player) {
         if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+            //15 seconds
             player.getCooldowns().addCooldown(stack.getItem(), 300);
             player.heal(1f);
             player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1.5F + level.random.nextFloat() * 2.0F);
