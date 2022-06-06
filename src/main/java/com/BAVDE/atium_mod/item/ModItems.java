@@ -45,12 +45,10 @@ public class ModItems {
     public static final RegistryObject<Item> ATIUM_BOOTS = ITEMS.register("atium_boots",
             () -> new AtiumBoots(ModArmourMaterials.ATIUM, EquipmentSlot.FEET, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
 
-    //crystallized atium
-    public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
-
     //metals
     public static final RegistryObject<Item> STEEL = ITEMS.register("steel",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> REFINED_IRON = ITEMS.register("refined_iron",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> TIN = ITEMS.register("tin",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
@@ -63,6 +61,12 @@ public class ModItems {
     public static final RegistryObject<Item> BRONZE = ITEMS.register("bronze",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
+    //items
+    public static final RegistryObject<Item> DIAMOND_COMPOUND = ITEMS.register("diamond_compound",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
     //Knives
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
             () -> new KnifeItem(ModTiers.CRYSTALLIZED_KNIFE_TIER, 1, -2.2f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
@@ -71,9 +75,9 @@ public class ModItems {
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer",
             () -> new HammerItem(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(16)));
     public static final RegistryObject<Item> IRON_HAMMER = ITEMS.register("iron_hammer",
-            () -> new HammerItem(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(128)));
+            () -> new HammerItem(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(100)));
     public static final RegistryObject<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer",
-            () -> new HammerItem(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1024)));
+            () -> new HammerItem(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(800)));
 
 
 

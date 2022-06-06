@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:iron_ingot",
+    "atium_mod:refined_iron",
     "atium_mod:steel",
     "atium_mod:tin",
     "atium_mod:pewter",

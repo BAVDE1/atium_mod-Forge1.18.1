@@ -26,12 +26,14 @@
   "item.atium_mod.atium_compass": "Atium Compass",
 
   "item.atium_mod.steel": "Steel",
+  "item.atium_mod.refined_iron": "Refined Iron",
   "item.atium_mod.tin": "Tin",
   "item.atium_mod.pewter": "Pewter",
   "item.atium_mod.brass": "Brass",
   "item.atium_mod.zinc": "Zinc",
   "item.atium_mod.bronze": "Bronze",
 
+  "item.atium_mod.diamond_compound": "Diamond Compound",
 
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",

@@ -158,7 +158,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
         Item item = this.slots.get(0).getItem().getItem();
         int metal = 0;
-        if (item == Items.IRON_INGOT) {
+        if (item == ModItems.REFINED_IRON.get()) {
             metal = 1;
         } else if (item == ModItems.STEEL.get()) {
             metal = 2;

@@ -192,6 +192,15 @@ public class AtiumSword extends SwordItem {
         }
     }
 
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.getTag().contains("atium_mod.metal")) {
+            return Rarity.COMMON;
+        } else {
+            return super.getRarity(pStack);
+        }
+    }
+
     //hover text
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {

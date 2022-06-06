@@ -212,7 +212,7 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
 
     public boolean hasMetal() {
         Item item = itemHandler.getStackInSlot(0).getItem();
-        return item == Items.IRON_INGOT || item == ModItems.STEEL.get() || item == ModItems.TIN.get()
+        return item == ModItems.REFINED_IRON.get() || item == ModItems.STEEL.get() || item == ModItems.TIN.get()
                 || item == ModItems.PEWTER.get() || item == ModItems.BRASS.get() || item == ModItems.ZINC.get()
                 || item == Items.COPPER_INGOT || item == ModItems.BRONZE.get() || item == Items.GOLD_INGOT;
     }
