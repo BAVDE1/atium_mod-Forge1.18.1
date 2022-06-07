@@ -46,6 +46,7 @@ public class AtiumHelmet extends ArmorItem {
                 case 1 -> iron(level, player);
                 case 2 -> steel(level, player);
                 case 3 -> tin(player);
+                case 4 -> pewter(player, level);
                 case 5 -> brass(player);
                 case 6 -> zinc(level, player);
                 case 9 -> gold(stack, player, level);
@@ -96,6 +97,21 @@ public class AtiumHelmet extends ArmorItem {
         } else if (!player.isCrouching() && player.hasEffect(MobEffects.NIGHT_VISION)) {
             //ModEvents for if helmet breaks when player is crouching
             player.removeEffect(MobEffects.NIGHT_VISION);
+        }
+    }
+
+    private static void pewter(Player player, Level level) {
+        if (!player.level.isClientSide) {
+            if (player.isUsingItem()) {
+                ItemStack itemStackUse = player.getUseItem();
+                Item item = itemStackUse.getItem();
+
+                if (item.isEdible() && player.getUseItemRemainingTicks() == 20) {
+                    itemStackUse.finishUsingItem(level, player);
+                    player.getFoodData().setSaturation(player.getFoodData().getSaturationLevel() + 1);
+                    player.stopUsingItem();
+                }
+            }
         }
     }
 

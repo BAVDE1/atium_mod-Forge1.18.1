@@ -89,12 +89,12 @@
   "tooltip.atium_mod.atium_compass.tooltip.ctrl2": "§7Hold §6[R-Click]§7 to locate the nearest source of Atium",
   "tooltip.atium_mod.atium_compass.tooltip": "§7More info §8[CTRL]",
   //Atium helmet
-  "tooltip.atium_mod.atium_helmet.tooltip.iron.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_helmet.tooltip.steel.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.iron.ctrl": "§8Shows location of metal ores when crouching (weak)",
+  "tooltip.atium_mod.atium_helmet.tooltip.steel.ctrl": "§8Shows location of metal ores when crouching (strong)",
   "tooltip.atium_mod.atium_helmet.tooltip.tin.ctrl": "§8Gain night vision while crouching",
-  "tooltip.atium_mod.atium_helmet.tooltip.pewter.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.pewter.ctrl": "§8Eat food faster than usual and gain more saturation",
   "tooltip.atium_mod.atium_helmet.tooltip.brass.ctrl": "§8Gain water breathing for 6 seconds when entering water",
-  "tooltip.atium_mod.atium_helmet.tooltip.zinc.ctrl": "§8Desc",
+  "tooltip.atium_mod.atium_helmet.tooltip.zinc.ctrl": "§8Show location of nearby mobs when crouching",
   "tooltip.atium_mod.atium_helmet.tooltip.gold.ctrl": "§8Heals a random atium mod armour piece that is equipped by 1",
   //Atium Chestplate
   "tooltip.atium_mod.atium_chestplate.tooltip.iron.ctrl": "§8Crouch to slowly pull items towards player",

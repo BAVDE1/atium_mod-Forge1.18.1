@@ -110,7 +110,7 @@ public class ModEvents {
         if (helmetItem.getItem() == ModItems.ATIUM_HELMET.get() && helmetItem.getTag().contains("atium_mod.metal")) {
             int currentMetal = helmetItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
-                case 4 -> helmetPewter((Player) player, rightClickItem, level);
+                //case 4 -> helmetPewter((Player) player, rightClickItem, level);
             }
         }
     }
