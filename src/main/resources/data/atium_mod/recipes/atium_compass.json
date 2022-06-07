@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "DCD",
+    " D "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:compass"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "#": {
+      "item": "atium_mod:bronze"
+    }
+  },
+  "result": {
+    "item": "atium_mod:atium_compass"
+  }
+}

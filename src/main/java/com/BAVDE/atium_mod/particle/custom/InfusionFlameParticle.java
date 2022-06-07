@@ -21,10 +21,10 @@ public class InfusionFlameParticle extends TextureSheetParticle {
 
         this.hasPhysics = false;
 
-        this.lifetime = 50 + this.random.nextInt(20);
+        this.lifetime = 50 + this.random.nextInt(15);
         this.setSpriteFromAge(spriteSet);
 
-        this.alpha = 0.8F;
+        this.alpha = 0.6F;
 
         this.tick();
     }

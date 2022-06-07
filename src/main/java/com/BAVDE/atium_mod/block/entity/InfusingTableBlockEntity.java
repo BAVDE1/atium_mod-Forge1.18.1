@@ -214,6 +214,6 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         Item item = itemHandler.getStackInSlot(0).getItem();
         return item == ModItems.REFINED_IRON.get() || item == ModItems.STEEL.get() || item == ModItems.TIN.get()
                 || item == ModItems.PEWTER.get() || item == ModItems.BRASS.get() || item == ModItems.ZINC.get()
-                || item == Items.COPPER_INGOT || item == ModItems.BRONZE.get() || item == Items.GOLD_INGOT;
+                || item == Items.COPPER_INGOT || item == ModItems.BRONZE.get() || item == ModItems.PURIFIED_GOLD.get();
     }
 }

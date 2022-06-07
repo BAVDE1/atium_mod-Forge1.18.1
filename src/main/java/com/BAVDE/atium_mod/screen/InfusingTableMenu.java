@@ -92,7 +92,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         if (hasRecipe(blockEntity)) {
             this.shrinkStacks();
             if (blockEntity1 instanceof InfusingTableBlockEntity) {
-                InfusingTableBlockEntity.createCraftParticles(0.07D, 2, player, pos);
+                InfusingTableBlockEntity.createCraftParticles(0.05D, 2, player, pos);
             }
             this.playSound(pos);
             this.access.execute((level, blockPos) -> {
@@ -174,7 +174,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             metal = 7;
         } else if (item == ModItems.BRONZE.get()) {
             metal = 8;
-        } else if (item == Items.GOLD_INGOT) {
+        } else if (item == ModItems.PURIFIED_GOLD.get()) {
             metal = 9;
         }
         return metal;
