@@ -13,17 +13,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -100,21 +96,6 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void playerEatEvent(PlayerInteractEvent.RightClickItem rightClickItem) {
-        LivingEntity player = rightClickItem.getEntityLiving();
-        Level level = player.getLevel();
-
-        //atium chestplate
-        ItemStack helmetItem = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (helmetItem.getItem() == ModItems.ATIUM_HELMET.get() && helmetItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = helmetItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
-                //case 4 -> helmetPewter((Player) player, rightClickItem, level);
-            }
-        }
-    }
-
     /**** INFUSIONS FUNCTIONALITY ****/
 
     private static void chestplateSteel(Level level, LivingEntity player) {
@@ -167,18 +148,6 @@ public class ModEvents {
             player.setHealth(player.getMaxHealth() - 4);
         }
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - 4.0D);
-    }
-
-    private static void helmetPewter(Player player, PlayerInteractEvent.RightClickItem event, Level level) {
-        ItemStack itemStack = event.getItemStack();
-        Item item = itemStack.getItem();
-
-        if (item.isEdible()) {
-            if (player.isUsingItem() && player.getUseItemRemainingTicks() > 20) {
-                event.setCanceled(true);
-                item.finishUsingItem(itemStack, level, player);
-            }
-        }
     }
 
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {

@@ -18,7 +18,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -92,7 +91,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         if (hasRecipe(blockEntity)) {
             this.shrinkStacks();
             if (blockEntity1 instanceof InfusingTableBlockEntity) {
-                InfusingTableBlockEntity.createCraftParticles(0.05D, 2, player, pos);
+                InfusingTableBlockEntity.createCraftParticles(0.05D, 1, player, pos);
             }
             this.playSound(pos);
             this.access.execute((level, blockPos) -> {
@@ -180,7 +179,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return metal;
     }
 
-    public int hasItem() {
+    public int hasAtiumItem() {
         //1=sword, 2=pick, 3=axe, 4=shovel, 5=hoe, 6=helmet, 7=chestplate, 8=leggings, 9=boots
         Item item = this.slots.get(1).getItem().getItem();
         int returnValue = 0;

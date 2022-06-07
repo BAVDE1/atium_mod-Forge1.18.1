@@ -15,7 +15,7 @@ public class InfusionFlameParticle extends TextureSheetParticle {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
         this.sprites = spriteSet;
 
-        this.quadSize *= 0.75F;
+        this.quadSize *= 0.4F;
         this.friction = 0.9F;
         this.gravity = 0.0f;
 
@@ -24,7 +24,7 @@ public class InfusionFlameParticle extends TextureSheetParticle {
         this.lifetime = 50 + this.random.nextInt(15);
         this.setSpriteFromAge(spriteSet);
 
-        this.alpha = 0.6F;
+        this.alpha = 0.5F;
 
         this.tick();
     }

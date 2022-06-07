@@ -41,7 +41,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         }
 
         renderMetalDesc(pPoseStack);
-        renderInfusionDesc(pPoseStack);
+        renderAtiumInfusionDesc(pPoseStack);
     }
 
     protected void renderMetalDesc(PoseStack poseStack) {
@@ -67,7 +67,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         }
     }
 
-    protected void renderInfusionDesc(PoseStack poseStack) {
+    protected void renderAtiumInfusionDesc(PoseStack poseStack) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int Xpos = leftPos + 109;
@@ -76,7 +76,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         int width = 57;
 
         //1=sword, 2=pick, 3=axe, 4=shovel, 5=hoe, 6=helmet, 7=chestplate, 8=leggings, 9=boots
-        switch (menu.hasItem()) {
+        switch (menu.hasAtiumItem()) {
             case 1: //sword
                 final ResourceLocation SWORD_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/atium/sword_desc.png");
                 RenderSystem.setShaderTexture(0, SWORD_DESC);
@@ -101,6 +101,19 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
             case 5: //hoe
                 break;
             case 6: //helmet
+                final ResourceLocation HELMET_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/atium/helmet_desc.png");
+                RenderSystem.setShaderTexture(0, HELMET_DESC);
+                switch (menu.hasMetal()) {
+                    case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
+                    case 2 -> blit(poseStack, Xpos, Ypos, 56, 0, width, height);
+                    case 3 -> blit(poseStack, Xpos, Ypos, 112, 0, width, height);
+                    case 4 -> blit(poseStack, Xpos, Ypos, 168, 0, width, height);
+                    case 5 -> blit(poseStack, Xpos, Ypos, 0, 70, width, height);
+                    case 6 -> blit(poseStack, Xpos, Ypos, 56, 70, width, height);
+                    case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
+                    case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
+                    case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                }
                 break;
             case 7: //chestplate
                 final ResourceLocation CHESTPLATE_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/atium/chestplate_desc.png");

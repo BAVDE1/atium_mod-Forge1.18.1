@@ -133,10 +133,9 @@ public class AtiumHelmet extends ArmorItem {
                 for (pZ = player.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
-                if (player.level.isClientSide) {
+                if (player.level.isClientSide && Math.random() < 0.6) {
                     player.level.addParticle(ModParticles.MOB_DETECTION_PARTICLES.get(), true, entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 0, 0, 0);
                 }
-                //entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 2, 0, false, false, false), player);
             }
         }
     }
@@ -160,19 +159,19 @@ public class AtiumHelmet extends ArmorItem {
                         player.getCooldowns().addCooldown(itemStack.getItem(), cooldown);
                     }
                     case 1 -> {
-                        if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && (chestplateItem.getDamageValue() + chestplateItem.getMaxDamage()) != chestplateItem.getMaxDamage()) {
+                        if ((chestplateItem.getDamageValue() + chestplateItem.getMaxDamage()) != chestplateItem.getMaxDamage()) {
                             chestplateItem.setDamageValue(chestplateItem.getDamageValue() - 1);
                         }
                         player.getCooldowns().addCooldown(itemStack.getItem(), cooldown);
                     }
                     case 2 -> {
-                        if (leggingsItem.getItem() == ModItems.ATIUM_LEGGINGS.get() && (leggingsItem.getDamageValue() + leggingsItem.getMaxDamage()) != leggingsItem.getMaxDamage()) {
+                        if ((leggingsItem.getDamageValue() + leggingsItem.getMaxDamage()) != leggingsItem.getMaxDamage()) {
                             leggingsItem.setDamageValue(leggingsItem.getDamageValue() - 1);
                         }
                         player.getCooldowns().addCooldown(itemStack.getItem(), cooldown);
                     }
                     case 3 -> {
-                        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && (bootsItem.getDamageValue() + bootsItem.getMaxDamage()) != bootsItem.getMaxDamage()) {
+                        if ((bootsItem.getDamageValue() + bootsItem.getMaxDamage()) != bootsItem.getMaxDamage()) {
                             bootsItem.setDamageValue(bootsItem.getDamageValue() - 1);
                         }
                         player.getCooldowns().addCooldown(itemStack.getItem(), cooldown);
