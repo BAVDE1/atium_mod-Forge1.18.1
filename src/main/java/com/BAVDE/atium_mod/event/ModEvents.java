@@ -6,6 +6,7 @@ import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -45,6 +47,14 @@ public class ModEvents {
             int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
                 case 6 -> chestplateZinc(livingAttackEvent);
+            }
+        }
+        //atium boots
+        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
+        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
+            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+                case 6 -> bootsZinc(livingAttackEvent);
             }
         }
     }
@@ -94,6 +104,21 @@ public class ModEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onMove(MovementInputUpdateEvent movementInputUpdateEvent) {
+        LivingEntity player = movementInputUpdateEvent.getEntityLiving();
+        Level level = player.getLevel();
+
+        //atium chestplate
+        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
+        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
+            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+            }
+        }
+
     }
 
     /**** INFUSIONS FUNCTIONALITY ****/
@@ -148,6 +173,12 @@ public class ModEvents {
             player.setHealth(player.getMaxHealth() - 4);
         }
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - 4.0D);
+    }
+
+    private static void bootsZinc(LivingAttackEvent livingAttackEvent) {
+        if (livingAttackEvent.getSource() == DamageSource.HOT_FLOOR) {
+            livingAttackEvent.setCanceled(true);
+        }
     }
 
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {

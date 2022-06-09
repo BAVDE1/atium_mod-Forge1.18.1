@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "atium_mod:block/fractured_magma_block1"
+  }
+}

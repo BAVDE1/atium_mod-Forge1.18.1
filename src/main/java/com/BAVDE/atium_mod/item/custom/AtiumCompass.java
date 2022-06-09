@@ -124,7 +124,11 @@ public class AtiumCompass extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (Screen.hasControlDown()) {
+            //item lore
             pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl1"));
+            //line break
+            pTooltipComponents.add(new TextComponent(" "));
+            //item desc
             pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl2"));
         } else {
             pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip"));

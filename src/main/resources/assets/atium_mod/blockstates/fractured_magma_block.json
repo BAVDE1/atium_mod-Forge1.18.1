@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "atium_mod:block/fractured_magma_block1"
+    },
+    "age=1": {
+      "model": "atium_mod:block/fractured_magma_block1"
+    },
+    "age=2": {
+      "model": "atium_mod:block/fractured_magma_block2"
+    },
+    "age=3": {
+      "model": "atium_mod:block/fractured_magma_block3"
+    }
+  }
+}

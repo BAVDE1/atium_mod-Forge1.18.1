@@ -103,6 +103,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> INFUSING_TABLE = registerBlock("infusing_table",
             () -> new InfusingTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).requiresCorrectToolForDrops().randomTicks()), ModCreativeModeTab.ATIUM_TAB);
 
+    //blocks
+    public static final RegistryObject<Block> FRACTURED_MAGMA_BLOCK = registerBlock("fractured_magma_block",
+            () -> new FracturedMagmaBlock(BlockBehaviour.Properties.copy(Blocks.MAGMA_BLOCK).randomTicks()), ModCreativeModeTab.ATIUM_TAB);
 
 
 

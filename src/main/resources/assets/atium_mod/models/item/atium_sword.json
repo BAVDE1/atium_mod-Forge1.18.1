@@ -2,5 +2,19 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "atium_mod:item/atium_sword"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "metal": 1
+      },
+      "model": "atium_mod:item/atium_sword_iron"
+    },
+    {
+      "predicate": {
+        "metal": 9
+      },
+      "model": "atium_mod:item/atium_sword_gold"
+    }
+  ]
 }
