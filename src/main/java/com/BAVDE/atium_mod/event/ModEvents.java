@@ -6,6 +6,7 @@ import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,10 +18,12 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -54,7 +57,7 @@ public class ModEvents {
         if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
             int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
-                case 6 -> bootsZinc(livingAttackEvent);
+                case 5 -> bootsBrass(livingAttackEvent);
             }
         }
     }
@@ -111,14 +114,28 @@ public class ModEvents {
         LivingEntity player = movementInputUpdateEvent.getEntityLiving();
         Level level = player.getLevel();
 
-        //atium chestplate
+        //atium boots
         ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
         if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
             int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
             }
         }
+    }
 
+    @SubscribeEvent
+    public static void onJump(LivingEvent.LivingJumpEvent livingJumpEvent) {
+        LivingEntity player = livingJumpEvent.getEntityLiving();
+        Level level = player.getLevel();
+
+        //atium boots
+        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
+        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
+            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+                case 4 -> bootsPewter((Player) player, level);
+            }
+        }
     }
 
     /**** INFUSIONS FUNCTIONALITY ****/
@@ -175,7 +192,24 @@ public class ModEvents {
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - 4.0D);
     }
 
-    private static void bootsZinc(LivingAttackEvent livingAttackEvent) {
+    private static void bootsPewter(Player player, Level level) {
+        if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
+            //jump indication
+            level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
+            //creates 8 particles
+            for (int i = 0; i < 8; i++) {
+                level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
+            }
+
+            //actual jump
+            double d0 = (double) 0.42F * getBlockJumpFactor(player) + 0.3D /*extra jump power (3 blocks)*/;
+            Vec3 vec3 = player.getDeltaMovement();
+            player.setDeltaMovement(vec3.x, d0, vec3.z);
+            player.hasImpulse = true;
+        }
+    }
+
+    private static void bootsBrass(LivingAttackEvent livingAttackEvent) {
         if (livingAttackEvent.getSource() == DamageSource.HOT_FLOOR) {
             livingAttackEvent.setCanceled(true);
         }
@@ -191,6 +225,10 @@ public class ModEvents {
             }
         }
     }
+
+    /**
+     * UTILS
+     **/
 
     private static void createForceFieldParticles(double pSpeed, int pSize, LivingEntity player) {
         Level level = player.getLevel();
@@ -212,6 +250,10 @@ public class ModEvents {
                 }
             }
         }
+    }
+
+    protected static float getBlockJumpFactor(Player player) {
+        return player.level.getBlockState(player.blockPosition()).getBlock().getJumpFactor();
     }
 
     @SubscribeEvent

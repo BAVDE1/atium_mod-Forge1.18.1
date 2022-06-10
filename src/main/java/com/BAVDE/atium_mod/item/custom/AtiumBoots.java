@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.item.custom;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
+import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,10 +15,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,23 +35,23 @@ public class AtiumBoots extends ArmorItem {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1 -> iron(level, player);
-                case 6 -> zinc(level, player);
+                case 5 -> brass(level, player);
             }
         }
     }
 
     private static void iron(Level level, Player player) {
-        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.5), 2) && !player.isOnGround()) {
+        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.5), 2) && !player.isOnGround() && player.flyDist <= 0) {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
         }
     }
 
-    private static void zinc(Level level, Player player) {
+    private static void brass(Level level, Player player) {
         if (player.isOnGround() && !player.level.isClientSide) {
             BlockState iceBlockstate = Blocks.FROSTED_ICE.defaultBlockState();
             BlockState magmaBlockstate = ModBlocks.FRACTURED_MAGMA_BLOCK.get().defaultBlockState();
-            //path width from player (3 = 3 blocks either side)
+            //path width from player (e.g. 3 = 3 blocks on either side)
             double range = 2.5;
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
             BlockPos pos = player.blockPosition();
