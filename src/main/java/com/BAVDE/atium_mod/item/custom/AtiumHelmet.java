@@ -55,6 +55,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void iron(Level level, LivingEntity player) {
+        //detects nearby metal ores (weak)
         if (player.isCrouching()) {
             int range = 8;
 
@@ -70,6 +71,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void steel(Level level, LivingEntity player) {
+        //detects nearby ores (strong)
         if (player.isCrouching()) {
             int range = 16;
 
@@ -92,6 +94,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void tin(LivingEntity player) {
+        //gives night vision when crouching
         if (player.isCrouching() && !player.hasEffect(MobEffects.NIGHT_VISION)) {
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 99999, 0, false, false, false));
         } else if (!player.isCrouching() && player.hasEffect(MobEffects.NIGHT_VISION)) {
@@ -101,6 +104,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void pewter(Player player, Level level) {
+        //fast eating & more saturation
         if (!player.level.isClientSide) {
             if (player.isUsingItem()) {
                 ItemStack itemStackUse = player.getUseItem();
@@ -116,6 +120,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void brass(LivingEntity player) {
+        //water breathing
         if (!player.isEyeInFluid(FluidTags.WATER)) {
             //duration 6 seconds
             player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 120, 0, false, false));
@@ -123,6 +128,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void zinc(Level level, LivingEntity player) {
+        //detects nearby mobs
         if (player.isCrouching()) {
             var range = 12.0D;
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
@@ -141,6 +147,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static void gold(ItemStack itemStack, Player player, Level level) {
+        //mends other armour equipped by 1
         if (!player.level.isClientSide) {
             if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
                 ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);

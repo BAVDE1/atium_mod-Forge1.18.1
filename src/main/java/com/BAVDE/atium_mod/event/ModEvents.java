@@ -9,12 +9,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -37,10 +40,12 @@ public class ModEvents {
     //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
     //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
 
-    /**** EVENTS ****/
+    /**
+     * EVENTS
+     **/
 
     @SubscribeEvent
-    public static void entityAttackEvent(LivingAttackEvent livingAttackEvent) {
+    public static void onAttacked(LivingAttackEvent livingAttackEvent) {
         LivingEntity player = livingAttackEvent.getEntityLiving();
         Level level = player.getLevel();
 
@@ -63,7 +68,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void entityHurtEvent(LivingHurtEvent livingHurtEvent) {
+    public static void onHurt(LivingHurtEvent livingHurtEvent) {
         LivingEntity player = livingHurtEvent.getEntityLiving();
         Level level = player.getLevel();
 
@@ -138,9 +143,12 @@ public class ModEvents {
         }
     }
 
-    /**** INFUSIONS FUNCTIONALITY ****/
+    /**
+     * INFUSIONS FUNCTIONALITY
+     **/
 
     private static void chestplateSteel(Level level, LivingEntity player) {
+        //pushes nearby mobs away on damage
         if (Math.random() < 0.15) { //15%
             //code explained in iron method, atium sword
             var range = 6.0D;
@@ -161,12 +169,14 @@ public class ModEvents {
     }
 
     private static void helmetTinOff(LivingEntity player) {
+        //removes night vision if tin helmet removed (safety check)
         if (player.hasEffect(MobEffects.NIGHT_VISION)) {
             player.removeEffect(MobEffects.NIGHT_VISION);
         }
     }
 
     private static void chestplateBrass(LivingEntity player, LivingHurtEvent livingHurtEvent) {
+        //sets attacker on fire
         if (Math.random() < 0.15) { //15%
             LivingEntity pAttacker = (LivingEntity) livingHurtEvent.getSource().getEntity();
             pAttacker.setSecondsOnFire(5);
@@ -182,10 +192,12 @@ public class ModEvents {
     }
 
     private static void chestplatePewterOn(LivingEntity player) {
+        //adds 4 hp
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) + 4.0D);
     }
 
     private static void chestplatePewterOff(LivingEntity player) {
+        //takes 4 hp
         if (player.getHealth() > player.getMaxHealth() - 4) {
             player.setHealth(player.getMaxHealth() - 4);
         }
@@ -193,16 +205,15 @@ public class ModEvents {
     }
 
     private static void bootsPewter(Player player, Level level) {
+        //big jump when jump crouch
         if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
-            //jump indication
+            //jump indication (sound & particles)
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
-            //creates 8 particles
             for (int i = 0; i < 8; i++) {
                 level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
             }
-
             //actual jump
-            double d0 = (double) 0.42F * getBlockJumpFactor(player) + 0.3D /*extra jump power (3 blocks)*/;
+            double d0 = (double) 0.42F * getBlockJumpFactor(player) + 0.3D /*extra jump power (e.g. 0.3D = 3 blocks)*/;
             Vec3 vec3 = player.getDeltaMovement();
             player.setDeltaMovement(vec3.x, d0, vec3.z);
             player.hasImpulse = true;
@@ -210,14 +221,17 @@ public class ModEvents {
     }
 
     private static void bootsBrass(LivingAttackEvent livingAttackEvent) {
+        //prevents damage from magma blocks
         if (livingAttackEvent.getSource() == DamageSource.HOT_FLOOR) {
             livingAttackEvent.setCanceled(true);
         }
     }
 
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {
-        if (livingAttackEvent.getSource().getDirectEntity() instanceof AbstractArrow) {
-            if (Math.random() < 0.2) { //15%
+        //deflects projectiles
+        Entity damageSourceEntity = livingAttackEvent.getSource().getDirectEntity();
+        if (damageSourceEntity instanceof AbstractArrow || damageSourceEntity instanceof ThrowableItemProjectile) {
+            if (Math.random() < 0.2) { //20%
                 if (livingAttackEvent.isCancelable()) {
                     livingAttackEvent.setCanceled(true);
                     livingAttackEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);

@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 import javax.annotation.Nullable;
@@ -41,7 +42,9 @@ public class AtiumBoots extends ArmorItem {
     }
 
     private static void iron(Level level, Player player) {
-        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.5), 2) && !player.isOnGround() && player.flyDist <= 0) {
+        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.5), 2) && !player.isOnGround()) {
+            Vec3 vec3 = player.getDeltaMovement();
+            player.push(vec3.x, 1, vec3.z);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
         }

@@ -54,7 +54,7 @@ public class AtiumSword extends SwordItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        //if iron infused
+        //if iron infused start using item
         if (pPlayer.getMainHandItem().getTag().contains("atium_mod.metal") && pPlayer.getMainHandItem().getTag().getInt("atium_mod.metal") == 1) {
             pPlayer.startUsingItem(pUsedHand);
             return InteractionResultHolder.consume(itemstack);
@@ -65,6 +65,7 @@ public class AtiumSword extends SwordItem {
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pPlayer, ItemStack pStack, int pRemainingUseDuration) {
+        //tick if iron
         if (pStack.getTag().contains("atium_mod.metal") && pStack.getTag().getInt("atium_mod.metal") == 1) {
             iron(pLevel, pPlayer);
         }
@@ -84,6 +85,7 @@ public class AtiumSword extends SwordItem {
     /**** INFUSION FUNCTIONALITIES ****/
 
     private void iron(Level pLevel, LivingEntity pPlayer) {
+        //pulls nearby mobs in
         //sets range entities are detected in (5x5x5)
         var range = 5.0D;
         AABB aabb = pPlayer.getBoundingBox().inflate(range, range, range);
@@ -112,6 +114,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
+        //big knockback
         if (Math.random() < 0.1) { //10%
             double pX = pAttacker.getX() - pTarget.getX();
             double pZ;
@@ -127,6 +130,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
+        //blindness & disoriented
         if (Math.random() < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 100, false, false), pAttacker);
@@ -140,6 +144,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void pewter(LivingEntity pTarget, LivingEntity pAttacker) {
+        //weakness & strength
         if (Math.random() < 0.1) { //10%
             if (!pTarget.hasEffect(MobEffects.WEAKNESS)) {
                 pTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100), pAttacker);
@@ -153,6 +158,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void brass(LivingEntity pTarget, LivingEntity pAttacker) {
+        //set on fire
         if (Math.random() < 0.1) { //10%
             if (!pTarget.isOnFire()) {
                 pTarget.setSecondsOnFire(5);
@@ -166,6 +172,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void zinc(LivingEntity pTarget, LivingEntity pAttacker) {
+        //freeze & slow
         if (Math.random() < 0.1) { //10%
             pTarget.setTicksFrozen(139);
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
@@ -177,6 +184,7 @@ public class AtiumSword extends SwordItem {
     }
 
     private void gold(LivingEntity pTarget, LivingEntity pAttacker) {
+        //cloud of healing
         if (Math.random() < 0.1) { //10%
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());

@@ -42,6 +42,7 @@ public class AtiumChestplate extends ArmorItem {
     /**** INFUSION FUNCTIONALITIES ****/
 
     private void iron(Level level, Player player) {
+        //pulls nearby items towards
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
             var range = 8.0D;
@@ -60,12 +61,14 @@ public class AtiumChestplate extends ArmorItem {
     }
 
     private void tin(Player player) {
+        //gives resistance if under 7hp
         if (player.getHealth() <= 6 && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15));
         }
     }
 
     private void gold(ItemStack stack, Level level, Player player) {
+        //heals 1/2 heart every 15 sec
         if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             //15 seconds
             player.getCooldowns().addCooldown(stack.getItem(), 300);
