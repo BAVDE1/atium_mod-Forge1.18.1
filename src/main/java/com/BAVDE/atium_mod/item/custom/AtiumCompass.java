@@ -59,17 +59,21 @@ public class AtiumCompass extends Item {
         return 72000;
     }
 
+    //checks if item is being used
     public static boolean isUsing(ItemStack itemStack) {
         CompoundTag compoundtag = itemStack.getTag();
         return compoundtag != null && compoundtag.getBoolean("Using");
     }
 
+    //sets tag stating is items is in use
     public static void setUsing(ItemStack itemStack, boolean pIsUsing) {
         CompoundTag compoundtag = itemStack.getOrCreateTag();
         compoundtag.putBoolean("Using", pIsUsing);
     }
 
+    //finds the nearest structure in world
     private static void findStructure(Level level, Player player, ItemStack itemStack) {
+        //server side
         if (level instanceof ServerLevel serverLevel) {
             //configured structure registry
             Registry<ConfiguredStructureFeature<?, ?>> registry = serverLevel.registryAccess().registryOrThrow(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY);
@@ -94,11 +98,13 @@ public class AtiumCompass extends Item {
         }
     }
 
+    //adds tag storing structure location
     private static void addLocation(ItemStack itemStack, BlockPos blockPos) {
         CompoundTag compoundtag = itemStack.getOrCreateTag();
         compoundtag.put("Location", NbtUtils.writeBlockPos(blockPos));
     }
 
+    //removes tag storing structure location
     private static void removeLocation(ItemStack itemStack) {
         CompoundTag compoundtag = itemStack.getTag();
         if (compoundtag != null) {
@@ -108,6 +114,7 @@ public class AtiumCompass extends Item {
         }
     }
 
+    //gets tag storing structure location
     public static Tag getLocation(ItemStack itemStack) {
         CompoundTag compoundtag = itemStack.getTag();
         if (compoundtag != null) {

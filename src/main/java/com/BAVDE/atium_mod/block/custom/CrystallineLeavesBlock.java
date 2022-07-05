@@ -22,6 +22,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CrystallineLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
+    //decay distance is 1 more than vanilla leaves
     public static final int DECAY_DISTANCE = 8;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 1, 8);
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;

@@ -4,12 +4,14 @@ import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.item.ModArmourMaterials;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
+import com.BAVDE.atium_mod.util.ModTags;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,8 +51,8 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //detects nearby metal ores (weak)
     private static void iron(Level level, LivingEntity player) {
-        //detects nearby metal ores (weak)
         if (player.isCrouching()) {
             int range = 8;
 
@@ -63,8 +67,8 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //detects nearby ores (strong)
     private static void steel(Level level, LivingEntity player) {
-        //detects nearby ores (strong)
         if (player.isCrouching()) {
             int range = 16;
 
@@ -80,14 +84,11 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     private static boolean checkForMetalOre(Block block) {
-        return block == Blocks.GOLD_ORE || block == Blocks.RAW_GOLD_BLOCK || block == Blocks.DEEPSLATE_GOLD_ORE || block == Blocks.NETHER_GOLD_ORE
-                || block == Blocks.IRON_ORE || block == Blocks.RAW_IRON_BLOCK || block == Blocks.DEEPSLATE_IRON_ORE
-                || block == Blocks.COPPER_ORE || block == Blocks.RAW_COPPER_BLOCK || block == Blocks.DEEPSLATE_COPPER_ORE
-                || block == ModBlocks.ATIUM_ORE.get();
+        return block.defaultBlockState().is(ModTags.Blocks.METAL_ORES);
     }
 
+    //gives night vision when crouching
     private static void tin(LivingEntity player) {
-        //gives night vision when crouching
         if (player.isCrouching() && !player.hasEffect(MobEffects.NIGHT_VISION)) {
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 99999, 0, false, false, false));
         } else if (!player.isCrouching() && player.hasEffect(MobEffects.NIGHT_VISION)) {
@@ -96,8 +97,8 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //fast eating & more saturation
     private static void pewter(Player player, Level level) {
-        //fast eating & more saturation
         if (!player.level.isClientSide) {
             if (player.isUsingItem()) {
                 ItemStack itemStackUse = player.getUseItem();
@@ -112,16 +113,16 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //water breathing for 6 secs in water
     private static void brass(LivingEntity player) {
-        //water breathing
         if (!player.isEyeInFluid(FluidTags.WATER)) {
-            //duration 6 seconds
-            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 120, 0, false, false));
+            int seconds = 6;
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, seconds * 20, 0, false, false));
         }
     }
 
+    //detects nearby mobs
     private static void zinc(Level level, LivingEntity player) {
-        //detects nearby mobs
         if (player.isCrouching()) {
             var range = 12.0D;
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
@@ -139,8 +140,8 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //mends other armour equipped by 1
     private static void gold(ItemStack itemStack, Player player, Level level) {
-        //mends other armour equipped by 1
         if (!player.level.isClientSide) {
             if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
                 ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -148,7 +149,8 @@ public class AtiumHelmet extends ArmorItem {
                 ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
 
                 //every 60 (1200 ticks) seconds heal random atium_mod armour piece by 1
-                int cooldown = 1200;
+                int seconds = 60;
+                int cooldown = seconds * 20;
 
                 int chance = level.random.nextInt(4);
                 switch (chance) {
@@ -200,11 +202,11 @@ public class AtiumHelmet extends ArmorItem {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
-                case 2: return "atium_mod:textures/models/armor/.png";
-                case 3: return "atium_mod:textures/models/armor/ .png";
-                case 4: return "atium_mod:textures/models/armor/  .png";
-                case 5: return "atium_mod:textures/models/armor/   .png";
-                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 2: return null;
+                case 3: return null;
+                case 4: return null;
+                case 5: return null;
+                case 6: return null;
                 case 9: return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
             }
         }

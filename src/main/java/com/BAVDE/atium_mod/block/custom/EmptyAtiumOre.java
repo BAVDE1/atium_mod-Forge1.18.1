@@ -19,18 +19,21 @@ public class EmptyAtiumOre extends Block {
         this.registerDefaultState(this.defaultBlockState().setValue(GROWTH, 0));
     }
 
+    //makes the block tick
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return true; //makes the block tick
+        return true;
     }
 
+    //random ticks adds to growth
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
         int currentGrowth = pState.getValue(GROWTH); //sets a variable that is that same as growth state
-        //takes about 50 - 60 mins to regenerate ore
-        if (currentGrowth == 40) {
+        //takes about 50 - 60 mins to regenerate ore (i think)
+        int fullGrowth = 40;
+        if (currentGrowth == fullGrowth) {
             pLevel.setBlock(pPos, ModBlocks.ATIUM_ORE.get().defaultBlockState(), 3); //grows the atium geode
-        } else if (currentGrowth < 40){
+        } else if (currentGrowth < fullGrowth){
             pLevel.setBlock(pPos, pState.setValue(GROWTH, (currentGrowth + 1)), 3); //adds 1 on to the growth
         }
     }

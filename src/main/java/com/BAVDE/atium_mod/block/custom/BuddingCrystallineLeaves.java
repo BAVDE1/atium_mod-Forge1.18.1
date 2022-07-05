@@ -42,21 +42,22 @@ public class BuddingCrystallineLeaves extends CrystallineLeavesBlock implements 
     @Override
     public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {return 30;}
 
+    //always ticking if not fully grown
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
         return (!pState.getValue(PERSISTENT) || pState.getValue(GROWTH) < 10);
-    } //always ticking if not fully grown
+    }
 
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-        //leaf decay
+        //for leaf decay
         if (!pState.getValue(PERSISTENT) && pState.getValue(DISTANCE) == 8) {
             dropResources(pState, pLevel, pPos);
             pLevel.removeBlock(pPos, false);
         }
 
+        //for growth
         int growth = pState.getValue(GROWTH);
-
         //code to grow each tick
         if (growth < 9) { //if growth less than 10
             pLevel.setBlock(pPos, pState.setValue(GROWTH, (growth + 1)), 3); //add 1 to growth state

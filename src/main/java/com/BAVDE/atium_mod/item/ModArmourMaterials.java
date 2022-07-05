@@ -13,6 +13,8 @@ import java.util.function.Supplier;
 public enum ModArmourMaterials implements ArmorMaterial {
     //new int[]{boots, leggings, chestplate, helmet}
 
+    //to add more use (,)
+
     ATIUM("atium", 27, new int[]{2, 5, 7, 2}, 15, SoundEvents.ARMOR_EQUIP_IRON,
             1.0F, 0.0F, () -> Ingredient.of(ModItems.PURE_ATIUM.get()));
 

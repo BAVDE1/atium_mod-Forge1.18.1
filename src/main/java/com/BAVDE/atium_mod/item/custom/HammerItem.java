@@ -15,12 +15,14 @@ public class HammerItem extends Item {
 
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
-        if (itemStack.getDamageValue() < (itemStack.getMaxDamage() - 1)) { //if the durability damage is higher the items' max durability
-            itemStack.setDamageValue(itemStack.getDamageValue() + 1); //item takes 1 durability damage when used in crafting
-            return itemStack.copy(); //puts the newly damaged item in the crafting table
+        //if the durability damage is higher the items' max durability
+        if (itemStack.getDamageValue() < (itemStack.getMaxDamage() - 1)) {
+            //item takes 1 durability damage when used in crafting
+            itemStack.setDamageValue(itemStack.getDamageValue() + 1);
+            //puts the newly damaged item in the crafting inv
+            return itemStack.copy();
         } else {
-            //itemStack.setDamageValue(itemStack.getDamageValue() + 1); //item takes 1 durability damage when used in crafting
-            return itemStack; //doesn't give item back after crafting because it is NULL
+            return itemStack; //doesn't give item back after crafting since it returns NULL
         }
     }
 }

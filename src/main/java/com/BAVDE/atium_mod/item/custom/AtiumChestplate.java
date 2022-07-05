@@ -1,13 +1,10 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.BAVDE.atium_mod.item.ModArmourMaterials;
-import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -44,8 +41,8 @@ public class AtiumChestplate extends ArmorItem {
 
     /**** INFUSION FUNCTIONALITIES ****/
 
+    //pulls nearby items towards
     private void iron(Level level, Player player) {
-        //pulls nearby items towards
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
             var range = 8.0D;
@@ -63,15 +60,15 @@ public class AtiumChestplate extends ArmorItem {
         }
     }
 
+    //gives resistance if under 7hp
     private void tin(Player player) {
-        //gives resistance if under 7hp
         if (player.getHealth() <= 6 && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15));
         }
     }
 
+    //heals 1/2 heart every 15 sec
     private void gold(ItemStack stack, Level level, Player player) {
-        //heals 1/2 heart every 15 sec
         if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             //15 seconds
             player.getCooldowns().addCooldown(stack.getItem(), 300);
@@ -101,11 +98,11 @@ public class AtiumChestplate extends ArmorItem {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
-                case 2: return "atium_mod:textures/models/armor/.png";
-                case 3: return "atium_mod:textures/models/armor/ .png";
-                case 4: return "atium_mod:textures/models/armor/  .png";
-                case 5: return "atium_mod:textures/models/armor/   .png";
-                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 2: return null;
+                case 3: return null;
+                case 4: return null;
+                case 5: return null;
+                case 6: return null;
                 case 9: return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
             }
         }

@@ -41,8 +41,11 @@ public class AtiumBoots extends ArmorItem {
         }
     }
 
+    //gives player slow fall is falls too far (health dependent)
     private static void iron(Level level, Player player) {
-        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.2), 2) && !player.isOnGround()) {
+        int min = 2;
+        int max = 35;
+        if (player.fallDistance > Math.max(Math.min(max, player.getHealth() / 1.2), min) && !player.isOnGround()) {
             Vec3 vec3 = player.getDeltaMovement();
             player.push(vec3.x, 0.7, vec3.z);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
@@ -50,6 +53,7 @@ public class AtiumBoots extends ArmorItem {
         }
     }
 
+    //walk on water & lava; immunity to magma block damage
     private static void brass(Level level, Player player) {
         if (player.isOnGround() && !player.level.isClientSide) {
             BlockState iceBlockstate = Blocks.FROSTED_ICE.defaultBlockState();
@@ -103,11 +107,11 @@ public class AtiumBoots extends ArmorItem {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
-                case 2: return "atium_mod:textures/models/armor/.png";
-                case 3: return "atium_mod:textures/models/armor/ .png";
-                case 4: return "atium_mod:textures/models/armor/  .png";
-                case 5: return "atium_mod:textures/models/armor/   .png";
-                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 2: return null;
+                case 3: return null;
+                case 4: return null;
+                case 5: return null;
+                case 6: return null;
                 case 9: return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
             }
         }

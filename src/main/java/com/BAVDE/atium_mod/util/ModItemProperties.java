@@ -44,7 +44,9 @@ public class ModItemProperties {
             int metal = 0;
 
             if (entity != null) {
-                metal = itemStack.getTag().getInt("atium_mod.metal");
+                if (itemStack.getTag().contains("atium_mod.metal")) {
+                    metal = itemStack.getTag().getInt("atium_mod.metal");
+                }
             }
             return metal;
         });

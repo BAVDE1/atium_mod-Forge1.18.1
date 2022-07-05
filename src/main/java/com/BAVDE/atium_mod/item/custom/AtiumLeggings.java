@@ -36,11 +36,11 @@ public class AtiumLeggings extends ArmorItem {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1: return "atium_mod:textures/models/armor/atium_iron_layer_2.png";
-                case 2: return "atium_mod:textures/models/armor/.png";
-                case 3: return "atium_mod:textures/models/armor/ .png";
-                case 4: return "atium_mod:textures/models/armor/  .png";
-                case 5: return "atium_mod:textures/models/armor/   .png";
-                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 2: return null;
+                case 3: return null;
+                case 4: return null;
+                case 5: return null;
+                case 6: return null;
                 case 9: return "atium_mod:textures/models/armor/atium_gold_layer_2.png";
             }
         }

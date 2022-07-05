@@ -84,7 +84,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void equipmentChangeEvent(LivingEquipmentChangeEvent livingEquipmentChangeEvent) {
+    public static void onEquipmentChange(LivingEquipmentChangeEvent livingEquipmentChangeEvent) {
         LivingEntity player = livingEquipmentChangeEvent.getEntityLiving();
         ItemStack itemStackTo = livingEquipmentChangeEvent.getTo();
         ItemStack itemStackFrom = livingEquipmentChangeEvent.getFrom();
@@ -147,8 +147,8 @@ public class ModEvents {
      * INFUSIONS FUNCTIONALITY
      **/
 
+    //chance to push nearby mobs away on damage
     private static void chestplateSteel(Level level, LivingEntity player) {
-        //pushes nearby mobs away on damage
         if (Math.random() < 0.15) { //15%
             //code explained in iron method, atium sword
             var range = 6.0D;
@@ -168,18 +168,24 @@ public class ModEvents {
         }
     }
 
+    //removes night vision if tin helmet removed (safety check)
     private static void helmetTinOff(LivingEntity player) {
-        //removes night vision if tin helmet removed (safety check)
         if (player.hasEffect(MobEffects.NIGHT_VISION)) {
             player.removeEffect(MobEffects.NIGHT_VISION);
         }
     }
 
+    //chance to set attacker on fire
     private static void chestplateBrass(LivingEntity player, LivingHurtEvent livingHurtEvent) {
-        //sets attacker on fire
         if (Math.random() < 0.15) { //15%
+            int seconds = 5;
             LivingEntity pAttacker = (LivingEntity) livingHurtEvent.getSource().getEntity();
-            pAttacker.setSecondsOnFire(5);
+            if (!pAttacker.isOnFire()) {
+                pAttacker.setSecondsOnFire(seconds);
+            } else {
+                int fireTicks = pAttacker.getRemainingFireTicks();
+                pAttacker.setRemainingFireTicks(fireTicks + (seconds * 20));
+            }
             pAttacker.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
             //knockback
             double pX = player.getX() - pAttacker.getX();
@@ -191,21 +197,21 @@ public class ModEvents {
         }
     }
 
+    //adds 4 hp (2 hearts)
     private static void chestplatePewterOn(LivingEntity player) {
-        //adds 4 hp
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) + 4.0D);
     }
 
+    //takes 4 hp (2 hearts)
     private static void chestplatePewterOff(LivingEntity player) {
-        //takes 4 hp
         if (player.getHealth() > player.getMaxHealth() - 4) {
             player.setHealth(player.getMaxHealth() - 4);
         }
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - 4.0D);
     }
 
+    //big jump when crouch jump
     private static void bootsPewter(Player player, Level level) {
-        //big jump when jump crouch
         if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
             //jump indication (sound & particles)
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
@@ -213,22 +219,24 @@ public class ModEvents {
                 level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
             }
             //actual jump
-            double d0 = (double) 0.42F * getBlockJumpFactor(player) + 0.3D /*extra jump power (e.g. 0.3D = 3 blocks)*/;
+            double jumpPower = 0.3D; /*extra jump power (e.g. 0.3D = 3 blocks)*/
+
+            double d0 = (double) 0.42F * getBlockJumpFactor(player) + jumpPower;
             Vec3 vec3 = player.getDeltaMovement();
             player.setDeltaMovement(vec3.x, d0, vec3.z);
             player.hasImpulse = true;
         }
     }
 
+    //prevents damage from magma blocks
     private static void bootsBrass(LivingAttackEvent livingAttackEvent) {
-        //prevents damage from magma blocks
         if (livingAttackEvent.getSource() == DamageSource.HOT_FLOOR) {
             livingAttackEvent.setCanceled(true);
         }
     }
 
+    //deflects projectiles
     private static void chestplateZinc(LivingAttackEvent livingAttackEvent) {
-        //deflects projectiles
         Entity damageSourceEntity = livingAttackEvent.getSource().getDirectEntity();
         if (damageSourceEntity instanceof AbstractArrow || damageSourceEntity instanceof ThrowableItemProjectile) {
             if (Math.random() < 0.2) { //20%
