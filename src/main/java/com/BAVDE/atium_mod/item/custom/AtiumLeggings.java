@@ -1,8 +1,11 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.item.ModArmourMaterials;
+import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -15,6 +18,7 @@ public class AtiumLeggings extends ArmorItem {
         super(pMaterial, pSlot, pProperties);
     }
 
+    //changes items' name colour when infused
     @Override
     public Rarity getRarity(ItemStack pStack) {
         if (pStack.getTag().contains("atium_mod.metal")) {
@@ -22,6 +26,25 @@ public class AtiumLeggings extends ArmorItem {
         } else {
             return super.getRarity(pStack);
         }
+    }
+
+    //changes armour model texture
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlot slot, String type) {
+        if (itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 1: return "atium_mod:textures/models/armor/atium_iron_layer_2.png";
+                case 2: return "atium_mod:textures/models/armor/.png";
+                case 3: return "atium_mod:textures/models/armor/ .png";
+                case 4: return "atium_mod:textures/models/armor/  .png";
+                case 5: return "atium_mod:textures/models/armor/   .png";
+                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 9: return "atium_mod:textures/models/armor/atium_gold_layer_2.png";
+            }
+        }
+        return super.getArmorTexture(itemStack, entity, slot, type);
     }
 
     @Override

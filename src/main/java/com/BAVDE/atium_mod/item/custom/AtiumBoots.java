@@ -1,7 +1,6 @@
 package com.BAVDE.atium_mod.item.custom;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
-import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -11,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -42,9 +42,9 @@ public class AtiumBoots extends ArmorItem {
     }
 
     private static void iron(Level level, Player player) {
-        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.5), 2) && !player.isOnGround()) {
+        if (player.fallDistance > Math.max(Math.min(35, player.getHealth() / 1.2), 2) && !player.isOnGround()) {
             Vec3 vec3 = player.getDeltaMovement();
-            player.push(vec3.x, 1, vec3.z);
+            player.push(vec3.x, 0.7, vec3.z);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
         }
@@ -85,6 +85,7 @@ public class AtiumBoots extends ArmorItem {
         }
     }
 
+    //changes items' name colour when infused
     @Override
     public Rarity getRarity(ItemStack pStack) {
         if (pStack.getTag().contains("atium_mod.metal")) {
@@ -92,6 +93,25 @@ public class AtiumBoots extends ArmorItem {
         } else {
             return super.getRarity(pStack);
         }
+    }
+
+    //changes armour model texture
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlot slot, String type) {
+        if (itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
+                case 2: return "atium_mod:textures/models/armor/.png";
+                case 3: return "atium_mod:textures/models/armor/ .png";
+                case 4: return "atium_mod:textures/models/armor/  .png";
+                case 5: return "atium_mod:textures/models/armor/   .png";
+                case 6: return "atium_mod:textures/models/armor/    .png";
+                case 9: return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
+            }
+        }
+        return super.getArmorTexture(itemStack, entity, slot, type);
     }
 
     @Override
