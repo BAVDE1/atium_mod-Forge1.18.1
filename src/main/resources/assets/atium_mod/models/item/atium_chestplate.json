@@ -6,6 +6,12 @@
   "overrides": [
     {
       "predicate": {
+        "metal": 1
+      },
+      "model": "atium_mod:item/atium_chestplate_iron"
+    },
+    {
+      "predicate": {
         "metal": 9
       },
       "model": "atium_mod:item/atium_chestplate_gold"

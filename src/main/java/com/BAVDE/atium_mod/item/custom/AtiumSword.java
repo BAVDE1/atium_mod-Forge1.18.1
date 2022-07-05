@@ -17,7 +17,13 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
@@ -101,14 +107,17 @@ public class AtiumSword extends SwordItem {
             for (pZ = pPlayer.getZ() - entity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
                 pX = (Math.random() - Math.random()) * 0.01D;
             }
-            //used to divide push amount to slow it down
-            int modifier = 70;
-            entity.push((pX / modifier), 0, (pZ / modifier));
-            //particle
-            var chance = Math.random();
-            if (chance < 0.025) {
-                if (entity.isOnGround()) {
-                    this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+            //excludes armour stands
+            if (!(entity instanceof ArmorStand)) {
+                //used to divide push amount to slow it down
+                int modifier = 70;
+                entity.push((pX / modifier), 0, (pZ / modifier));
+                //particle
+                var chance = Math.random();
+                if (chance < 0.025) {
+                    if (entity.isOnGround()) {
+                        this.minecraft.particleEngine.createParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), entity.getRandomX(1), entity.getY(), entity.getRandomZ(1), 0, 0, 0);
+                    }
                 }
             }
         }

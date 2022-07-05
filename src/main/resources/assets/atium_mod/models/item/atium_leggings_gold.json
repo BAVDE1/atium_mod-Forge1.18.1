@@ -1,0 +1,6 @@
+{
+  "parent": "atium_mod:item/atium_chestplate",
+  "textures": {
+    "layer0": "atium_mod:item/atium_leggings_gold"
+  }
+}

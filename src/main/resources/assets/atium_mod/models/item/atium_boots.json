@@ -2,5 +2,19 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "atium_mod:item/atium_boots"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "metal": 1
+      },
+      "model": "atium_mod:item/atium_boots_iron"
+    },
+    {
+      "predicate": {
+        "metal": 9
+      },
+      "model": "atium_mod:item/atium_boots_gold"
+    }
+  ]
 }
