@@ -1,3 +1,4 @@
+/*
 package com.BAVDE.atium_mod.recipe;
 
 import com.BAVDE.atium_mod.AtiumMod;
@@ -128,4 +129,4 @@ public class InfusingTableRecipe implements Recipe<SimpleContainer> {
             return (Class<G>) cls;
         }
     }
-}
+}*/

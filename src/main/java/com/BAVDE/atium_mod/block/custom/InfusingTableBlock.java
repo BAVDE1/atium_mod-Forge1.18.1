@@ -136,15 +136,5 @@ public class InfusingTableBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return createTickerHelper(pBlockEntityType, ModBlockEntities.INFUSING_TABLE_BLOCK_ENTITY.get(), InfusingTableBlockEntity::tick);
     }
-
-    @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRandom) {
-        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof InfusingTableBlockEntity) {
-            if (((InfusingTableBlockEntity) blockEntity).hasMetal()) {
-                //pLevel.addParticle(ModParticles.INFUSION_FLAME_PARTICLES.get(), pPos.getX() + 0.5, pPos.getY() + 0.7, pPos.getZ() + 0.5, 0, 5.0E-5D, 0);
-            }
-        }
-    }
     //tick doesn't work here lol
 }

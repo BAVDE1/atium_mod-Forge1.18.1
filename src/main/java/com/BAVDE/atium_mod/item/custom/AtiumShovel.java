@@ -45,10 +45,13 @@ public class AtiumShovel extends PickaxeItem {
                     case 4 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.pewter"));
                     case 5 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.brass"));
                     case 6 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.zinc"));
-                    case 7 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.copper"));
-                    case 8 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.bronze"));
                     case 9 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.gold"));
                 }
+            }
+        }
+        if (pStack.getTag().contains("atium_mod.copper_cloud")) {
+            if (pStack.getTag().getInt("atium_mod.copper_cloud") == 1) {
+                pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.has_copper_cloud"));
             }
         }
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);

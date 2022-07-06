@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModItemProperties {
     public static void addCustomItemProperties() {
-
+        //infusing texture
         InfusableItem(ModItems.ATIUM_HELMET.get());
         InfusableItem(ModItems.ATIUM_CHESTPLATE.get());
         InfusableItem(ModItems.ATIUM_LEGGINGS.get());
@@ -34,6 +34,19 @@ public class ModItemProperties {
         InfusableItem(ModItems.ATIUM_SHOVEL.get());
         InfusableItem(ModItems.ATIUM_HOE.get());
 
+        //copper cloud
+        CopperCloudItem(ModItems.ATIUM_HELMET.get());
+        CopperCloudItem(ModItems.ATIUM_CHESTPLATE.get());
+        CopperCloudItem(ModItems.ATIUM_LEGGINGS.get());
+        CopperCloudItem(ModItems.ATIUM_BOOTS.get());
+
+        CopperCloudItem(ModItems.ATIUM_SWORD.get());
+        CopperCloudItem(ModItems.ATIUM_PICKAXE.get());
+        CopperCloudItem(ModItems.ATIUM_AXE.get());
+        CopperCloudItem(ModItems.ATIUM_SHOVEL.get());
+        CopperCloudItem(ModItems.ATIUM_HOE.get());
+
+        //compass
         ModCompassItemUse(ModItems.ATIUM_COMPASS.get());
         ModCompassItemWobble(ModItems.ATIUM_COMPASS.get());
     }
@@ -48,10 +61,29 @@ public class ModItemProperties {
                     metal = itemStack.getTag().getInt("atium_mod.metal");
                 }
             }
-            return metal;
+            //if metal is not 7 or 8
+            if (metal == 7 || metal == 8) {
+                return 0;
+            } else {
+                return metal;
+            }
         });
     }
 
+    static void CopperCloudItem(Item item) {
+        ItemProperties.register(item, new ResourceLocation("copper_cloud"), (itemStack, clientLevel, livingEntity, i) -> {
+            Entity entity = livingEntity != null ? livingEntity : itemStack.getEntityRepresentation();
+            int copper = 0;
+
+            if (entity != null) {
+                if (itemStack.getTag().contains("atium_mod.copper_cloud")) {
+                    copper = itemStack.getTag().getInt("atium_mod.copper_cloud");
+                }
+            }
+            return copper;
+        });
+    }
+    
     static void ModCompassItemUse(Item item) {
         ItemProperties.register(item, new ResourceLocation("using"), (itemStack, clientLevel, livingEntity, i) -> {
             return livingEntity != null && AtiumCompass.isUsing(itemStack) ? 1.0F : 0.0F;

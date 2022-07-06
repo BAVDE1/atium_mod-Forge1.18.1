@@ -82,8 +82,6 @@
   "tooltip.atium_mod.tooltip.pewter": "§7Pewter Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.brass": "§7Brass Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.zinc": "§7Zinc Infused §8[CTRL]",
-  "tooltip.atium_mod.tooltip.copper": "§7Copper §8(temp)",
-  "tooltip.atium_mod.tooltip.bronze": "§7Bronze §8(temp)",
   "tooltip.atium_mod.tooltip.gold": "§7Gold Infused §8[CTRL]",
   //Atium compass
   "tooltip.atium_mod.atium_compass.tooltip.ctrl1": "§8§oThe compass needle seems to be attracted to the allomantic pulses of Atium.",
@@ -160,5 +158,8 @@
   "tooltip.atium_mod.atium_hoe.tooltip.pewter.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_hoe.tooltip.brass.ctrl": "§8Desc",
   "tooltip.atium_mod.atium_hoe.tooltip.zinc.ctrl": "§8Desc",
-  "tooltip.atium_mod.atium_hoe.tooltip.gold.ctrl": "§8Desc"
+  "tooltip.atium_mod.atium_hoe.tooltip.gold.ctrl": "§8Desc",
+
+  //Copper Cloud
+  "tooltip.atium_mod.has_copper_cloud": "§6Copper Cloud"
 }

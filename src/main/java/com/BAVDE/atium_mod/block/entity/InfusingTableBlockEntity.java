@@ -2,8 +2,8 @@ package com.BAVDE.atium_mod.block.entity;
 
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
-import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import com.BAVDE.atium_mod.screen.InfusingTableMenu;
+import com.BAVDE.atium_mod.util.ModTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,10 +19,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -32,8 +30,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import javax.swing.plaf.basic.BasicComboBoxUI;
-import java.util.Optional;
+import java.util.Set;
 
 public class InfusingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
@@ -94,26 +91,29 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         inventory.setItem(0, itemHandler.getStackInSlot(0));
         inventory.setItem(1, itemHandler.getStackInSlot(1));
         //if is not valid craft drop item that is in result slot
-        this.checkResult();
+        //this.checkResult(inventory);
         this.clearResultSlot();
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    private void checkResult() {
-        Level level = this.getLevel();
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-        Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
+    private void checkResult(SimpleContainer inventory) {
+        //Level level = this.getLevel();
+        //Optional<InfusingTableRecipe> match = level.getRecipeManager().getRecipeFor(InfusingTableRecipe.Type.INSTANCE, inventory, level);
 
-        if (match.isPresent()) {
+        //if recipe is not valid
+        if (!(!hasMetal() && hasAnyOf(Set.of(ModItems.ATIUM_HELMET.get(), ModItems.ATIUM_CHESTPLATE.get(), ModItems.ATIUM_LEGGINGS.get(), ModItems.ATIUM_BOOTS.get(), ModItems.ATIUM_SWORD.get(), ModItems.ATIUM_PICKAXE.get(), ModItems.ATIUM_AXE.get(), ModItems.ATIUM_SHOVEL.get(), ModItems.ATIUM_HOE.get())))){
+            inventory.setItem(2, itemHandler.getStackInSlot(2));
+        } else {
+            inventory.setItem(2, ItemStack.EMPTY);
+        }
+
+        /*if (match.isPresent()) {
             if (itemHandler.getStackInSlot(2).getItem() == new ItemStack(match.get().getResultItem().getItem(), 1).getItem()) {
                 inventory.setItem(2, ItemStack.EMPTY);
             }
         } else {
             inventory.setItem(2, itemHandler.getStackInSlot(2));
-        }
+        }*/
     }
 
     //clears the result slot (2) when placed & broken - just to be sure
@@ -210,10 +210,17 @@ public class InfusingTableBlockEntity extends BaseContainerBlockEntity implement
         }
     }
 
+    //returns true if item in slot 0 is a valid infusing metal
     public boolean hasMetal() {
         Item item = itemHandler.getStackInSlot(0).getItem();
-        return item == ModItems.REFINED_IRON.get() || item == ModItems.STEEL.get() || item == ModItems.TIN.get()
-                || item == ModItems.PEWTER.get() || item == ModItems.BRASS.get() || item == ModItems.ZINC.get()
-                || item == Items.COPPER_INGOT || item == ModItems.BRONZE.get() || item == ModItems.PURIFIED_GOLD.get();
+        return item.getDefaultInstance().is(ModTags.Items.INFUSING_IRON) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_STEEL) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_TIN) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_PEWTER) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_BRASS) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_ZINC) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_COPPER) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_BRONZE) ||
+                item.getDefaultInstance().is(ModTags.Items.INFUSING_GOLD);
     }
 }

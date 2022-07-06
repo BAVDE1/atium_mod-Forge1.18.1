@@ -36,14 +36,20 @@ public class ModTags {
     public static class Items {
 
         //TAGS HERE
-        public static final TagKey<Item> KNIFE
-                = tag("knife");
+        public static final TagKey<Item> KNIFE = tag("knife");
+        public static final TagKey<Item> HAMMER = tag("hammer");
 
-        public static final TagKey<Item> HAMMER
-                = tag("hammer");
+        public static final TagKey<Item> INFUSING_METALS = tag("infusing_metals");
 
-        public static final TagKey<Item> INFUSING_METALS
-                = tag("infusing_metals");
+        public static final TagKey<Item> INFUSING_IRON = tag("infusing_iron");
+        public static final TagKey<Item> INFUSING_STEEL = tag("infusing_steel");
+        public static final TagKey<Item> INFUSING_TIN = tag("infusing_tin");
+        public static final TagKey<Item> INFUSING_PEWTER = tag("infusing_pewter");
+        public static final TagKey<Item> INFUSING_BRASS = tag("infusing_brass");
+        public static final TagKey<Item> INFUSING_ZINC = tag("infusing_zinc");
+        public static final TagKey<Item> INFUSING_COPPER = tag("infusing_copper");
+        public static final TagKey<Item> INFUSING_BRONZE = tag("infusing_bronze");
+        public static final TagKey<Item> INFUSING_GOLD = tag("infusing_gold");
 
         //tag stuff
         private static TagKey<Item> tag(String name) {

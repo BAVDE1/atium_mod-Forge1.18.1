@@ -7,9 +7,7 @@ import com.BAVDE.atium_mod.event.loot.ZombieDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieVillagerDropLeather;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.particle.custom.*;
-import com.BAVDE.atium_mod.recipe.InfusingTableRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -38,7 +36,7 @@ public class ModEventBusEvents {
 
     @SubscribeEvent
     public static void registerRecipeTypes(final RegistryEvent.Register<RecipeSerializer<?>> event){
-        Registry.register(Registry.RECIPE_TYPE, InfusingTableRecipe.Type.ID, InfusingTableRecipe.Type.INSTANCE);
+        //Registry.register(Registry.RECIPE_TYPE, InfusingTableRecipe.Type.ID, InfusingTableRecipe.Type.INSTANCE);
     }
 
     @SubscribeEvent
