@@ -198,12 +198,6 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return returnValue;
     }
 
-    //copies tag from slot 1 item to output item (slot 2)
-    private void copyTag() {
-        CompoundTag copyCompoundTag = blockEntity.itemHandler.getStackInSlot(1).getTag();
-        blockEntity.itemHandler.getStackInSlot(2).setTag(copyCompoundTag.copy());
-    }
-
     //returns weather item in slot 1 has metal tag
     private boolean hasMetalTag() {
         ItemStack itemStack = this.slots.get(1).getItem();
@@ -215,8 +209,9 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     //gets copper tag of item in slot 1
     private int getCopperTag() {
-        if (blockEntity.itemHandler.getStackInSlot(1).getTag().contains("atium_mod.copper_cloud")) {
-            return blockEntity.itemHandler.getStackInSlot(1).getTag().getInt("atium_mod.copper_cloud");
+        ItemStack gearItem = this.slots.get(1).getItem();
+        if (gearItem.getTag().contains("atium_mod.copper_cloud")) {
+            return gearItem.getTag().getInt("atium_mod.copper_cloud");
         } else {
             return 0;
         }
@@ -224,12 +219,12 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     //adds metal tag to output item
     private void addMetalTag() {
-        blockEntity.itemHandler.getStackInSlot(2).getTag().putInt("atium_mod.metal", hasMetal());
+        this.slots.get(2).getItem().getTag().putInt("atium_mod.metal", hasMetal());
     }
 
     //adds copper cloud tag to output item
     private void addCopperTag(int isCopper) {
-        ItemStack outputItem = blockEntity.itemHandler.getStackInSlot(2);
+        ItemStack outputItem = this.slots.get(2).getItem();
         //0 = false, 1 = true
         outputItem.getTag().putInt("atium_mod.copper_cloud", isCopper);
     }

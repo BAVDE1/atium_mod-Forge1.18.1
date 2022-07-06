@@ -6,17 +6,25 @@
   "overrides": [
     {
       "predicate": {
-        "copper_cloud": 0,
-        "metal": 1
+        "metal": 1,
+        "copper": 0
       },
       "model": "atium_mod:item/atium_leggings_iron"
     },
     {
       "predicate": {
-        "copper_cloud": 0,
-        "metal": 9
+        "metal": 9,
+        "copper": 0
       },
       "model": "atium_mod:item/atium_leggings_gold"
+    },
+
+
+    {
+      "predicate": {
+        "copper": 1
+      },
+      "model": "atium_mod:item/atium_leggings"
     }
   ]
 }

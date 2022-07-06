@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "atium_mod:item/wood_knife"
-  }
-}

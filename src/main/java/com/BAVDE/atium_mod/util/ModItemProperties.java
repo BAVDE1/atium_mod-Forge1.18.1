@@ -61,17 +61,12 @@ public class ModItemProperties {
                     metal = itemStack.getTag().getInt("atium_mod.metal");
                 }
             }
-            //if metal is not 7 or 8
-            if (metal == 7 || metal == 8) {
-                return 0;
-            } else {
-                return metal;
-            }
+            return metal;
         });
     }
 
     static void CopperCloudItem(Item item) {
-        ItemProperties.register(item, new ResourceLocation("copper_cloud"), (itemStack, clientLevel, livingEntity, i) -> {
+        ItemProperties.register(item, new ResourceLocation("copper"), (itemStack, clientLevel, livingEntity, i) -> {
             Entity entity = livingEntity != null ? livingEntity : itemStack.getEntityRepresentation();
             int copper = 0;
 
@@ -83,7 +78,7 @@ public class ModItemProperties {
             return copper;
         });
     }
-    
+
     static void ModCompassItemUse(Item item) {
         ItemProperties.register(item, new ResourceLocation("using"), (itemStack, clientLevel, livingEntity, i) -> {
             return livingEntity != null && AtiumCompass.isUsing(itemStack) ? 1.0F : 0.0F;
@@ -133,8 +128,8 @@ public class ModItemProperties {
                         if (this.wobbleRandom.shouldUpdate(gameTime)) {
                             this.wobbleRandom.update(gameTime, Math.random());
                         }
-                        double d0 = this.wobbleRandom.rotation + (double)((float)this.hash(pSeed) / 2.14748365E9F);
-                        return Mth.positiveModulo((float)d0, 1.0F);
+                        double d0 = this.wobbleRandom.rotation + (double) ((float) this.hash(pSeed) / 2.14748365E9F);
+                        return Mth.positiveModulo((float) d0, 1.0F);
                     }
                 }
             }

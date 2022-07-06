@@ -103,7 +103,12 @@ public class AtiumBoots extends ArmorItem {
     @org.jetbrains.annotations.Nullable
     @Override
     public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlot slot, String type) {
-        if (itemStack.getTag().contains("atium_mod.metal")) {
+        int copper = 0;
+        //checks if item has copper cloud
+        if (itemStack.getTag().contains("atium_mod.copper_cloud")) {
+            copper = itemStack.getTag().getInt("atium_mod.copper_cloud");
+        }
+        if (itemStack.getTag().contains("atium_mod.metal") && copper == 0) {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
