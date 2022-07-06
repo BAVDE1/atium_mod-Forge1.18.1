@@ -54,7 +54,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         int height = 70;
         int width = 57;
 
-        switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+        switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold, 10=aluminium
             case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
             case 2 -> blit(poseStack, Xpos, Ypos, 57, 0, width, height);
             case 3 -> blit(poseStack, Xpos, Ypos, 114, 0, width, height);
@@ -64,6 +64,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
             case 7 -> blit(poseStack, Xpos, Ypos, 114, 70, width, height);
             case 8 -> blit(poseStack, Xpos, Ypos, 171, 70, width, height);
             case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+            case 10 -> blit(poseStack, Xpos, Ypos, 57, 140, width, height);
         }
     }
 
@@ -90,6 +91,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
                     case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
                     case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
                     case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                    case 10 -> blit(poseStack, Xpos, Ypos, 56, 140, width, height);
                 }
                 break;
             case 2: //pickaxe
@@ -113,6 +115,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
                     case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
                     case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
                     case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                    case 10 -> blit(poseStack, Xpos, Ypos, 56, 140, width, height);
                 }
                 break;
             case 7: //chestplate
@@ -128,6 +131,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
                     case 7 -> blit(poseStack, Xpos, Ypos, 112, 70, width, height);
                     case 8 -> blit(poseStack, Xpos, Ypos, 168, 70, width, height);
                     case 9 -> blit(poseStack, Xpos, Ypos, 0, 140, width, height);
+                    case 10 -> blit(poseStack, Xpos, Ypos, 56, 140, width, height);
                 }
                 break;
             case 8: //leggings

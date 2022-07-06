@@ -50,6 +50,7 @@ public class ModTags {
         public static final TagKey<Item> INFUSING_COPPER = tag("infusing_copper");
         public static final TagKey<Item> INFUSING_BRONZE = tag("infusing_bronze");
         public static final TagKey<Item> INFUSING_GOLD = tag("infusing_gold");
+        public static final TagKey<Item> INFUSING_ALUMINIUM = tag("infusing_aluminium");
 
         //tag stuff
         private static TagKey<Item> tag(String name) {

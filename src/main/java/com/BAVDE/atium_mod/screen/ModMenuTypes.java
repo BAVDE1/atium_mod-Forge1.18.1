@@ -11,12 +11,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModMenuTypes {
-    public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(ForgeRegistries.CONTAINERS, AtiumMod.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.CONTAINERS, AtiumMod.MOD_ID);
 
     //registered menus
-    //public static final RegistryObject<MenuType<InfusingTableMenu>> INFUSING_TABLE_MENU = registerMenuType(InfusingTableMenu::new, "infusing_table_menu");
-
     public static final RegistryObject<MenuType<InfusingTableMenu>> INFUSING_TABLE_MENU = registerMenuType(InfusingTableMenu::new, "infusing_table_menu");
 
 

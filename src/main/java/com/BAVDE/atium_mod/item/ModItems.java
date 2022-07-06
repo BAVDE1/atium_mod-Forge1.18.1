@@ -62,6 +62,8 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> PURIFIED_GOLD = ITEMS.register("purified_gold",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> ALUMINIUM = ITEMS.register("aluminium",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     //items
     public static final RegistryObject<Item> DIAMOND_COMPOUND = ITEMS.register("diamond_compound",

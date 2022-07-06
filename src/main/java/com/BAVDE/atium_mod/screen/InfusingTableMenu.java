@@ -19,11 +19,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class InfusingTableMenu extends AbstractInfusingMenu {
     private final InfusingTableBlockEntity blockEntity;
-    //private final List<InfusingTableRecipe> recipes;
     public final Level level;
     protected final Player player;
     protected final ContainerLevelAccess access;
@@ -39,7 +39,6 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         this.access = access;
         this.player = inv.player;
         this.level = inv.player.level;
-        //this.recipes = this.level.getRecipeManager().getAllRecipesFor(InfusingTableRecipe.Type.INSTANCE);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
             //slotItemHandler determines position (in pixels) of slot in inventory
@@ -47,18 +46,24 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             //+x -->  &  +y v
             //slot placement is top right corner of slot (not centre)
             //index should start at 0
+
+            //metal slot
             this.addSlot(new ModInputSlot(handler, 0, 79, 23) {
                 public void setChanged() {
                     super.setChanged();
                     InfusingTableMenu.this.slotsChanged(this.container);
                 }
             });
+
+            //gear slot
             this.addSlot(new ModInputSlot(handler, 1, 79, 57) {
                 public void setChanged() {
                     super.setChanged();
                     InfusingTableMenu.this.slotsChanged(this.container);
                 }
             });
+
+            //output slot
             this.addSlot(new ModResultSlot(handler, 2, 79, 98) {
                 public boolean mayPlace(ItemStack itemStack) {
                     return false;
@@ -69,6 +74,8 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
                 }
             });
         });
+
+        //player inventory & hotbar (located in AbstractInfusingMenu)
         addPlayerInventory(inv, 139);
         addPlayerHotbar(inv, 196);
     }
@@ -81,11 +88,12 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
     @Override
     protected void onTake(Player player, ItemStack itemStack) {
         BlockPos pos = blockEntity.getBlockPos();
-        BlockEntity blockEntity1 = level.getBlockEntity(pos);
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         itemStack.onCraftedBy(player.level, player, itemStack.getCount());
+        //on craft
         if (hasRecipe()) {
             this.shrinkStacks();
-            if (blockEntity1 instanceof InfusingTableBlockEntity) {
+            if (blockEntity instanceof InfusingTableBlockEntity) {
                 InfusingTableBlockEntity.createCraftParticles(0.05D, 1, player, pos);
             }
             this.playSound(pos);
@@ -95,11 +103,13 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         }
     }
 
+    //plays sound on craft
     private void playSound(BlockPos pos) {
         level.playSound((Player) null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
         level.playSound((Player) null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.6F, 0.8F + level.random.nextFloat() * 1.2F);
     }
 
+    //shrinks stacks in slot 0 & 1 by one on craft
     private void shrinkStacks() {
         blockEntity.itemHandler.extractItem(0, 1, false);
         blockEntity.itemHandler.extractItem(1, 1, false);
@@ -115,19 +125,30 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         if (hasRecipe()) {
             ItemStack gearSlot = blockEntity.itemHandler.getStackInSlot(1);
 
-            if (!hasMetalTag() && hasMetal() != 7) {
-                if (hasMetal() != 8) {
-                    blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
-                    this.addMetalTag();
-                    this.addCopperTag(0);
+            //Normal metal infusion (if not infused already and metal is not copper, bronze or aluminium (this doesn't like 'or' statements))
+            if (!hasMetalTag() && hasMetal() != 7) { //not copper
+                if (hasMetal() != 8) { //not bronze
+                    if (hasMetal() != 10) { //not aluminium
+                        blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                        this.addMetalTag();
+                        this.addCopperTag(0);
+                    }
                 }
-                //else if the infusing metal is copper does not have copper infused
+
+                //Copper infusion (else if the infusing metal is copper does not have copper infused)
             } else if (hasMetalTag() && hasMetal() == 7 && getCopperTag() == 0) {
                 blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                 this.addCopperTag(1);
+
+                //Bronze infusion (else if the infusing metal is bronze and has copper cloud)
             } else if (hasMetalTag() && hasMetal() == 8 && getCopperTag() == 1) {
                 blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                 this.addCopperTag(0);
+
+                //Aluminium infusion (else if gear is infused and infusing metal is aluminium)
+            } else if (hasMetalTag() && hasMetal() == 10) {
+                blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                this.removeMetalTags();
             }
         } else {
             blockEntity.itemHandler.setStackInSlot(2, ItemStack.EMPTY);
@@ -167,6 +188,8 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
             metal = 8;
         } else if (item.getDefaultInstance().is(ModTags.Items.INFUSING_GOLD)) {
             metal = 9;
+        } else if (item.getDefaultInstance().is(ModTags.Items.INFUSING_ALUMINIUM)) {
+            metal = 10;
         }
         return metal;
     }
@@ -198,7 +221,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return returnValue;
     }
 
-    //returns weather item in slot 1 has metal tag
+    //returns whether item in slot 1 has metal tag
     private boolean hasMetalTag() {
         ItemStack itemStack = this.slots.get(1).getItem();
         if (itemStack.getTag().contains("atium_mod.metal")) {
@@ -224,9 +247,16 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     //adds copper cloud tag to output item
     private void addCopperTag(int isCopper) {
-        ItemStack outputItem = this.slots.get(2).getItem();
         //0 = false, 1 = true
+        ItemStack outputItem = this.slots.get(2).getItem();
         outputItem.getTag().putInt("atium_mod.copper_cloud", isCopper);
+    }
+
+    //for infusing aluminium, removes all infusion tags
+    private void removeMetalTags() {
+        ItemStack outputItem = this.slots.get(2).getItem();
+        outputItem.getTag().remove("atium_mod.metal");
+        outputItem.getTag().remove("atium_mod.copper_cloud");
     }
 
     //if still close enough to access inventory

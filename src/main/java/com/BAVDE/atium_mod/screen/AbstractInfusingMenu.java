@@ -32,6 +32,7 @@ public abstract class AbstractInfusingMenu extends AbstractContainerMenu {
 
     public abstract void createResult();
 
+    //called each time a slot is changed
     public void slotsChanged(Container pInventory) {
         super.slotsChanged(pInventory);
         this.createResult();
