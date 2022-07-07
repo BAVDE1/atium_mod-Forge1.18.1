@@ -1,78 +1,67 @@
 package com.BAVDE.atium_mod.screen;
 
-import com.BAVDE.atium_mod.block.ModBlocks;
-import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
+import com.BAVDE.atium_mod.block.custom.InfusingTableBlock;
 import com.BAVDE.atium_mod.item.ModItems;
-import com.BAVDE.atium_mod.screen.slot.ModInputSlot;
-import com.BAVDE.atium_mod.screen.slot.ModResultSlot;
 import com.BAVDE.atium_mod.util.ModTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 public class InfusingTableMenu extends AbstractInfusingMenu {
-    private final InfusingTableBlockEntity blockEntity;
     public final Level level;
     protected final Player player;
-    protected final ContainerLevelAccess access;
 
+    //slots
+    protected final ResultContainer resultSlots = new ResultContainer();
+    protected final Container inputSlots = new SimpleContainer(2) {
+        //For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it hasn't changed and skip it.
+        public void setChanged() {
+            super.setChanged();
+            InfusingTableMenu.this.slotsChanged(this);
+        }
+    };
 
-    public InfusingTableMenu(int window, Inventory inv, FriendlyByteBuf friendlyByteBuf) {
-        this(window, inv, inv.player.level.getBlockEntity(friendlyByteBuf.readBlockPos()), ContainerLevelAccess.NULL);
+    public InfusingTableMenu(int window, Inventory inv) {
+        this(window, inv, ContainerLevelAccess.NULL);
     }
 
-    public InfusingTableMenu(int window, Inventory inv, BlockEntity entity, ContainerLevelAccess access) {
-        super(ModMenuTypes.INFUSING_TABLE_MENU.get(), window, inv, entity);
-        blockEntity = ((InfusingTableBlockEntity) entity);
-        this.access = access;
+    public InfusingTableMenu(int window, Inventory inv, ContainerLevelAccess access) {
+        super(ModMenuTypes.INFUSING_TABLE_MENU.get(), window, inv, access);
         this.player = inv.player;
         this.level = inv.player.level;
 
-        this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            //slotItemHandler determines position (in pixels) of slot in inventory
-            //the coords start at 0 on the top right most pixel of inventory texture
-            //+x -->  &  +y v
-            //slot placement is top right corner of slot (not centre)
-            //index should start at 0
+        //slot determines position (in pixels) of slot in inventory
+        //the coords start at 0 on the top right most pixel of inventory texture
+        //+x -->  &  +y v
+        //slot placement is top right corner of slot (not centre)
+        //index should start at 0
 
-            //metal slot
-            this.addSlot(new ModInputSlot(handler, 0, 79, 23) {
-                public void setChanged() {
-                    super.setChanged();
-                    InfusingTableMenu.this.slotsChanged(this.container);
-                }
-            });
-
-            //gear slot
-            this.addSlot(new ModInputSlot(handler, 1, 79, 57) {
-                public void setChanged() {
-                    super.setChanged();
-                    InfusingTableMenu.this.slotsChanged(this.container);
-                }
-            });
-
-            //output slot
-            this.addSlot(new ModResultSlot(handler, 2, 79, 98) {
-                public boolean mayPlace(ItemStack itemStack) {
-                    return false;
-                }
-
-                public void onTake(Player player, ItemStack itemStack) {
-                    InfusingTableMenu.this.onTake(player, itemStack);
-                }
-            });
+        //metal slot
+        this.addSlot(new Slot(this.inputSlots, 0, 79, 23));
+        //gear slot
+        this.addSlot(new Slot(this.inputSlots, 1, 79, 57));
+        //output slot
+        this.addSlot(new Slot(this.resultSlots, 2, 79, 98) {
+            //Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+            public boolean mayPlace(ItemStack p_39818_) {
+                return false;
+            }
+            //Return whether this slot's stack can be taken from this slot.
+            public boolean mayPickup(Player p_39813_) {
+                return InfusingTableMenu.this.mayPickup(p_39813_, this.hasItem());
+            }
+            public void onTake(Player p_150604_, ItemStack p_150605_) {
+                InfusingTableMenu.this.onTake(p_150604_, p_150605_);
+            }
         });
 
         //player inventory & hotbar (located in AbstractInfusingMenu)
@@ -87,18 +76,16 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
     @Override
     protected void onTake(Player player, ItemStack itemStack) {
-        BlockPos pos = blockEntity.getBlockPos();
-        BlockEntity blockEntity = level.getBlockEntity(pos);
         itemStack.onCraftedBy(player.level, player, itemStack.getCount());
         //on craft
         if (hasRecipe()) {
-            this.shrinkStacks();
-            if (blockEntity instanceof InfusingTableBlockEntity) {
-                InfusingTableBlockEntity.createCraftParticles(0.05D, 1, player, pos);
-            }
-            this.playSound(pos);
+            this.shrinkStacksInSlot(0);
+            this.shrinkStacksInSlot(1);
+            this.playSound(player.blockPosition());
+            //this isnt called vv
             this.access.execute((level, blockPos) -> {
                 level.levelEvent(1044, blockPos, 0);
+                InfusingTableBlock.createCraftParticles(0.05D, 1, player, blockPos);
             });
         }
     }
@@ -109,10 +96,11 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         level.playSound((Player) null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.6F, 0.8F + level.random.nextFloat() * 1.2F);
     }
 
-    //shrinks stacks in slot 0 & 1 by one on craft
-    private void shrinkStacks() {
-        blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.extractItem(1, 1, false);
+    //shrinks the stacks in slot by one
+    private void shrinkStacksInSlot(int slot) {
+        ItemStack itemstack = this.inputSlots.getItem(slot);
+        itemstack.shrink(1);
+        this.inputSlots.setItem(slot, itemstack);
     }
 
     @Override
@@ -123,13 +111,14 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
     @Override
     public void createResult() {
         if (hasRecipe()) {
-            ItemStack gearSlot = blockEntity.itemHandler.getStackInSlot(1);
+            ItemStack gearSlot = this.slots.get(1).getItem();
 
             //Normal metal infusion (if not infused already and metal is not copper, bronze or aluminium (this doesn't like 'or' statements))
             if (!hasMetalTag() && hasMetal() != 7) { //not copper
                 if (hasMetal() != 8) { //not bronze
                     if (hasMetal() != 10) { //not aluminium
-                        blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                        this.slots.get(2).set(gearSlot.copy());
+                        //blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                         this.addMetalTag();
                         this.addCopperTag(0);
                     }
@@ -137,21 +126,25 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
 
                 //Copper infusion (else if the infusing metal is copper does not have copper infused)
             } else if (hasMetalTag() && hasMetal() == 7 && getCopperTag() == 0) {
-                blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                this.slots.get(2).set(gearSlot.copy());
+                //blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                 this.addCopperTag(1);
 
                 //Bronze infusion (else if the infusing metal is bronze and has copper cloud)
             } else if (hasMetalTag() && hasMetal() == 8 && getCopperTag() == 1) {
-                blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                this.slots.get(2).set(gearSlot.copy());
+                //blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                 this.addCopperTag(0);
 
                 //Aluminium infusion (else if gear is infused and infusing metal is aluminium)
             } else if (hasMetalTag() && hasMetal() == 10) {
-                blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
+                this.slots.get(2).set(gearSlot.copy());
+                //blockEntity.itemHandler.setStackInSlot(2, gearSlot.copy());
                 this.removeMetalTags();
             }
         } else {
-            blockEntity.itemHandler.setStackInSlot(2, ItemStack.EMPTY);
+            this.slots.get(2).set(ItemStack.EMPTY);
+            //blockEntity.itemHandler.setStackInSlot(2, ItemStack.EMPTY);
         }
     }
 
@@ -259,10 +252,19 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         outputItem.getTag().remove("atium_mod.copper_cloud");
     }
 
+    //called when menu is closed (puts items from input slots back into players inventory)
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+        this.clearContainer(player, this.inputSlots);
+    }
+
     //if still close enough to access inventory
     //e.g. if player is in mine-cart and moves too far away from block
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, ModBlocks.INFUSING_TABLE.get());
+        return this.access.evaluate((p_39785_, p_39786_) -> {
+            return this.isValidBlock(p_39785_.getBlockState(p_39786_)) && pPlayer.distanceToSqr((double) p_39786_.getX() + 0.5D, (double) p_39786_.getY() + 0.5D, (double) p_39786_.getZ() + 0.5D) <= 64.0D;
+        }, true);
     }
 }

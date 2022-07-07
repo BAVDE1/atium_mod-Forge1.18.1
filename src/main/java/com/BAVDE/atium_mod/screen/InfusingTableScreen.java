@@ -145,6 +145,7 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
     public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
         renderBackground(pPoseStack);
         super.render(pPoseStack, mouseX, mouseY, delta);
+        RenderSystem.disableBlend();
         renderTooltip(pPoseStack, mouseX, mouseY);
     }
 }

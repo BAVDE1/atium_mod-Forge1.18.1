@@ -1,21 +1,19 @@
 package com.BAVDE.atium_mod.screen;
 
-import com.BAVDE.atium_mod.block.entity.InfusingTableBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
 public abstract class AbstractInfusingMenu extends AbstractContainerMenu {
-    private final InfusingTableBlockEntity blockEntity;
     protected final Level level;
     protected final Player player;
+    protected final ContainerLevelAccess access;
 
     protected abstract boolean mayPickup(Player p_39798_, boolean p_39799_);
 
@@ -23,9 +21,9 @@ public abstract class AbstractInfusingMenu extends AbstractContainerMenu {
 
     protected abstract boolean isValidBlock(BlockState p_39788_);
 
-    public AbstractInfusingMenu(@Nullable MenuType<?> menuType, int window, Inventory inv, BlockEntity entity) {
+    public AbstractInfusingMenu(@Nullable MenuType<?> menuType, int window, Inventory inv, ContainerLevelAccess access) {
         super(menuType, window);
-        blockEntity = ((InfusingTableBlockEntity) entity);
+        this.access = access;
         this.player = inv.player;
         this.level = inv.player.level;
     }

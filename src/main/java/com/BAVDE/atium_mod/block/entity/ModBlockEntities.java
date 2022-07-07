@@ -12,10 +12,8 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, AtiumMod.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<InfusingTableBlockEntity>> INFUSING_TABLE_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("infusing_table", () ->
-                    BlockEntityType.Builder.of(InfusingTableBlockEntity::new,
-                            ModBlocks.INFUSING_TABLE.get()).build(null));
+//    public static final RegistryObject<BlockEntityType<InfusingTableBlockEntity>> INFUSING_TABLE_BLOCK_ENTITY = BLOCK_ENTITIES.register("infusing_table", () ->
+//                    BlockEntityType.Builder.of(InfusingTableBlockEntity::new, ModBlocks.INFUSING_TABLE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
