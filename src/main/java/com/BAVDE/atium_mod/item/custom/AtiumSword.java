@@ -121,6 +121,10 @@ public class AtiumSword extends SwordItem {
                 }
             }
         }
+        //drains player hunger depending on how many mobs are being pulled
+        if (pPlayer instanceof Player player) {
+            player.getFoodData().addExhaustion((float) entityList.size() / 10);
+        }
     }
 
     //chance for big knockback

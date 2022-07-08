@@ -1,17 +1,12 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.BAVDE.atium_mod.block.ModBlocks;
-import com.BAVDE.atium_mod.item.ModArmourMaterials;
-import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.util.ModTags;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -22,10 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -64,6 +56,7 @@ public class AtiumHelmet extends ArmorItem {
                     }
                 }
             }
+            consumeHunger((Player) player);
         }
     }
 
@@ -80,6 +73,7 @@ public class AtiumHelmet extends ArmorItem {
                     }
                 }
             }
+            consumeHunger((Player) player);
         }
     }
 
@@ -89,9 +83,13 @@ public class AtiumHelmet extends ArmorItem {
 
     //gives night vision when crouching
     private static void tin(LivingEntity player) {
-        if (player.isCrouching() && !player.hasEffect(MobEffects.NIGHT_VISION)) {
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 99999, 0, false, false, false));
-        } else if (!player.isCrouching() && player.hasEffect(MobEffects.NIGHT_VISION)) {
+        if (player.isCrouching()) {
+            if (!player.hasEffect(MobEffects.NIGHT_VISION)) {
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 99999, 0, false, false, false));
+            } else {
+                consumeHunger((Player) player);
+            }
+        } else if (player.hasEffect(MobEffects.NIGHT_VISION)) {
             //ModEvents for if helmet breaks when player is crouching
             player.removeEffect(MobEffects.NIGHT_VISION);
         }
@@ -137,6 +135,7 @@ public class AtiumHelmet extends ArmorItem {
                     player.level.addParticle(ModParticles.MOB_DETECTION_PARTICLES.get(), true, entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 0, 0, 0);
                 }
             }
+            consumeHunger((Player) player);
         }
     }
 
@@ -184,6 +183,11 @@ public class AtiumHelmet extends ArmorItem {
         }
     }
 
+    //used in iron, steel, tin & zinc to slowly consume players hunger while using
+    private static void consumeHunger(Player player) {
+        player.getFoodData().addExhaustion(0.5F);
+    }
+
     //changes items' name colour when infused
     @Override
     public Rarity getRarity(ItemStack pStack) {
@@ -206,13 +210,20 @@ public class AtiumHelmet extends ArmorItem {
         if (itemStack.getTag().contains("atium_mod.metal") && copper == 0) {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1: return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
-                case 2: return null;
-                case 3: return null;
-                case 4: return null;
-                case 5: return null;
-                case 6: return null;
-                case 9: return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
+                case 1:
+                    return "atium_mod:textures/models/armor/atium_iron_layer_1.png";
+                case 2:
+                    return null;
+                case 3:
+                    return null;
+                case 4:
+                    return null;
+                case 5:
+                    return null;
+                case 6:
+                    return null;
+                case 9:
+                    return "atium_mod:textures/models/armor/atium_gold_layer_1.png";
             }
         }
         return super.getArmorTexture(itemStack, entity, slot, type);
