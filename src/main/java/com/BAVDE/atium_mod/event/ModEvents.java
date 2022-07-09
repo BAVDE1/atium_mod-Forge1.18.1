@@ -91,7 +91,7 @@ public class ModEvents {
         if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
             int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
-                case 6 -> bootsZinc(livingHurtEvent, player);
+                case 6 -> bootsZinc(livingHurtEvent, player, level);
             }
         }
     }
@@ -228,8 +228,11 @@ public class ModEvents {
         if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
             //jump indication (sound & particles)
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
-            for (int i = 0; i < 8; i++) {
-                level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
+            if (level.isClientSide) {
+                //particles
+                for (int i = 0; i < 8; i++) {
+                    level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
+                }
             }
             //actual jump
             double jumpPower = 0.3D; /*extra jump power (e.g. 0.3D = 3 blocks)*/
@@ -261,26 +264,32 @@ public class ModEvents {
         }
     }
 
-    private static void bootsZinc(LivingHurtEvent event, LivingEntity player) {
+    private static void bootsZinc(LivingHurtEvent event, LivingEntity player, Level level) {
         if (Math.random() < 0.5) {
-            //half damage
-            float originalAmount = event.getAmount();
-            event.setAmount((float)originalAmount / 2);
-
             Entity attacker = event.getSource().getDirectEntity();
-            //knockback
-            double pX = attacker.getX() - player.getX();
-            double pZ;
-            for (pZ = attacker.getZ() - player.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
-                pX = (Math.random() - Math.random()) * 0.01D;
+            if (attacker != null) {
+                //half damage
+                float originalAmount = event.getAmount();
+                event.setAmount((float) originalAmount / 2);
+                if (level.isClientSide) {
+                    //particles
+                    for (int i = 0; i < 8; i++) {
+                        level.addParticle(ModParticles.FALLING_SMOKE_PARTICLES.get(), player.getRandomX(1), player.getY(), player.getRandomZ(1), 0, 0, 0);
+                    }
+                }
+                //knockback
+                double pX = player.getX() - attacker.getX();
+                double pZ;
+                for (pZ = player.getZ() - attacker.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                    pX = (Math.random() - Math.random()) * 0.01D;
+                }
+                int modifier = 4;
+                player.push(pX * modifier, 0, pZ * modifier);
+                //sound
+                attacker.playSound(SoundEvents.ARMOR_EQUIP_ELYTRA, 2.0F, 1.0F);
             }
-            int modifier = 10;
-            player.push(pX * modifier, 0, pZ * modifier);
-
-            event.getEntityLiving().playSound(SoundEvents.ARMOR_EQUIP_ELYTRA, 2.0F, 1.0F);
-            //player.level.playSound((Player) player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1);
-            //player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
         }
+
     }
 
     private static void bootsGold(LivingEntity player, Level level) {
@@ -313,13 +322,15 @@ public class ModEvents {
         for (int i = -pSize; i <= pSize; ++i) {
             for (int j = -pSize; j <= pSize; ++j) {
                 for (int k = -pSize; k <= pSize; ++k) {
-                    double d3 = (double) j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
-                    double d4 = (double) i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
-                    double d5 = (double) k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
-                    double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / pSpeed + level.random.nextGaussian() * 0.05D;
-                    minecraft.particleEngine.createParticle(ModParticles.FORCE_FIELD_PARTICLES.get(), d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
-                    if (i != -pSize && i != pSize && j != -pSize && j != pSize) {
-                        k += pSize * 2 - 1;
+                    if (level.isClientSide) {
+                        double d3 = (double) j + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                        double d4 = (double) i + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                        double d5 = (double) k + (level.random.nextDouble() - level.random.nextDouble()) * 0.5D;
+                        double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / pSpeed + level.random.nextGaussian() * 0.05D;
+                        minecraft.particleEngine.createParticle(ModParticles.FORCE_FIELD_PARTICLES.get(), d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+                        if (i != -pSize && i != pSize && j != -pSize && j != pSize) {
+                            k += pSize * 2 - 1;
+                        }
                     }
                 }
             }
