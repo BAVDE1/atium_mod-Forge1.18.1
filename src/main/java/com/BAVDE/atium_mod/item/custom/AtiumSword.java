@@ -205,6 +205,7 @@ public class AtiumSword extends SwordItem {
     //chance to drop cloud of healing
     private void gold(LivingEntity pAttacker) {
         if (Math.random() < 0.1) { //10%
+            //cloud properties
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
             areaeffectcloud.setOwner(pAttacker);
@@ -215,6 +216,7 @@ public class AtiumSword extends SwordItem {
             areaeffectcloud.setPotion(Potions.HEALING);
             areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL));
 
+            //adds cloud to world
             this.level.addFreshEntity(areaeffectcloud);
         }
     }

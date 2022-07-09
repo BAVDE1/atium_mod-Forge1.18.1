@@ -8,7 +8,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -63,6 +66,8 @@ public class ModEvents {
             int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
             switch (currentMetal) {
                 case 5 -> bootsBrass(livingAttackEvent);
+                //case 6 -> bootsZinc(livingAttackEvent, player);
+                case 9 -> bootsGold(player, level);
             }
         }
     }
@@ -79,6 +84,14 @@ public class ModEvents {
             switch (currentMetal) {
                 case 2 -> chestplateSteel(level, player);
                 case 5 -> chestplateBrass(player, livingHurtEvent);
+            }
+        }
+        //atium boots
+        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
+        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
+            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) {
+                case 6 -> bootsZinc(livingHurtEvent, player);
             }
         }
     }
@@ -245,6 +258,45 @@ public class ModEvents {
                     livingAttackEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
                 }
             }
+        }
+    }
+
+    private static void bootsZinc(LivingHurtEvent event, LivingEntity player) {
+        if (Math.random() < 0.5) {
+            //half damage
+            float originalAmount = event.getAmount();
+            event.setAmount((float)originalAmount / 2);
+
+            Entity attacker = event.getSource().getDirectEntity();
+            //knockback
+            double pX = attacker.getX() - player.getX();
+            double pZ;
+            for (pZ = attacker.getZ() - player.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                pX = (Math.random() - Math.random()) * 0.01D;
+            }
+            int modifier = 10;
+            player.push(pX * modifier, 0, pZ * modifier);
+
+            event.getEntityLiving().playSound(SoundEvents.ARMOR_EQUIP_ELYTRA, 2.0F, 1.0F);
+            //player.level.playSound((Player) player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1);
+            //player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
+        }
+    }
+
+    private static void bootsGold(LivingEntity player, Level level) {
+        if (Math.random() < 0.15) {
+            //cloud properties
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(level, player.getX(), player.getY(), player.getZ());
+            areaeffectcloud.setOwner(player);
+            areaeffectcloud.setRadius(3.0F);
+            areaeffectcloud.setRadiusOnUse(-0.3F);
+            areaeffectcloud.setWaitTime(4);
+            areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
+            areaeffectcloud.setPotion(Potions.HEALING);
+            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL));
+
+            //add cloud to world
+            level.addFreshEntity(areaeffectcloud);
         }
     }
 
