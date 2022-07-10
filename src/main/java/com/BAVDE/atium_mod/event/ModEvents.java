@@ -265,7 +265,7 @@ public class ModEvents {
     }
 
     private static void bootsZinc(LivingHurtEvent event, LivingEntity player, Level level) {
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.1) {
             Entity attacker = event.getSource().getDirectEntity();
             if (attacker != null) {
                 //half damage
