@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PXP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "atium_mod:empty_scroll"
+  }
+}

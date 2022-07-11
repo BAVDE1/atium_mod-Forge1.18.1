@@ -71,6 +71,24 @@ public class ModItems {
     public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
+    //scrolls
+    public static final RegistryObject<Item> EMPTY_SCROLL = ITEMS.register("empty_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> STEEL_SCROLL = ITEMS.register("steel_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> TIN_SCROLL = ITEMS.register("tin_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> PEWTER_SCROLL = ITEMS.register("pewter_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> BRASS_SCROLL = ITEMS.register("brass_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> ZINC_SCROLL = ITEMS.register("zinc_scroll",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(16)));
+    public static final RegistryObject<Item> TIN_SCROLL_FRAGMENT = ITEMS.register("tin_scroll_fragment",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> ZINC_SCROLL_FRAGMENT = ITEMS.register("zinc_scroll_fragment",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+
     //Knives
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
             () -> new KnifeItem(ModTiers.CRYSTALLIZED_KNIFE_TIER, 1, -2.2f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));

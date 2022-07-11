@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:empty_scroll"
+    },
+    {
+      "item": "atium_mod:pewter"
+    }
+  ],
+  "result": {
+    "item": "atium_mod:pewter_scroll"
+  }
+}

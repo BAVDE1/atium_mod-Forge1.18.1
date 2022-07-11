@@ -37,6 +37,15 @@
 
   "item.atium_mod.diamond_compound": "Diamond Compound",
 
+  "item.atium_mod.empty_scroll": "Empty Scroll",
+  "item.atium_mod.steel_scroll": "Steel Scroll",
+  "item.atium_mod.tin_scroll_fragment": "Tin Scroll Fragment",
+  "item.atium_mod.tin_scroll": "Tin Scroll",
+  "item.atium_mod.pewter_scroll": "Pewter Scroll",
+  "item.atium_mod.brass_scroll": "Brass Scroll",
+  "item.atium_mod.zinc_scroll_fragment": "Zinc Scroll Fragment",
+  "item.atium_mod.zinc_scroll": "Zinc Scroll",
+
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",
   "block.atium_mod.empty_atium_ore": "Empty Atium Ore",
