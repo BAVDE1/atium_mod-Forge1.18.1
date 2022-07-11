@@ -4,6 +4,7 @@ import com.BAVDE.atium_mod.block.ModBlocks;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -36,6 +37,7 @@ public class AtiumBoots extends ArmorItem {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1 -> iron(level, player);
+                case 2 -> steel(stack, player);
                 case 5 -> brass(level, player);
             }
         }
@@ -50,6 +52,20 @@ public class AtiumBoots extends ArmorItem {
             player.push(vec3.x, 0.7, vec3.z);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
+        }
+    }
+
+    //ticks down dash timer
+    private static void steel(ItemStack itemStack, Player player) {
+        if (itemStack.getTag().contains("atium_mod.left_dash_ready")) {
+            int dashTimer = itemStack.getTag().getInt("atium_mod.left_dash_ready");
+            if (dashTimer <= 0) {
+                itemStack.getTag().remove("atium_mod.left_dash_ready");
+                player.sendMessage(new TextComponent("dash gone"), player.getUUID());
+            } else {
+                itemStack.getTag().putInt("atium_mod.left_dash_ready", --dashTimer);
+                player.sendMessage(new TextComponent("timer: " + dashTimer), player.getUUID());
+            }
         }
     }
 

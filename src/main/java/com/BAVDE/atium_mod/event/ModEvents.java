@@ -4,9 +4,10 @@ import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.Input;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -19,13 +20,13 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -44,7 +45,8 @@ public class ModEvents {
     //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
 
     /**
-     * EVENTS
+     * EVENTS 
+     * (events NEED to be static or else they won't be called)
      **/
 
     @SubscribeEvent
@@ -53,18 +55,14 @@ public class ModEvents {
         Level level = player.getLevel();
 
         //atium chestplate
-        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+        if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
+            switch (getMetalTag(getChestplateItem(player))) {
                 case 6 -> chestplateZinc(livingAttackEvent);
             }
         }
         //atium boots
-        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
-        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+        if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
+            switch (getMetalTag(getBootsItem(player))) {
                 case 5 -> bootsBrass(livingAttackEvent);
                 //case 6 -> bootsZinc(livingAttackEvent, player);
                 case 9 -> bootsGold(player, level);
@@ -78,19 +76,15 @@ public class ModEvents {
         Level level = player.getLevel();
 
         //atium chestplate
-        ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (chestplateItem.getItem() == ModItems.ATIUM_CHESTPLATE.get() && chestplateItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = chestplateItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+        if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
+            switch (getMetalTag(getChestplateItem(player))) {
                 case 2 -> chestplateSteel(level, player);
                 case 5 -> chestplateBrass(player, livingHurtEvent);
             }
         }
         //atium boots
-        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
-        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+        if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
+            switch (getMetalTag(getBootsItem(player))) {
                 case 6 -> bootsZinc(livingHurtEvent, player, level);
             }
         }
@@ -102,7 +96,6 @@ public class ModEvents {
         ItemStack itemStackTo = livingEquipmentChangeEvent.getTo();
         ItemStack itemStackFrom = livingEquipmentChangeEvent.getFrom();
 
-        //atium chestplate
         if (livingEquipmentChangeEvent.getSlot() == EquipmentSlot.CHEST) {
             //ON
             if (itemStackTo.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackTo.getTag().contains("atium_mod.metal")) {
@@ -128,30 +121,27 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onMove(MovementInputUpdateEvent movementInputUpdateEvent) {
-        LivingEntity player = movementInputUpdateEvent.getEntityLiving();
-        Level level = player.getLevel();
-
-        //atium boots
-        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
-        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent livingJumpEvent) {
         LivingEntity player = livingJumpEvent.getEntityLiving();
         Level level = player.getLevel();
 
         //atium boots
-        ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
-        if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get() && bootsItem.getTag().contains("atium_mod.metal")) {
-            int currentMetal = bootsItem.getTag().getInt("atium_mod.metal");
-            switch (currentMetal) {
+        if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
+            switch (getMetalTag(getBootsItem(player))) {
                 case 4 -> bootsPewter((Player) player, level);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMovementInput(MovementInputUpdateEvent event) {
+        Player player = event.getPlayer();
+        Level level = player.getLevel();
+
+        //atium boots
+        if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
+            switch (getMetalTag(getBootsItem(player))) {
+                case 2 -> bootsSteel(event, player, getBootsItem(player));
             }
         }
     }
@@ -178,6 +168,34 @@ public class ModEvents {
             //sound not working atm
             level.playSound((Player) player, player, SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 4.0F, 1.0F);
             createForceFieldParticles(0.7D, 4, player);
+        }
+    }
+
+    //dash if player double taps left or right
+    private static void bootsSteel(MovementInputUpdateEvent event, Player player, ItemStack itemStack) {
+        boolean leftKey = event.getInput().left;
+        boolean rightKey = event.getInput().right;
+
+        //if item is not on cooldown
+        if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+            //left
+            if (leftKey) {
+                //if item has dash tag
+                if (itemStack.getTag().contains("atium_mod.left_dash_ready")) {
+                    player.sendMessage(new TextComponent("left dash"), player.getUUID());
+                    //remove tag
+                    itemStack.getTag().remove("atium_mod.left_dash_ready");
+                    //1 sec cooldown
+                    player.getCooldowns().addCooldown(itemStack.getItem(), 20);
+                } else {
+                    //else if item does not have dash tag, add the tag
+                    itemStack.getTag().putInt("atium_mod.left_dash_ready", 10);
+
+                    player.sendMessage(new TextComponent("dash started"), player.getUUID());
+                }
+            }
+
+            //right
         }
     }
 
@@ -270,7 +288,7 @@ public class ModEvents {
             if (attacker != null) {
                 //half damage
                 float originalAmount = event.getAmount();
-                event.setAmount((float) originalAmount / 2);
+                event.setAmount(originalAmount / 2);
                 if (level.isClientSide) {
                     //particles
                     for (int i = 0; i < 8; i++) {
@@ -344,5 +362,45 @@ public class ModEvents {
     @SubscribeEvent
     public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent respawnEvent) {
         respawnEvent.getNewPlayer().setTicksFrozen(0);
+    }
+    
+    /**
+    * ITEM CHECKS
+    */
+
+    //returns itemstack of what is in certain equipment slot (returns ItemStack)
+    private static ItemStack getHelmetItem(LivingEntity player) {
+        return player.getItemBySlot(EquipmentSlot.HEAD);
+    }
+    private static ItemStack getChestplateItem(LivingEntity player) {
+        return player.getItemBySlot(EquipmentSlot.CHEST);
+    }
+    private static ItemStack getBootsItem(LivingEntity player) {
+        return player.getItemBySlot(EquipmentSlot.FEET);
+    }
+
+    //checks if item is correct gear (returns boolean)
+    private static boolean isAtiumHelmet(ItemStack itemStack) {
+        return itemStack.getItem() == ModItems.ATIUM_HELMET.get();
+    }
+    private static boolean isAtiumChestplate(ItemStack itemStack) {
+        return itemStack.getItem() == ModItems.ATIUM_CHESTPLATE.get();
+    }
+    private static boolean isAtiumBoots(ItemStack itemStack) {
+        return itemStack.getItem() == ModItems.ATIUM_BOOTS.get();
+    }
+
+    //checks if itemstack has metal tag (returns boolean)
+    private static boolean hasMetalTag(ItemStack itemStack) {
+        return itemStack.getTag().contains("atium_mod.metal");
+    }
+
+    //returns the metal tag (returns int)
+    private static int getMetalTag(ItemStack itemStack) {
+        if (hasMetalTag(itemStack)) {
+            return itemStack.getTag().getInt("atium_mod.metal");
+        }
+        //returns 0 if doesn't have metal tag
+        return 0;
     }
 }

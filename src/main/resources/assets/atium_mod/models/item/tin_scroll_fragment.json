@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "atium_mod:item/tin_scroll_fragment"
+    "layer0": "atium_mod:item/scroll_fragment"
   }
 }
