@@ -4,7 +4,6 @@ import com.BAVDE.atium_mod.AtiumMod;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.Input;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,7 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -43,6 +41,10 @@ public class ModEvents {
     public final Random random = new Random();
     //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
     //attack event order: 1.LivingAttackEvent 2.LivingHurtEvent 3.LivingDamageEvent 4.LivingDeathEvent 5.Global Loot Modifiers
+
+    //dash key used to make sure player releases key to dash
+    static boolean leftDashKeyPressed = false;
+    static boolean rightDashKeyPressed = false;
 
     /**
      * EVENTS 
@@ -175,27 +177,44 @@ public class ModEvents {
     private static void bootsSteel(MovementInputUpdateEvent event, Player player, ItemStack itemStack) {
         boolean leftKey = event.getInput().left;
         boolean rightKey = event.getInput().right;
+        //tick amount for double tap leeway
+        int doublePressSpeed = 6;
 
         //if item is not on cooldown
-        if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
-            //left
+        if (!onCooldown(player, itemStack)) {
+            //LEFT DASH
             if (leftKey) {
-                //if item has dash tag
-                if (itemStack.getTag().contains("atium_mod.left_dash_ready")) {
+                if (hasLeftDashTag(itemStack) && !leftDashKeyPressed) {
                     player.sendMessage(new TextComponent("left dash"), player.getUUID());
                     //remove tag
                     itemStack.getTag().remove("atium_mod.left_dash_ready");
-                    //1 sec cooldown
+                    //adds 1 sec cooldown
                     player.getCooldowns().addCooldown(itemStack.getItem(), 20);
                 } else {
                     //else if item does not have dash tag, add the tag
-                    itemStack.getTag().putInt("atium_mod.left_dash_ready", 10);
-
-                    player.sendMessage(new TextComponent("dash started"), player.getUUID());
+                    itemStack.getTag().putInt("atium_mod.left_dash_ready", doublePressSpeed);
+                    leftDashKeyPressed = true;
                 }
+            } else {
+                leftDashKeyPressed = false;
             }
 
-            //right
+            //RIGHT DASH
+            if (rightKey) {
+                if (hasRightDashTag(itemStack) && !rightDashKeyPressed) {
+                    player.sendMessage(new TextComponent("right dash"), player.getUUID());
+                    //remove tag
+                    itemStack.getTag().remove("atium_mod.right_dash_ready");
+                    //adds 1 sec cooldown
+                    player.getCooldowns().addCooldown(itemStack.getItem(), 20);
+                } else {
+                    //else if item does not have dash tag, add the tag
+                    itemStack.getTag().putInt("atium_mod.right_dash_ready", doublePressSpeed);
+                    rightDashKeyPressed = true;
+                }
+            } else {
+                rightDashKeyPressed = false;
+            }
         }
     }
 
@@ -388,6 +407,19 @@ public class ModEvents {
     }
     private static boolean isAtiumBoots(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_BOOTS.get();
+    }
+
+    //checks for steel dash tag (returns boolean)
+    private static boolean hasLeftDashTag(ItemStack itemStack) {
+        return itemStack.getTag().contains("atium_mod.left_dash_ready");
+    }
+    private static boolean hasRightDashTag(ItemStack itemStack) {
+        return itemStack.getTag().contains("atium_mod.right_dash_ready");
+    }
+
+    //checks if item is on cooldown (returns boolean)
+    private static boolean onCooldown(Player player, ItemStack itemStack) {
+        return player.getCooldowns().isOnCooldown(itemStack.getItem());
     }
 
     //checks if itemstack has metal tag (returns boolean)

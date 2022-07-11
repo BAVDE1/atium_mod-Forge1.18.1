@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.item.custom;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -37,7 +38,7 @@ public class AtiumBoots extends ArmorItem {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 1 -> iron(level, player);
-                case 2 -> steel(stack, player);
+                case 2 -> steel(stack);
                 case 5 -> brass(level, player);
             }
         }
@@ -55,16 +56,27 @@ public class AtiumBoots extends ArmorItem {
         }
     }
 
-    //ticks down dash timer
-    private static void steel(ItemStack itemStack, Player player) {
+    //simply ticks down dash timer; and removes the tag when it reaches 0
+    private static void steel(ItemStack itemStack) {
+        //left dash
         if (itemStack.getTag().contains("atium_mod.left_dash_ready")) {
-            int dashTimer = itemStack.getTag().getInt("atium_mod.left_dash_ready");
-            if (dashTimer <= 0) {
+            int leftDashTimer = itemStack.getTag().getInt("atium_mod.left_dash_ready");
+            //if dash timer is 0 remove tag; else tick down the timer
+            if (leftDashTimer <= 0) {
                 itemStack.getTag().remove("atium_mod.left_dash_ready");
-                player.sendMessage(new TextComponent("dash gone"), player.getUUID());
             } else {
-                itemStack.getTag().putInt("atium_mod.left_dash_ready", --dashTimer);
-                player.sendMessage(new TextComponent("timer: " + dashTimer), player.getUUID());
+                itemStack.getTag().putInt("atium_mod.left_dash_ready", --leftDashTimer);
+            }
+        }
+
+        //right dash
+        if (itemStack.getTag().contains("atium_mod.right_dash_ready")) {
+            int rightDashTimer = itemStack.getTag().getInt("atium_mod.right_dash_ready");
+            //if dash timer is 0 remove tag; else tick down the timer
+            if (rightDashTimer <= 0) {
+                itemStack.getTag().remove("atium_mod.right_dash_ready");
+            } else {
+                itemStack.getTag().putInt("atium_mod.right_dash_ready", --rightDashTimer);
             }
         }
     }
