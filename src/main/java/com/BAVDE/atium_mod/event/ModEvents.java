@@ -51,78 +51,79 @@ public class ModEvents {
      **/
 
     @SubscribeEvent
-    public static void onAttacked(LivingAttackEvent livingAttackEvent) {
-        LivingEntity player = livingAttackEvent.getEntityLiving();
+    public static void onAttacked(LivingAttackEvent event) {
+        LivingEntity player = event.getEntityLiving();
         Level level = player.getLevel();
 
         //atium chestplate
         if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
             switch (getMetalTag(getChestplateItem(player))) {
-                case 6 -> chestplateZinc(0.2, livingAttackEvent); //20% deflects projectiles
+                case 6 -> chestplateZinc(0.2, event); //20% deflects projectiles
             }
         }
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 5 -> bootsBrass(livingAttackEvent); //prevents all damage from magma blocks
+                case 5 -> bootsBrass(event); //prevents all damage from magma blocks
                 case 9 -> bootsGold(0.15, player, level); //15% creates healing cloud around player
             }
         }
     }
 
     @SubscribeEvent
-    public static void onHurt(LivingHurtEvent livingHurtEvent) {
-        LivingEntity player = livingHurtEvent.getEntityLiving();
+    public static void onHurt(LivingHurtEvent event) {
+        LivingEntity player = event.getEntityLiving();
         Level level = player.getLevel();
 
         //atium chestplate
         if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
             switch (getMetalTag(getChestplateItem(player))) {
-                case 2 -> chestplateSteel(0.15, 0.6D, level, player); //15% chance to push nearby mobs away on damage
-                case 5 -> chestplateBrass(0.15, 5, player, livingHurtEvent); //chance to set attacker on fire
+                case 2 -> chestplateSteel(0.15, 6.0D, level, player); //15% chance to push nearby mobs away on damage
+                case 5 -> chestplateBrass(0.15, 5, player, event); //chance to set attacker on fire
             }
         }
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 6 -> bootsZinc(0.1, 2F, livingHurtEvent, player, level); //10% to take half damage and push away from damage source
+                case 6 -> bootsZinc(0.1, 2F, event, player, level); //10% to take half damage and push away from damage source
             }
         }
     }
 
     @SubscribeEvent
-    public static void onEquipmentChange(LivingEquipmentChangeEvent livingEquipmentChangeEvent) {
-        LivingEntity player = livingEquipmentChangeEvent.getEntityLiving();
-        ItemStack itemStackTo = livingEquipmentChangeEvent.getTo();
-        ItemStack itemStackFrom = livingEquipmentChangeEvent.getFrom();
+    public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
+        LivingEntity player = event.getEntityLiving();
+        ItemStack itemStackTo = event.getTo();
+        ItemStack itemStackFrom = event.getFrom();
 
-        if (livingEquipmentChangeEvent.getSlot() == EquipmentSlot.CHEST) {
+        if (event.getSlot() == EquipmentSlot.CHEST) {
             //ON
-            if (itemStackTo.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackTo.getTag().contains("atium_mod.metal")) {
-                int currentMetal = itemStackTo.getTag().getInt("atium_mod.metal");
-                switch (currentMetal) {
+            if (isAtiumChestplate(itemStackTo) && hasMetalTag(itemStackTo)) {
+                switch (getMetalTag(itemStackTo)) {
                     case 4 -> chestplatePewterOn(4.0D, player); //adds 4 hp (2 hearts)
                 }
             }
             //OFF
-            if (itemStackFrom.getItem() == ModItems.ATIUM_CHESTPLATE.get() && itemStackFrom.getTag().contains("atium_mod.metal")) {
-                int currentMetal = itemStackFrom.getTag().getInt("atium_mod.metal");
-                switch (currentMetal) {
+            if (isAtiumChestplate(itemStackFrom) && hasMetalTag(itemStackFrom)) {
+                switch (getMetalTag(itemStackFrom)) {
                     case 4 -> chestplatePewterOff(4.0D, player); //takes 4 hp (2 hearts)
                 }
             }
-            if (itemStackFrom.getItem() == ModItems.ATIUM_HELMET.get() && itemStackFrom.getTag().contains("atium_mod.metal")) {
-                int currentMetal = itemStackFrom.getTag().getInt("atium_mod.metal");
-                switch (currentMetal) {
-                    case 3 -> helmetTinOff(player); //removes night vision if tin helmet removed (safety check)
+        }
+        if (event.getSlot() == EquipmentSlot.HEAD) {
+            //ON
+            //OFF
+            if (isAtiumHelmet(itemStackFrom) && hasMetalTag(itemStackFrom)) {
+                switch (getMetalTag(itemStackFrom)) {
+                    case 3 -> helmetTinOff(player); //removes night vision if tin helmet removed or breaks (safety check)
                 }
             }
         }
     }
 
     @SubscribeEvent
-    public static void onJump(LivingEvent.LivingJumpEvent livingJumpEvent) {
-        LivingEntity player = livingJumpEvent.getEntityLiving();
+    public static void onJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity player = event.getEntityLiving();
         Level level = player.getLevel();
 
         //atium boots
@@ -141,7 +142,7 @@ public class ModEvents {
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 2 -> bootsSteel(6, 1, 20, event, player, getBootsItem(player)); //dash if player double taps left or right (doublePressTickSpeed is leeway in ticks for double tap recognition)
+                case 2 -> bootsSteel(6, 1, 20, event, player, getBootsItem(player)); //dash if player double taps left or right (doublePressTickSpeed is leeway in ticks for a double tap recognition)
             }
         }
     }
@@ -154,8 +155,7 @@ public class ModEvents {
     private static void chestplateSteel(double chance, double range, Level level, LivingEntity player) {
         if (Math.random() < chance) {
             //code explained in iron method, atium sword
-            var area = range;
-            AABB aabb = player.getBoundingBox().inflate(area, area, area);
+            AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
             for (LivingEntity entity : entityList) {
                 double pX = player.getX() - entity.getX();
@@ -172,7 +172,7 @@ public class ModEvents {
     }
 
     //dash if player double taps left or right
-    private static void bootsSteel(int doublePressTickSpeed, int dashStrength, int cooldownTicks, MovementInputUpdateEvent event, Player player, ItemStack itemStack) {
+    private static void bootsSteel(int doubleTapTickSpeed, int dashStrength, int cooldownTicks, MovementInputUpdateEvent event, Player player, ItemStack itemStack) {
         boolean leftKey = event.getInput().left;
         boolean rightKey = event.getInput().right;
 
@@ -193,7 +193,7 @@ public class ModEvents {
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
                 } else {
                     //else if item does not have dash tag, add the tag
-                    itemStack.getTag().putInt("atium_mod.left_dash_ready", doublePressTickSpeed);
+                    itemStack.getTag().putInt("atium_mod.left_dash_ready", doubleTapTickSpeed);
                     leftDashKeyPressed = true;
                 }
             } else {
@@ -215,7 +215,7 @@ public class ModEvents {
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
                 } else {
                     //else if item does not have dash tag, add the tag
-                    itemStack.getTag().putInt("atium_mod.right_dash_ready", doublePressTickSpeed);
+                    itemStack.getTag().putInt("atium_mod.right_dash_ready", doubleTapTickSpeed);
                     rightDashKeyPressed = true;
                 }
             } else {
@@ -232,10 +232,10 @@ public class ModEvents {
     }
 
     //chance to set attacker on fire
-    private static void chestplateBrass(double chance, int secondsOnFire, LivingEntity player, LivingHurtEvent livingHurtEvent) {
+    private static void chestplateBrass(double chance, int secondsOnFire, LivingEntity player, LivingHurtEvent event) {
         if (Math.random() < chance) { //15%
             int seconds = secondsOnFire;
-            LivingEntity pAttacker = (LivingEntity) livingHurtEvent.getSource().getEntity();
+            LivingEntity pAttacker = (LivingEntity) event.getSource().getEntity();
             if (!pAttacker.isOnFire()) {
                 pAttacker.setSecondsOnFire(seconds);
             } else {
@@ -287,20 +287,20 @@ public class ModEvents {
     }
 
     //prevents all damage from magma blocks
-    private static void bootsBrass(LivingAttackEvent livingAttackEvent) {
-        if (livingAttackEvent.getSource() == DamageSource.HOT_FLOOR) {
-            livingAttackEvent.setCanceled(true);
+    private static void bootsBrass(LivingAttackEvent event) {
+        if (event.getSource() == DamageSource.HOT_FLOOR) {
+            event.setCanceled(true);
         }
     }
 
     //deflects projectiles
-    private static void chestplateZinc(double chance, LivingAttackEvent livingAttackEvent) {
-        Entity damageSourceEntity = livingAttackEvent.getSource().getDirectEntity();
+    private static void chestplateZinc(double chance, LivingAttackEvent event) {
+        Entity damageSourceEntity = event.getSource().getDirectEntity();
         if (damageSourceEntity instanceof AbstractArrow || damageSourceEntity instanceof ThrowableItemProjectile) {
             if (Math.random() < chance) {
-                if (livingAttackEvent.isCancelable()) {
-                    livingAttackEvent.setCanceled(true);
-                    livingAttackEvent.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
+                if (event.isCancelable()) {
+                    event.setCanceled(true);
+                    event.getSource().getDirectEntity().playSound(SoundEvents.SHIELD_BLOCK, 4.0F, 1.0F);
                 }
             }
         }
@@ -397,8 +397,8 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent respawnEvent) {
-        respawnEvent.getNewPlayer().setTicksFrozen(0);
+    public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent event) {
+        event.getNewPlayer().setTicksFrozen(0);
     }
     
     /**
@@ -445,7 +445,7 @@ public class ModEvents {
         return itemStack.getTag().contains("atium_mod.metal");
     }
 
-    //returns the metal tag (returns int)
+    //returns the metal tag of itemStack (returns int)
     private static int getMetalTag(ItemStack itemStack) {
         if (hasMetalTag(itemStack)) {
             return itemStack.getTag().getInt("atium_mod.metal");
