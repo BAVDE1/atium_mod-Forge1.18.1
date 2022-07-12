@@ -1,12 +1,11 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.BAVDE.atium_mod.item.ModArmourMaterials;
-import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
@@ -14,8 +13,40 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AtiumLeggings extends ArmorItem {
+    static boolean slowFallLock = false;
+
     public AtiumLeggings(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, Level level, Player player) {
+        if (stack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = stack.getTag().getInt("atium_mod.metal");
+            switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 6 -> zinc(0.07, 8, stack, player);
+            }
+        }
+    }
+
+    private static void zinc(double push, int cooldownSecs, ItemStack itemStack, Player player) {
+        if (!player.isOnGround()) {
+            if (player.isCrouching()) {
+                if (slowFallLock) {
+                    player.push(0, push, 0);
+                } else if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+                    player.push(0, push, 0);
+                    player.getCooldowns().addCooldown(itemStack.getItem(), cooldownSecs * 20);
+                    slowFallLock = true;
+                }
+            }
+        }
+        if (!player.isCrouching()) {
+            slowFallLock = false;
+        }
+        if (player.isOnGround()) {
+            slowFallLock = false;
+        }
     }
 
     //changes items' name colour when infused
@@ -29,7 +60,7 @@ public class AtiumLeggings extends ArmorItem {
     }
 
     //changes armour model texture
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlot slot, String type) {
         int copper = 0;
@@ -40,13 +71,20 @@ public class AtiumLeggings extends ArmorItem {
         if (itemStack.getTag().contains("atium_mod.metal") && copper == 0) {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1: return "atium_mod:textures/models/armor/atium_iron_layer_2.png";
-                case 2: return null;
-                case 3: return null;
-                case 4: return null;
-                case 5: return null;
-                case 6: return null;
-                case 9: return "atium_mod:textures/models/armor/atium_gold_layer_2.png";
+                case 1:
+                    return "atium_mod:textures/models/armor/atium_iron_layer_2.png";
+                case 2:
+                    return null;
+                case 3:
+                    return null;
+                case 4:
+                    return null;
+                case 5:
+                    return null;
+                case 6:
+                    return null;
+                case 9:
+                    return "atium_mod:textures/models/armor/atium_gold_layer_2.png";
             }
         }
         return super.getArmorTexture(itemStack, entity, slot, type);

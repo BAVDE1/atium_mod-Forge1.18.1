@@ -184,14 +184,14 @@ public class ModEvents {
                     dashParticlesAndSound(player);
 
                     //dash push direction
-                    Vec3 look = player.getLookAngle().multiply(dashStrength, 0, dashStrength).normalize();
-                    player.push(look.z, 0, -look.x);
+                    Vec3 looking = player.getLookAngle().multiply(dashStrength, 0, dashStrength).normalize();
+                    player.push(looking.z, 0, -looking.x);
 
                     //remove tag
                     itemStack.getTag().remove("atium_mod.left_dash_ready");
                     //adds cooldown
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
-                } else {
+                } else if (!leftDashKeyPressed) {
                     //else if item does not have dash tag, add the tag
                     itemStack.getTag().putInt("atium_mod.left_dash_ready", doubleTapTickSpeed);
                     leftDashKeyPressed = true;
@@ -213,7 +213,7 @@ public class ModEvents {
                     itemStack.getTag().remove("atium_mod.right_dash_ready");
                     //adds cooldown
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
-                } else {
+                } else if (!rightDashKeyPressed) {
                     //else if item does not have dash tag, add the tag
                     itemStack.getTag().putInt("atium_mod.right_dash_ready", doubleTapTickSpeed);
                     rightDashKeyPressed = true;

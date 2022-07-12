@@ -85,6 +85,18 @@ public class ModItemProperties {
         });
     }
 
+    static void DurabilityProperty(Item item) {
+        ItemProperties.register(item, new ResourceLocation("durability"), (itemStack, clientLevel, livingEntity, i) -> {
+            Entity entity = livingEntity != null ? livingEntity : itemStack.getEntityRepresentation();
+            int damage = item.getMaxDamage(itemStack);
+
+            if (entity != null) {
+                damage = item.getMaxDamage(itemStack) - item.getDamage(itemStack);
+            }
+            return damage;
+        });
+    }
+
     static void ModCompassItemWobble(Item item) {
         ItemProperties.register(item, new ResourceLocation("angle"), new ClampedItemPropertyFunction() {
             private final ModItemProperties.CompassWobble wobble = new ModItemProperties.CompassWobble();

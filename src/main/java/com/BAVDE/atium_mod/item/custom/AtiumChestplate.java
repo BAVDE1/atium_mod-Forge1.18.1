@@ -91,7 +91,7 @@ public class AtiumChestplate extends ArmorItem {
     }
 
     //changes armour model texture
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlot slot, String type) {
         int copper = 0;
