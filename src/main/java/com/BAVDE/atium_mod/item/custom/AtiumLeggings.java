@@ -3,8 +3,12 @@ package com.BAVDE.atium_mod.item.custom;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -25,8 +29,17 @@ public class AtiumLeggings extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
+                case 5 -> brass(player); //fire res for 6 secs when on fire
                 //case 6 -> zinc(0.07, 8, stack, player);
             }
+        }
+    }
+
+    //fire res for 6 secs when on fire
+    private static void brass(LivingEntity player) {
+        if (!player.isOnFire()) {
+            int seconds = 6;
+            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, seconds * 20, 0, false, false));
         }
     }
 

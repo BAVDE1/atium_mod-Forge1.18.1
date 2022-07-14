@@ -35,9 +35,9 @@ public class AtiumBoots extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(level, player);
-                case 2 -> steel(stack);
-                case 5 -> brass(level, player);
+                case 1 -> iron(level, player); //gives player slow fall is falls too far (health dependent)
+                case 2 -> steel(stack); //simply ticks down dash timer; and removes the tag when it reaches 0
+                case 5 -> brass(2.5, level, player); //walk on water & lava; immunity to magma block damage
             }
         }
     }
@@ -80,12 +80,11 @@ public class AtiumBoots extends ArmorItem {
     }
 
     //walk on water & lava; immunity to magma block damage
-    private static void brass(Level level, Player player) {
+    private static void brass(double range, Level level, Player player) {
         if (player.isOnGround() && !player.level.isClientSide) {
             BlockState iceBlockstate = Blocks.FROSTED_ICE.defaultBlockState();
             BlockState magmaBlockstate = ModBlocks.FRACTURED_MAGMA_BLOCK.get().defaultBlockState();
             //path width from player (e.g. 3 = 3 blocks on either side)
-            double range = 2.5;
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
             BlockPos pos = player.blockPosition();
 

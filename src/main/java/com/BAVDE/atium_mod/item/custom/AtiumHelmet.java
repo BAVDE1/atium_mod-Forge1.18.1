@@ -32,39 +32,20 @@ public class AtiumHelmet extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(level, player);
-                case 2 -> steel(level, player);
-                case 3 -> tin(player);
-                case 4 -> pewter(player, level);
-                case 5 -> brass(player);
-                case 6 -> zinc(level, player);
-                case 9 -> gold(stack, player, level);
+                case 1 -> ironAndSteel(8, level, player); //detects nearby metal ores (weak)
+                case 2 -> ironAndSteel(16, level, player); //detects nearby ores (strong)
+                case 3 -> tin(player); //gives night vision when crouching
+                case 4 -> pewter(20, player, level); //fast eating & more saturation
+                case 5 -> brass(6, player); //water breathing for 6 secs in water
+                case 6 -> zinc(12.0D, level, player); //detects nearby mobs
+                case 9 -> gold(60, stack, player, level); //mends other armour equipped by 1
             }
         }
     }
 
-    //detects nearby metal ores (weak)
-    private static void iron(Level level, LivingEntity player) {
+    //detects nearby metal ores
+    private static void ironAndSteel(int range, Level level, LivingEntity player) {
         if (player.isCrouching()) {
-            int range = 8;
-
-            for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
-                Block block = level.getBlockState(pos.immutable()).getBlock();
-                if (checkForMetalOre(block)) {
-                    if (player.level.isClientSide && Math.random() < 0.3) {
-                        player.level.addParticle(ModParticles.ORE_DETECTION_PARTICLES.get(), true, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
-                    }
-                }
-            }
-            consumeHunger((Player) player);
-        }
-    }
-
-    //detects nearby ores (strong)
-    private static void steel(Level level, LivingEntity player) {
-        if (player.isCrouching()) {
-            int range = 16;
-
             for (BlockPos pos : BlockPos.betweenClosed(player.getBlockX() - range, player.getBlockY() - range, player.getBlockZ() - range, player.getBlockX() + range, player.getBlockY() + range, player.getBlockZ() + range)) {
                 Block block = level.getBlockState(pos.immutable()).getBlock();
                 if (checkForMetalOre(block)) {
@@ -96,13 +77,13 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     //fast eating & more saturation
-    private static void pewter(Player player, Level level) {
+    private static void pewter(int eatingTicksFaster, Player player, Level level) {
         if (!player.level.isClientSide) {
             if (player.isUsingItem()) {
                 ItemStack itemStackUse = player.getUseItem();
                 Item item = itemStackUse.getItem();
 
-                if (item.isEdible() && player.getUseItemRemainingTicks() == 20) {
+                if (item.isEdible() && player.getUseItemRemainingTicks() == eatingTicksFaster) {
                     itemStackUse.finishUsingItem(level, player);
                     player.getFoodData().setSaturation(player.getFoodData().getSaturationLevel() + 1);
                     player.stopUsingItem();
@@ -112,17 +93,15 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     //water breathing for 6 secs in water
-    private static void brass(LivingEntity player) {
+    private static void brass(int seconds, LivingEntity player) {
         if (!player.isEyeInFluid(FluidTags.WATER)) {
-            int seconds = 6;
             player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, seconds * 20, 0, false, false));
         }
     }
 
     //detects nearby mobs
-    private static void zinc(Level level, LivingEntity player) {
+    private static void zinc(double range, Level level, LivingEntity player) {
         if (player.isCrouching()) {
-            var range = 12.0D;
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<LivingEntity> entityList = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
             for (LivingEntity entity : entityList) {
@@ -140,7 +119,7 @@ public class AtiumHelmet extends ArmorItem {
     }
 
     //mends other armour equipped by 1
-    private static void gold(ItemStack itemStack, Player player, Level level) {
+    private static void gold(int cooldownSeconds, ItemStack itemStack, Player player, Level level) {
         if (!player.level.isClientSide) {
             if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
                 ItemStack chestplateItem = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -148,8 +127,7 @@ public class AtiumHelmet extends ArmorItem {
                 ItemStack bootsItem = player.getItemBySlot(EquipmentSlot.FEET);
 
                 //every 60 (1200 ticks) seconds heal random atium_mod armour piece by 1
-                int seconds = 60;
-                int cooldown = seconds * 20;
+                int cooldown = cooldownSeconds * 20;
 
                 int chance = level.random.nextInt(4);
                 switch (chance) {

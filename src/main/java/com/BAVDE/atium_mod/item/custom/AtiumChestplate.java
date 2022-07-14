@@ -28,13 +28,13 @@ public class AtiumChestplate extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(level, player);
+                case 1 -> iron(8.0D, 80, level, player); //pulls nearby items towards
                 //2 steel is in ModEvents
-                case 3 -> tin(player);
+                case 3 -> tin(6, player); //gives resistance if under 7hp
                 //4 pewter is in ModEvents
                 //5 brass is in ModEvents
                 //6 zinc is in ModEvents
-                case 9 -> gold(stack, level, player);
+                case 9 -> gold(15, stack, level, player); //heals 1/2 heart every 15 sec
             }
         }
     }
@@ -42,10 +42,9 @@ public class AtiumChestplate extends ArmorItem {
     /**** INFUSION FUNCTIONALITIES ****/
 
     //pulls nearby items towards
-    private void iron(Level level, Player player) {
+    private void iron(double range, int pullingSpeedDivision, Level level, Player player) {
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
-            var range = 8.0D;
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
             List<ItemEntity> itemEntityList = level.getEntitiesOfClass(ItemEntity.class, aabb);
             for (ItemEntity itemEntity : itemEntityList) {
@@ -54,24 +53,23 @@ public class AtiumChestplate extends ArmorItem {
                 for (pZ = player.getZ() - itemEntity.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
-                int modifier = 80;
-                itemEntity.push((pX / modifier), 0, (pZ / modifier));
+                itemEntity.push((pX / pullingSpeedDivision), 0, (pZ / pullingSpeedDivision));
             }
         }
     }
 
     //gives resistance if under 7hp
-    private void tin(Player player) {
-        if (player.getHealth() <= 6 && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
+    private void tin(int healthTarget, Player player) {
+        if (player.getHealth() <= healthTarget && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15));
         }
     }
 
     //heals 1/2 heart every 15 sec
-    private void gold(ItemStack stack, Level level, Player player) {
+    private void gold(int cooldownSecs, ItemStack stack, Level level, Player player) {
         if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             //15 seconds
-            player.getCooldowns().addCooldown(stack.getItem(), 300);
+            player.getCooldowns().addCooldown(stack.getItem(), cooldownSecs * 20);
             player.heal(1f);
             player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1.5F + level.random.nextFloat() * 2.0F);
             for (int i = 0; i < 8; i++) {

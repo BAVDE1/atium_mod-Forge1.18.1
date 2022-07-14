@@ -68,6 +68,12 @@ public class ModEvents {
                 case 9 -> bootsGold(0.15, player, level); //15% creates healing cloud around player
             }
         }
+        //atium boots
+        if (isAtiumLeggings(getLeggingsItem(player)) && hasMetalTag(getLeggingsItem(player))) {
+            switch (getMetalTag(getLeggingsItem(player))) {
+                case 4 -> leggingsPewter(0.15, 5, player); //20% chance to give player speed on hurt
+            }
+        }
     }
 
     @SubscribeEvent
@@ -266,6 +272,15 @@ public class ModEvents {
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - hpAmount);
     }
 
+    //20% chance to give player speed on hurt
+    private static void leggingsPewter(double chance, int speedSecs, LivingEntity player) {
+        if (Math.random() < chance) {
+            if (!player.hasEffect(MobEffects.MOVEMENT_SPEED)) {
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, speedSecs * 20, 0, false, false));
+            }
+        }
+    }
+
     //big jump when crouch jump
     private static void bootsPewter(double jumpPower, Player player, Level level) {
         if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
@@ -412,6 +427,9 @@ public class ModEvents {
     private static ItemStack getChestplateItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.CHEST);
     }
+    private static ItemStack getLeggingsItem(LivingEntity player) {
+        return player.getItemBySlot(EquipmentSlot.LEGS);
+    }
     private static ItemStack getBootsItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.FEET);
     }
@@ -422,6 +440,9 @@ public class ModEvents {
     }
     private static boolean isAtiumChestplate(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_CHESTPLATE.get();
+    }
+    private static boolean isAtiumLeggings(ItemStack itemStack) {
+        return itemStack.getItem() == ModItems.ATIUM_LEGGINGS.get();
     }
     private static boolean isAtiumBoots(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_BOOTS.get();

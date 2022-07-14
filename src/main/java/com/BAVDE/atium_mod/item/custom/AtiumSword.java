@@ -46,12 +46,12 @@ public class AtiumSword extends SwordItem {
         if (pStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = pStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 2 -> steel(pTarget, pAttacker);
-                case 3 -> tin(pTarget, pAttacker);
-                case 4 -> pewter(pTarget, pAttacker);
-                case 5 -> brass(pTarget, pAttacker);
-                case 6 -> zinc(pTarget, pAttacker);
-                case 9 -> gold(pAttacker);
+                case 2 -> steel(0.1, pTarget, pAttacker); //10% chance for big knockback
+                case 3 -> tin(0.1, 5, pTarget, pAttacker); //10% chance for blindness & disoriented
+                case 4 -> pewter(0.1, 5, pTarget, pAttacker); //10% chance for weakness & strength
+                case 5 -> brass(0.1, 5, pTarget); //10% chance to set on fire
+                case 6 -> zinc(0.1, 3.5, pTarget, pAttacker); //10% chance to freeze & slow
+                case 9 -> gold(0.1, pAttacker); //10% chance to drop cloud of healing
             }
         }
         return super.hurtEnemy(pStack, pTarget, pAttacker);
@@ -128,8 +128,8 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance for big knockback
-    private void steel(LivingEntity pTarget, LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
+    private void steel(double chance, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (Math.random() < chance) {
             double pX = pAttacker.getX() - pTarget.getX();
             double pZ;
             for (pZ = pAttacker.getZ() - pTarget.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
@@ -144,15 +144,13 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance for blindness & disoriented
-    private void tin(LivingEntity pTarget, LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
-            int blindSeconds = 4;
-            int disSeconds = 5;
+    private void tin(double chance, int effectSecs, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (Math.random() < chance) {
             if (!pTarget.hasEffect(MobEffects.BLINDNESS)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, blindSeconds * 20, 100, false, false), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, effectSecs * 20, 100, false, false), pAttacker);
             }
             if (!pTarget.hasEffect(ModMobEffects.DISORIENTED.get())) {
-                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), disSeconds * 20, 0, false, false), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(ModMobEffects.DISORIENTED.get(), effectSecs * 20, 0, false, false), pAttacker);
             }
             pTarget.playSound(SoundEvents.ZOMBIE_INFECT, 6.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.DISORIENTED_PARTICLES.get());
@@ -160,14 +158,13 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance for weakness & strength
-    private void pewter(LivingEntity pTarget, LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
-            int seconds = 5;
+    private void pewter(double chance, int effectSecs, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (Math.random() < chance) {
             if (!pTarget.hasEffect(MobEffects.WEAKNESS)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, seconds * 20), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, effectSecs * 20), pAttacker);
             }
             if (!pAttacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
-                pAttacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, seconds * 20), pAttacker);
+                pAttacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, effectSecs * 20), pAttacker);
             }
             pTarget.playSound(SoundEvents.TRIDENT_RETURN, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ParticleTypes.ENCHANTED_HIT);
@@ -175,14 +172,13 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance to set on fire
-    private void brass(LivingEntity pTarget, LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
-            int seconds = 5;
+    private void brass(double chance, int onFireSecs, LivingEntity pTarget) {
+        if (Math.random() < chance) {
             if (!pTarget.isOnFire()) {
-                pTarget.setSecondsOnFire(seconds);
+                pTarget.setSecondsOnFire(onFireSecs);
             } else {
                 int fireTicks = pTarget.getRemainingFireTicks();
-                pTarget.setRemainingFireTicks(fireTicks + (seconds * 20));
+                pTarget.setRemainingFireTicks(fireTicks + (onFireSecs * 20));
             }
             pTarget.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.MOD_FLAME_PARTICLES.get());
@@ -190,12 +186,11 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance to freeze & slow
-    private void zinc(LivingEntity pTarget, LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
-            double seconds = 3.5;
+    private void zinc(double chance, double effectSecs, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (Math.random() < chance) {
             pTarget.setTicksFrozen(139); //140 is max freeze (on 140 turns hearts blue)
             if (!pTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (seconds * 20), 3, false, false), pAttacker);
+                pTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (effectSecs * 20), 3, false, false), pAttacker);
             }
             pTarget.playSound(SoundEvents.SKELETON_CONVERTED_TO_STRAY, 4.0F, 1.0F);
             this.minecraft.particleEngine.createTrackingEmitter(pTarget, ModParticles.SNOWFLAKE_PARTICLES.get());
@@ -203,8 +198,8 @@ public class AtiumSword extends SwordItem {
     }
 
     //chance to drop cloud of healing
-    private void gold(LivingEntity pAttacker) {
-        if (Math.random() < 0.1) { //10%
+    private void gold(double chance, LivingEntity pAttacker) {
+        if (Math.random() < chance) {
             //cloud properties
             this.level = pAttacker.getLevel();
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, pAttacker.getX(), pAttacker.getY(), pAttacker.getZ());
