@@ -6,8 +6,8 @@ import net.minecraft.world.item.ItemStack;
 public class HammerItem extends Item {
     public HammerItem(Properties pProperties) {
         super(pProperties);
-
     }
+
     @Override
     public boolean hasContainerItem(ItemStack stack) { //makes the hammer a container item, so it won't be consumed when crafted with (like buckets)
         return true;

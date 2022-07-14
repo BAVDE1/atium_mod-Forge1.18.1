@@ -171,5 +171,9 @@
   "tooltip.atium_mod.atium_hoe.tooltip.gold.ctrl": "§8Desc",
 
   //Copper Cloud
-  "tooltip.atium_mod.has_copper_cloud": "§6Copper Cloud"
+  "tooltip.atium_mod.has_copper_cloud": "§6Copper Cloud",
+
+  //Pouch
+  "item.atium_mod.coin_pouch": "Coin Pouch",
+  "tooltip.atium_mod.pouch_fullness_desc": "§8Iron Nuggets: §7"
 }

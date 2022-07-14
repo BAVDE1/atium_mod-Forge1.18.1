@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AtiumLeggings extends ArmorItem {
+    //used for zinc infusion to allow continued slow fall while crouch is held but item is on cooldown
     static boolean slowFallLock = false;
 
     public AtiumLeggings(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
@@ -24,17 +25,18 @@ public class AtiumLeggings extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 6 -> zinc(0.07, 8, stack, player);
+                //case 6 -> zinc(0.07, 8, stack, player);
             }
         }
     }
 
-    private static void zinc(double push, int cooldownSecs, ItemStack itemStack, Player player) {
+    //slows players falling speed but doesn't reduce fall damage
+    private static void oldZinc(double push, int cooldownSecs, ItemStack itemStack, Player player) {
         if (!player.isOnGround()) {
             if (player.isCrouching()) {
                 if (slowFallLock) {
                     player.push(0, push, 0);
-                } else if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+                } else if (!player.getCooldowns().isOnCooldown(itemStack.getItem()) && !slowFallLock) {
                     player.push(0, push, 0);
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownSecs * 20);
                     slowFallLock = true;

@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "atium_mod:item/coin_pouch_full"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "coins": 0
+      },
+      "model": "atium_mod:item/coin_pouch_empty"
+    },
+    {
+      "predicate": {
+        "coins": 1
+      },
+      "model": "atium_mod:item/coin_pouch_full"
+    }
+  ]
+}

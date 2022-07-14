@@ -6,15 +6,13 @@
   "overrides": [
     {
       "predicate": {
-        "metal": 1,
-        "copper": 0
+        "metal": 1
       },
       "model": "atium_mod:item/atium_helmet_iron"
     },
     {
       "predicate": {
-        "metal": 9,
-        "copper": 0
+        "metal": 9
       },
       "model": "atium_mod:item/atium_helmet_gold"
     },

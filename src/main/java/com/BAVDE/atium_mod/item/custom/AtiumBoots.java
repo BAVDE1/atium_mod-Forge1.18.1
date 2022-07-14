@@ -35,7 +35,7 @@ public class AtiumBoots extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                //case 1 -> iron(level, player);
+                case 1 -> iron(level, player);
                 case 2 -> steel(stack);
                 case 5 -> brass(level, player);
             }
@@ -43,7 +43,7 @@ public class AtiumBoots extends ArmorItem {
     }
 
     //gives player slow fall is falls too far (health dependent)
-    private static void oldIron(Level level, Player player) {
+    private static void iron(Level level, Player player) {
         int min = 2;
         int max = 35;
         if (player.fallDistance > Math.max(Math.min(max, player.getHealth() / 1.2), min) && !player.isOnGround()) {

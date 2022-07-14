@@ -49,6 +49,9 @@ public class ModItemProperties {
         //compass
         ModCompassItemUse(ModItems.ATIUM_COMPASS.get());
         ModCompassItemWobble(ModItems.ATIUM_COMPASS.get());
+
+        //Pouch
+        PouchProperty(ModItems.COIN_POUCH.get());
     }
 
     static void InfusableItem(Item item) {
@@ -79,21 +82,24 @@ public class ModItemProperties {
         });
     }
 
-    static void ModCompassItemUse(Item item) {
-        ItemProperties.register(item, new ResourceLocation("using"), (itemStack, clientLevel, livingEntity, i) -> {
-            return livingEntity != null && AtiumCompass.isUsing(itemStack) ? 1.0F : 0.0F;
+    //for pouches, 0 = no coins, 1 = contains coins
+    static void PouchProperty(Item item) {
+        ItemProperties.register(item, new ResourceLocation("coins"), (itemStack, clientLevel, livingEntity, i) -> {
+            Entity entity = livingEntity != null ? livingEntity : itemStack.getEntityRepresentation();
+            int coins = 0;
+
+            if (entity != null) {
+                if (itemStack.getTag().contains("atium_mod.coins")) {
+                    coins = 1;
+                }
+            }
+            return coins;
         });
     }
 
-    static void DurabilityProperty(Item item) {
-        ItemProperties.register(item, new ResourceLocation("durability"), (itemStack, clientLevel, livingEntity, i) -> {
-            Entity entity = livingEntity != null ? livingEntity : itemStack.getEntityRepresentation();
-            int damage = item.getMaxDamage(itemStack);
-
-            if (entity != null) {
-                damage = item.getMaxDamage(itemStack) - item.getDamage(itemStack);
-            }
-            return damage;
+    static void ModCompassItemUse(Item item) {
+        ItemProperties.register(item, new ResourceLocation("using"), (itemStack, clientLevel, livingEntity, i) -> {
+            return livingEntity != null && AtiumCompass.isUsing(itemStack) ? 1.0F : 0.0F;
         });
     }
 

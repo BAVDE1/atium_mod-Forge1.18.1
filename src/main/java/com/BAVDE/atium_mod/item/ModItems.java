@@ -89,6 +89,11 @@ public class ModItems {
     public static final RegistryObject<Item> ZINC_SCROLL_FRAGMENT = ITEMS.register("zinc_scroll_fragment",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
+    //Pouches
+    public static final RegistryObject<Item> COIN_POUCH = ITEMS.register("coin_pouch",
+            () -> new CoinPouch(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(32)));
+    //add pouch upgrade
+
     //Knives
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",
             () -> new KnifeItem(ModTiers.CRYSTALLIZED_KNIFE_TIER, 1, -2.2f, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(250)));
