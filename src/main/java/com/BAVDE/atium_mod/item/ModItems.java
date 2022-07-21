@@ -46,9 +46,9 @@ public class ModItems {
             () -> new AtiumBoots(ModArmourMaterials.ATIUM, EquipmentSlot.FEET, new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).durability(1100)));
 
     //metals
-    public static final RegistryObject<Item> STEEL = ITEMS.register("steel",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> REFINED_IRON = ITEMS.register("refined_iron",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> STEEL = ITEMS.register("steel",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> TIN = ITEMS.register("tin",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));

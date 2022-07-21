@@ -1,17 +1,19 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,17 +25,73 @@ public class CoinPouch extends Item {
         super(pProperties);
     }
 
+    /**
+     * Pouch Projectile
+     */
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player player, InteractionHand pUsedHand) {
+        ItemStack itemstack = player.getItemInHand(pUsedHand);
+        ItemStack leggings = getPantsItem(player);
+
+        if (itemstack.getTag().contains("atium_mod.coins")) {
+            if (leggings.getItem() == ModItems.ATIUM_LEGGINGS.get()) {
+                if (hasMetalTag(leggings)) {
+                    //iron or steel pants
+                    if (getMetalTag(leggings) == 1 || getMetalTag(leggings) == 2) {
+                        player.startUsingItem(pUsedHand);
+                        return InteractionResultHolder.consume(itemstack);
+                    }
+                }
+            }
+        }
+        return super.use(pLevel, player, pUsedHand);
+    }
+
+    @Override
+    public void releaseUsing(ItemStack itemStack, Level level, LivingEntity player, int pTimeCharged) {
+        ItemStack leggings = getPantsItem((Player) player);
+
+        if (leggings.getItem() == ModItems.ATIUM_LEGGINGS.get()) {
+            if (hasMetalTag(leggings)) {
+                //iron
+                if (getMetalTag(leggings) == 1) {
+                    if (!level.isClientSide) {
+                        //projectile here
+                    }
+                    player.sendMessage(new TextComponent("iron pull"), player.getUUID());
+                    decreaseCoins(itemStack);
+                }
+                //steel
+                if (getMetalTag(leggings) == 2) {
+                    if (!level.isClientSide) {
+                        //projectile here
+                    }
+                    player.sendMessage(new TextComponent("steel push"), player.getUUID());
+                    decreaseCoins(itemStack);
+                }
+                System.out.println(pTimeCharged);
+            }
+        }
+
+        super.releaseUsing(itemStack, level, player, pTimeCharged);
+    }
+
+    /**
+     * Pouch Storage
+     */
+
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
         if (pAction == ClickAction.SECONDARY && pSlot.allowModification(pPlayer)) {
             if (pOther.isEmpty()) {
                 if (pStack.getTag().contains("atium_mod.coins")) {
                     //removes all items from pouch
-                    remove(pStack, pPlayer).ifPresent(pAccess::set);
+                    removeAllCoins(pStack, pPlayer).ifPresent(pAccess::set);
                 } else return false;
             } else if (pOther.getItem() == Items.IRON_NUGGET) {
                 //adds items into pouch
-                add(pStack, pOther, pPlayer);
+                addCoinStack(pStack, pOther, pPlayer);
             } else return false;
 
             return true;
@@ -57,7 +115,7 @@ public class CoinPouch extends Item {
     }
 
     //add item to pouch
-    private void add(ItemStack pouchStack, ItemStack additionStack, Player player) {
+    private void addCoinStack(ItemStack pouchStack, ItemStack additionStack, Player player) {
         int spaceLeft = pouchStack.getMaxDamage();
         int stackSize = additionStack.getCount();
 
@@ -82,7 +140,7 @@ public class CoinPouch extends Item {
     }
 
     //removes all items from pouch
-    private Optional<ItemStack> remove(ItemStack pouchItem, Player player) {
+    private Optional<ItemStack> removeAllCoins(ItemStack pouchItem, Player player) {
         int currentCoins = pouchItem.getTag().getInt("atium_mod.coins");
         ItemStack returnItemStack = Items.IRON_NUGGET.getDefaultInstance();
 
@@ -102,14 +160,63 @@ public class CoinPouch extends Item {
         entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
 
+    /**
+     * Utils
+     */
+
+    //returns the item in players pants slot
+    private ItemStack getPantsItem(Player player) {
+        return player.getItemBySlot(EquipmentSlot.LEGS);
+    }
+
+    //checks if itemstack has metal tag (returns boolean)
+    private static boolean hasMetalTag(ItemStack itemStack) {
+        return itemStack.getTag().contains("atium_mod.metal");
+    }
+
+    //returns the metal tag of itemStack (returns int)
+    private static int getMetalTag(ItemStack itemStack) {
+        if (hasMetalTag(itemStack)) {
+            return itemStack.getTag().getInt("atium_mod.metal");
+        }
+        //returns 0 if doesn't have metal tag
+        return 0;
+    }
+
+    //sets use duration of item (when item starts being used counts down from 72000 every tick)
+    @Override
+    public int getUseDuration(ItemStack pStack) {
+        return 72000;
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BOW;
+    }
+
+    //decrease amount of coins in pouch by 1 (used on release of item)
+    private void decreaseCoins(ItemStack itemStack) {
+        if (itemStack.getTag().contains("atium_mod.coins")) {
+            int coins = itemStack.getTag().getInt("atium_mod.coins");
+
+            if (!(coins <= 1)) {
+                itemStack.getTag().putInt("atium_mod.coins", --coins);
+            } else {
+                itemStack.getTag().remove("atium_mod.coins");
+            }
+        }
+    }
+
+    //displays number of coins in pouch
+    //add: More Info [CTRL]
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         int count = 0;
-
         if (pStack.getTag().contains("atium_mod.coins")) {
             int currentCoins = pStack.getTag().getInt("atium_mod.coins");
             count = currentCoins;
         }
+        //make translatable component?
         pTooltipComponents.add(new TextComponent("Iron Nuggets: " + count + "/" + pStack.getMaxDamage()));
     }
 }
