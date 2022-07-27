@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
@@ -57,6 +58,7 @@ public class CoinPouch extends Item {
                 //iron
                 if (getMetalTag(leggings) == 1) {
                     if (!level.isClientSide) {
+                        projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
                         //projectile here
                     }
                     player.sendMessage(new TextComponent("iron pull"), player.getUUID());
@@ -65,6 +67,7 @@ public class CoinPouch extends Item {
                 //steel
                 if (getMetalTag(leggings) == 2) {
                     if (!level.isClientSide) {
+                        projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
                         //projectile here
                     }
                     player.sendMessage(new TextComponent("steel push"), player.getUUID());
@@ -75,6 +78,14 @@ public class CoinPouch extends Item {
         }
 
         super.releaseUsing(itemStack, level, player, pTimeCharged);
+    }
+    
+    private void projectileSpawn(Level level, Player player, ItemStack itemStack, int pTimeCharged) {
+        Snowball snowball = new Snowball(level, player);
+        //might not work vv
+        snowball.setItem(Items.SNOWBALL.getDefaultInstance());
+        snowball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+        level.addFreshEntity(snowball);
     }
 
     /**

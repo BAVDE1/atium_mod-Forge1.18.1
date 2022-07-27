@@ -3,6 +3,7 @@ package com.BAVDE.atium_mod;
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
 import com.BAVDE.atium_mod.effect.ModMobEffects;
+import com.BAVDE.atium_mod.entity.ModEntityTypes;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.painting.ModPaintings;
 import com.BAVDE.atium_mod.particle.ModParticles;
@@ -39,6 +40,8 @@ public class AtiumMod {
 
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
+
+        ModEntityTypes.register(eventBus);
 
         ModMenuTypes.register(eventBus);
 
