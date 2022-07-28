@@ -61,7 +61,6 @@ public class CoinPouch extends Item {
                         projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
                         //projectile here
                     }
-                    player.sendMessage(new TextComponent("iron pull"), player.getUUID());
                     decreaseCoins(itemStack);
                 }
                 //steel
@@ -70,10 +69,9 @@ public class CoinPouch extends Item {
                         projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
                         //projectile here
                     }
-                    player.sendMessage(new TextComponent("steel push"), player.getUUID());
                     decreaseCoins(itemStack);
                 }
-                System.out.println(pTimeCharged);
+                sendMessage(itemStack, level, pTimeCharged);
             }
         }
 
@@ -82,10 +80,17 @@ public class CoinPouch extends Item {
     
     private void projectileSpawn(Level level, Player player, ItemStack itemStack, int pTimeCharged) {
         Snowball snowball = new Snowball(level, player);
-        //might not work vv
         snowball.setItem(Items.SNOWBALL.getDefaultInstance());
         snowball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
         level.addFreshEntity(snowball);
+    }
+
+    private void sendMessage(ItemStack itemStack, Level level, int pTimeCharged) {
+        if (!level.isClientSide) {
+            System.out.println("===============================");
+            System.out.println("Time Left: " + pTimeCharged);
+            System.out.println("Charge: " + (getUseDuration(itemStack) - pTimeCharged));
+        }
     }
 
     /**
