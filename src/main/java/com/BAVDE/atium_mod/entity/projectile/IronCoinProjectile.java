@@ -2,6 +2,9 @@ package com.BAVDE.atium_mod.entity.projectile;
 
 import com.BAVDE.atium_mod.entity.ModEntityTypes;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.sound.ModSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -34,6 +37,10 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
             if (pResult.getEntity() instanceof LivingEntity target) {
                 if (this.getOwner() instanceof ServerPlayer owner) {
                     target.hurt(DamageSource.playerAttack(owner), 0.0F);
+                    //pull
+                    Position targetPos = target.position();
+                    Position ownerPos = owner.position();
+
                 }
             }
         }
@@ -44,6 +51,9 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
     protected void onHitBlock(BlockHitResult blockHitResult) {
         if (!this.level.isClientSide) {
             if (this.getOwner() instanceof ServerPlayer owner) {
+                //pull
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                Position ownerPos = owner.position();
 
             }
         }
@@ -60,6 +70,6 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
     //render texture basically
     @Override
     protected Item getDefaultItem() {
-        return ModItems.COIN.get();
+        return Items.IRON_NUGGET;
     }
 }

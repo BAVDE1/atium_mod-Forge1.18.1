@@ -2,6 +2,10 @@ package com.BAVDE.atium_mod.entity.projectile;
 
 import com.BAVDE.atium_mod.entity.ModEntityTypes;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.sound.ModSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -32,7 +36,11 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
         if (!this.level.isClientSide) {
             if (pResult.getEntity() instanceof LivingEntity target) {
                 if (this.getOwner() instanceof ServerPlayer owner) {
-                    target.hurt(DamageSource.playerAttack(owner), 1.0F);
+                    target.hurt(DamageSource.playerAttack(owner), 1.5F);
+                    //push
+                    Position targetPos = target.position();
+                    Position ownerPos = owner.position();
+
                 }
             }
         }
@@ -43,6 +51,9 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
     protected void onHitBlock(BlockHitResult blockHitResult) {
         if (!this.level.isClientSide) {
             if (this.getOwner() instanceof ServerPlayer owner) {
+                //push
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                Position ownerPos = owner.position();
 
             }
         }
@@ -59,6 +70,6 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
     //render texture basically
     @Override
     protected Item getDefaultItem() {
-        return ModItems.COIN.get();
+        return Items.IRON_NUGGET;
     }
 }
