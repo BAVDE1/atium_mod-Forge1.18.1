@@ -9,6 +9,7 @@ import com.BAVDE.atium_mod.painting.ModPaintings;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.screen.InfusingTableScreen;
 import com.BAVDE.atium_mod.screen.ModMenuTypes;
+import com.BAVDE.atium_mod.sound.ModSounds;
 import com.BAVDE.atium_mod.util.ModItemProperties;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -50,6 +51,8 @@ public class AtiumMod {
         ModParticles.register(eventBus);
 
         ModMobEffects.register(eventBus);
+
+        ModSounds.register(eventBus);
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::setupClient);

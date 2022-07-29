@@ -3,6 +3,7 @@ package com.BAVDE.atium_mod.item.custom;
 import com.BAVDE.atium_mod.entity.projectile.IronCoinProjectile;
 import com.BAVDE.atium_mod.entity.projectile.SteelCoinProjectile;
 import com.BAVDE.atium_mod.item.ModItems;
+import com.BAVDE.atium_mod.sound.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
@@ -196,8 +197,9 @@ public class CoinPouch extends Item {
         entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
 
+    //run debug to find good volume & pitch
     private void playCoinsClinkSound(Entity entity) {
-        entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
+        entity.playSound(ModSounds.COINS_CLANK.get(), 1.0F, 0.6F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
 
     //returns the item in players pants slot

@@ -93,6 +93,9 @@
   //structures
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
 
+  //sounds
+  "sounds.atium_mod.coins_clank": "Coins Clank",
+
   /* --==TOOL TIPS==-- */
   //Infusions generic
   "tooltip.atium_mod.tooltip.iron": "§7Iron Infused §8[CTRL]",

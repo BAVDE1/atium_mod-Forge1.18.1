@@ -1,0 +1,8 @@
+{
+  "coins_clank": {
+    "subtitle": "sounds.atium_mod.coins_clank",
+    "sounds": [
+      "atium_mod:coins_clank"
+    ]
+  }
+}
