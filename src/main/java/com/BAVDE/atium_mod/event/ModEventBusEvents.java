@@ -1,6 +1,7 @@
 package com.BAVDE.atium_mod.event;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.entity.ModEntityTypes;
 import com.BAVDE.atium_mod.event.loot.DrownedDropLeather;
 import com.BAVDE.atium_mod.event.loot.HuskDropLeather;
 import com.BAVDE.atium_mod.event.loot.ZombieDropLeather;
@@ -8,8 +9,10 @@ import com.BAVDE.atium_mod.event.loot.ZombieVillagerDropLeather;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import com.BAVDE.atium_mod.particle.custom.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,6 +42,7 @@ public class ModEventBusEvents {
         //Registry.register(Registry.RECIPE_TYPE, InfusingTableRecipe.Type.ID, InfusingTableRecipe.Type.INSTANCE);
     }
 
+    //register particles
     @SubscribeEvent
     public static void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
         //register particles here
@@ -62,5 +66,12 @@ public class ModEventBusEvents {
                 InfusionFlameParticle.FlameProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.INFUSION_CRAFT_PARTICLES.get(),
                 InfusionFlameParticle.CraftProvider::new);
+    }
+
+    //register entity renderers
+    @SubscribeEvent
+    public static void registryRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntityTypes.IRON_COIN_PROJECTILE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), ThrownItemRenderer::new);
     }
 }

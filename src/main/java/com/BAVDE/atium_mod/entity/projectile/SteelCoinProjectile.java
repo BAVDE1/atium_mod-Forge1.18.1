@@ -1,7 +1,9 @@
 package com.BAVDE.atium_mod.entity.projectile;
 
 import com.BAVDE.atium_mod.entity.ModEntityTypes;
+import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
@@ -17,12 +19,12 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
         super(entityType, level);
     }
 
-    public SteelCoinProjectile(double x, double y, double z, Level level) {
-        super(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), x, y, z, level);
-    }
-
     public SteelCoinProjectile(LivingEntity livingEntity, Level level) {
         super(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), livingEntity, level);
+    }
+
+    public SteelCoinProjectile(double x, double y, double z, Level level) {
+        super(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), x, y, z, level);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
         if (!this.level.isClientSide) {
             if (pResult.getEntity() instanceof LivingEntity target) {
                 if (this.getOwner() instanceof ServerPlayer owner) {
-
+                    target.hurt(DamageSource.playerAttack(owner), 1.0F);
                 }
             }
         }
@@ -54,8 +56,9 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
         this.discard();
     }
 
+    //render texture basically
     @Override
     protected Item getDefaultItem() {
-        return Items.IRON_NUGGET;
+        return ModItems.COIN.get();
     }
 }

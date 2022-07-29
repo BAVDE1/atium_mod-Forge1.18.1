@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "atium_mod:coin"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_nugget"
+  }
+}

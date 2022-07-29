@@ -17,12 +17,12 @@ public class ModEntityTypes {
     //register here
     public static final RegistryObject<EntityType<IronCoinProjectile>> IRON_COIN_PROJECTILE =
             ENTITY_TYPES.register("iron_coin_projectile", () -> EntityType.Builder.<IronCoinProjectile>of(IronCoinProjectile::new, MobCategory.MISC)
-                    .sized(0.15f, 0.15f)
+                    .sized(0.15f, 0.15f).clientTrackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(AtiumMod.MOD_ID, "iron_coin_projectile").toString()));
 
     public static final RegistryObject<EntityType<SteelCoinProjectile>> STEEL_COIN_PROJECTILE =
             ENTITY_TYPES.register("steel_coin_projectile", () -> EntityType.Builder.<SteelCoinProjectile>of(SteelCoinProjectile::new, MobCategory.MISC)
-                    .sized(0.15f, 0.15f)
+                    .sized(0.15f, 0.15f).clientTrackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(AtiumMod.MOD_ID, "steel_coin_projectile").toString()));
 
     public static void register(IEventBus eventBus) {

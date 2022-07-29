@@ -1,18 +1,19 @@
 {
   "itemGroup.atium_mod_tab": "Atium Mod",
 
+  /* --==ITEMS==-- */
   "item.atium_mod.stone_hammer": "Stone Hammer",
   "item.atium_mod.iron_hammer": "Iron Hammer",
   "item.atium_mod.diamond_hammer": "Diamond Hammer",
   "item.atium_mod.crystallized_knife": "Crystallized Knife",
   "item.atium_mod.wood_knife": "Wooden Knife",
 
+  //gear
   "item.atium_mod.atium_sword": "Atium Sword",
   "item.atium_mod.atium_pickaxe": "Atium Pickaxe",
   "item.atium_mod.atium_axe": "Atium Axe",
   "item.atium_mod.atium_shovel": "Atium Shovel",
   "item.atium_mod.atium_hoe": "Atium Hoe",
-
   "item.atium_mod.atium_helmet": "Atium Helmet",
   "item.atium_mod.atium_chestplate": "Atium Chestplate",
   "item.atium_mod.infused_atium_chestplate": "Infused Atium Chestplate",
@@ -25,6 +26,7 @@
   "item.atium_mod.crystallized_shard": "Crystallized Shard",
   "item.atium_mod.atium_compass": "Atium Compass",
 
+  //metals
   "item.atium_mod.steel": "Steel",
   "item.atium_mod.refined_iron": "Refined Iron",
   "item.atium_mod.tin": "Tin",
@@ -36,7 +38,9 @@
   "item.atium_mod.aluminium": "Aluminium",
 
   "item.atium_mod.diamond_compound": "Diamond Compound",
+  "item.atium_mod.coin": "Coin",
 
+  //scrolls
   "item.atium_mod.empty_scroll": "Empty Scroll",
   "item.atium_mod.steel_scroll": "Steel Scroll",
   "item.atium_mod.tin_scroll_fragment": "Tin Scroll Fragment",
@@ -46,6 +50,7 @@
   "item.atium_mod.zinc_scroll_fragment": "Zinc Scroll Fragment",
   "item.atium_mod.zinc_scroll": "Zinc Scroll",
 
+  /* --==BLOCKS==-- */
   "block.atium_mod.pure_atium_block": "Pure Atium Block",
   "block.atium_mod.atium_ore": "Atium Ore",
   "block.atium_mod.empty_atium_ore": "Empty Atium Ore",
@@ -58,6 +63,7 @@
   "block.atium_mod.medium_crystallized_atium_bud": "Medium Crystallized Atium Bud",
   "block.atium_mod.large_crystallized_atium_bud": "Large Crystallized Atium Bud",
 
+  //crystalline wood
   "block.atium_mod.crystalline_log": "Crystalline Log",
   "block.atium_mod.crystalline_wood": "Crystalline Wood",
   "block.atium_mod.stripped_crystalline_log": "Stripped Crystalline Log",
@@ -65,7 +71,7 @@
   "block.atium_mod.crystalline_leaves": "Crystalline Leaves",
   "block.atium_mod.budding_crystalline_leaves": "Budding Crystalline Leaves",
   "block.atium_mod.crystalline_sapling": "Crystalline Sapling",
-
+  //crystalline planks
   "block.atium_mod.crystalline_planks": "Crystalline Planks",
   "block.atium_mod.crystalline_stairs": "Crystalline Stairs",
   "block.atium_mod.crystalline_slab": "Crystalline Slab",
@@ -80,11 +86,14 @@
 
   "block.atium_mod.fractured_magma_block": "Fractured Magma Block",
 
+  /* --==OTHER==-- */
+  //effects
   "effect.atium_mod.disoriented": "Disoriented",
 
+  //structures
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
 
-  //Tool Tips
+  /* --==TOOL TIPS==-- */
   //Infusions generic
   "tooltip.atium_mod.tooltip.iron": "§7Iron Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.steel": "§7Steel Infused §8[CTRL]",

@@ -70,6 +70,8 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
     public static final RegistryObject<Item> CRYSTALLIZED_SHARD = ITEMS.register("crystallized_shard",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
+    public static final RegistryObject<Item> COIN = ITEMS.register("coin",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB)));
 
     //scrolls
     public static final RegistryObject<Item> EMPTY_SCROLL = ITEMS.register("empty_scroll",

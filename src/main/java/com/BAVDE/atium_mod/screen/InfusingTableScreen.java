@@ -36,13 +36,19 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         //is displayed
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 
+        //used to remove ingot outline in slot 0 when it is not empty (does not update on craft however)
         if (!menu.isSlot0Empty()) {
             blit(pPoseStack, leftPos + 79, topPos + 23, 79, 57, 16, 16);
         }
 
+        //render descriptions
         renderMetalDesc(pPoseStack);
         renderAtiumInfusionDesc(pPoseStack);
     }
+
+    /**
+     * RENDERS
+     */
 
     protected void renderMetalDesc(PoseStack poseStack) {
         final ResourceLocation METAL_DESC = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/infusing_table/metal_desc.png");

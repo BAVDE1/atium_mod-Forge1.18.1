@@ -1,5 +1,7 @@
 package com.BAVDE.atium_mod.item.custom;
 
+import com.BAVDE.atium_mod.entity.projectile.IronCoinProjectile;
+import com.BAVDE.atium_mod.entity.projectile.SteelCoinProjectile;
 import com.BAVDE.atium_mod.item.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -11,7 +13,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
@@ -53,36 +54,50 @@ public class CoinPouch extends Item {
     public void releaseUsing(ItemStack itemStack, Level level, LivingEntity player, int pTimeCharged) {
         ItemStack leggings = getPantsItem((Player) player);
 
-        if (leggings.getItem() == ModItems.ATIUM_LEGGINGS.get()) {
-            if (hasMetalTag(leggings)) {
-                //iron
-                if (getMetalTag(leggings) == 1) {
-                    if (!level.isClientSide) {
-                        projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
-                        //projectile here
+        //if player has used item for over 5 ticks
+        if ((getUseDuration(itemStack) - pTimeCharged) > 5) {
+            if (leggings.getItem() == ModItems.ATIUM_LEGGINGS.get()) {
+                if (hasMetalTag(leggings)) {
+                    //iron
+                    if (getMetalTag(leggings) == 1) {
+                        if (!level.isClientSide) {
+                            //spawn iron projectile
+                            IronProjectileSpawn(level, (Player) player, pTimeCharged);
+                            playRemoveOneSound(player);
+                        }
+                        decreaseCoins(itemStack);
                     }
-                    decreaseCoins(itemStack);
-                }
-                //steel
-                if (getMetalTag(leggings) == 2) {
-                    if (!level.isClientSide) {
-                        projectileSpawn(level, (Player)player, itemStack, pTimeCharged);
-                        //projectile here
+                    //steel
+                    if (getMetalTag(leggings) == 2) {
+                        if (!level.isClientSide) {
+                            //spawn steel projectile
+                            SteelProjectileSpawn(level, (Player) player, pTimeCharged);
+                            playRemoveOneSound(player);
+                        }
+                        decreaseCoins(itemStack);
                     }
-                    decreaseCoins(itemStack);
                 }
-                sendMessage(itemStack, level, pTimeCharged);
             }
         }
+        //for debugging purposes
+        sendMessage(itemStack, level, pTimeCharged);
 
         super.releaseUsing(itemStack, level, player, pTimeCharged);
     }
-    
-    private void projectileSpawn(Level level, Player player, ItemStack itemStack, int pTimeCharged) {
-        Snowball snowball = new Snowball(level, player);
-        snowball.setItem(Items.SNOWBALL.getDefaultInstance());
-        snowball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-        level.addFreshEntity(snowball);
+
+    private void IronProjectileSpawn(Level level, Player player, int pTimeCharged) {
+        IronCoinProjectile ironCoinProjectile = new IronCoinProjectile(player, level);
+        ironCoinProjectile.setItem(ModItems.COIN.get().getDefaultInstance());
+        ironCoinProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+        level.addFreshEntity(ironCoinProjectile);
+
+    }
+
+    private void SteelProjectileSpawn(Level level, Player player, int pTimeCharged) {
+        SteelCoinProjectile steelCoinProjectile = new SteelCoinProjectile(player, level);
+        steelCoinProjectile.setItem(ModItems.COIN.get().getDefaultInstance());
+        steelCoinProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+        level.addFreshEntity(steelCoinProjectile);
     }
 
     private void sendMessage(ItemStack itemStack, Level level, int pTimeCharged) {
@@ -105,7 +120,7 @@ public class CoinPouch extends Item {
                     //removes all items from pouch
                     removeAllCoins(pStack, pPlayer).ifPresent(pAccess::set);
                 } else return false;
-            } else if (pOther.getItem() == Items.IRON_NUGGET) {
+            } else if (pOther.getItem() == ModItems.COIN.get()) {
                 //adds items into pouch
                 addCoinStack(pStack, pOther, pPlayer);
             } else return false;
@@ -119,7 +134,7 @@ public class CoinPouch extends Item {
         return true;
     }
 
-    //uses durability bar to show how many iron nuggets item contains
+    //uses durability bar to show how many coins item contains
     @Override
     public int getBarWidth(ItemStack pStack) {
         if (pStack.getTag().contains("atium_mod.coins")) {
@@ -145,6 +160,7 @@ public class CoinPouch extends Item {
                 additionStack.shrink(addAmountAllowed);
                 pouchStack.getTag().putInt("atium_mod.coins", currentCoins + addAmountAllowed);
                 this.playInsertSound(player);
+                this.playCoinsClinkSound(player);
             }
         } else {
             int addAmountAllowed = Math.min(spaceLeft, stackSize);
@@ -158,7 +174,7 @@ public class CoinPouch extends Item {
     //removes all items from pouch
     private Optional<ItemStack> removeAllCoins(ItemStack pouchItem, Player player) {
         int currentCoins = pouchItem.getTag().getInt("atium_mod.coins");
-        ItemStack returnItemStack = Items.IRON_NUGGET.getDefaultInstance();
+        ItemStack returnItemStack = ModItems.COIN.get().getDefaultInstance();
 
         //remove all items & clear tag
         pouchItem.getTag().remove("atium_mod.coins");
@@ -168,6 +184,10 @@ public class CoinPouch extends Item {
         return Optional.of(returnItemStack);
     }
 
+    /**
+     * Utils
+     */
+
     private void playRemoveOneSound(Entity entity) {
         entity.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
@@ -176,9 +196,9 @@ public class CoinPouch extends Item {
         entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
 
-    /**
-     * Utils
-     */
+    private void playCoinsClinkSound(Entity entity) {
+        entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.getLevel().getRandom().nextFloat() * 0.4F);
+    }
 
     //returns the item in players pants slot
     private ItemStack getPantsItem(Player player) {
@@ -233,6 +253,6 @@ public class CoinPouch extends Item {
             count = currentCoins;
         }
         //make translatable component?
-        pTooltipComponents.add(new TextComponent("Iron Nuggets: " + count + "/" + pStack.getMaxDamage()));
+        pTooltipComponents.add(new TextComponent("Coins: " + count + "/" + pStack.getMaxDamage()));
     }
 }

@@ -153,6 +153,7 @@ public class InfusingTableMenu extends AbstractInfusingMenu {
         return hasMetal() != 0 && hasAtiumItem() != 0;
     }
 
+    //to check if metal slot is empty (used in screen)
     public boolean isSlot0Empty() {
         ItemStack itemStack = this.slots.get(0).getItem();
         return itemStack == ItemStack.EMPTY;
