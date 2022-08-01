@@ -72,6 +72,6 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registryRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.IRON_COIN_PROJECTILE.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), ThrownItemRenderer::new);
+        //event.registerEntityRenderer(ModEntityTypes.STEEL_COIN_PROJECTILE.get(), ThrownItemRenderer::new);
     }
 }

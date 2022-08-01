@@ -1,3 +1,4 @@
+/*
 package com.BAVDE.atium_mod.entity.projectile;
 
 import com.BAVDE.atium_mod.entity.ModEntityTypes;
@@ -73,3 +74,4 @@ public class SteelCoinProjectile extends ThrowableItemProjectile {
         return Items.IRON_NUGGET;
     }
 }
+*/

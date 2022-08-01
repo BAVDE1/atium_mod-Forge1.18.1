@@ -1,9 +1,11 @@
 package com.BAVDE.atium_mod.event;
 
 import com.BAVDE.atium_mod.AtiumMod;
+import com.BAVDE.atium_mod.entity.projectile.IronCoinProjectile;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.particle.ModParticles;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,6 +27,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -46,7 +49,7 @@ public class ModEvents {
     static boolean rightDashKeyPressed = false;
 
     /**
-     * EVENTS 
+     * EVENTS
      * (events NEED to be static or else they won't be called)
      **/
 
@@ -186,6 +189,7 @@ public class ModEvents {
         if (!onCooldown(player, itemStack)) {
             //LEFT DASH
             if (leftKey) {
+                //if has dash tag (key has been pressed withing 6 ticks) & if not holding down key
                 if (hasLeftDashTag(itemStack) && !leftDashKeyPressed) {
                     dashParticlesAndSound(player);
 
@@ -208,6 +212,7 @@ public class ModEvents {
 
             //RIGHT DASH
             if (rightKey) {
+                //if has dash tag (key has been pressed withing 6 ticks) & if not holding down key
                 if (hasRightDashTag(itemStack) && !rightDashKeyPressed) {
                     dashParticlesAndSound(player);
 
@@ -322,7 +327,7 @@ public class ModEvents {
     }
 
     //take 50% damage and push away from damage source
-    private static void bootsZinc(double chance, float damageDivision,  LivingHurtEvent event, LivingEntity player, Level level) {
+    private static void bootsZinc(double chance, float damageDivision, LivingHurtEvent event, LivingEntity player, Level level) {
         if (Math.random() < chance) {
             Entity attacker = event.getSource().getDirectEntity();
             if (attacker != null) {
@@ -415,21 +420,24 @@ public class ModEvents {
     public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent event) {
         event.getNewPlayer().setTicksFrozen(0);
     }
-    
+
     /**
-    * ITEM CHECKS
-    */
+     * ITEM CHECKS
+     */
 
     //returns itemstack of what is in certain equipment slot (returns ItemStack)
     private static ItemStack getHelmetItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.HEAD);
     }
+
     private static ItemStack getChestplateItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.CHEST);
     }
+
     private static ItemStack getLeggingsItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.LEGS);
     }
+
     private static ItemStack getBootsItem(LivingEntity player) {
         return player.getItemBySlot(EquipmentSlot.FEET);
     }
@@ -438,12 +446,15 @@ public class ModEvents {
     private static boolean isAtiumHelmet(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_HELMET.get();
     }
+
     private static boolean isAtiumChestplate(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_CHESTPLATE.get();
     }
+
     private static boolean isAtiumLeggings(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_LEGGINGS.get();
     }
+
     private static boolean isAtiumBoots(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.ATIUM_BOOTS.get();
     }
@@ -452,6 +463,7 @@ public class ModEvents {
     private static boolean hasLeftDashTag(ItemStack itemStack) {
         return itemStack.getTag().contains("atium_mod.left_dash_ready");
     }
+
     private static boolean hasRightDashTag(ItemStack itemStack) {
         return itemStack.getTag().contains("atium_mod.right_dash_ready");
     }
