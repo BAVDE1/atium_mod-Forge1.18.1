@@ -1,7 +1,6 @@
 package com.BAVDE.atium_mod.item.custom;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.Util;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -132,13 +131,13 @@ public class AtiumCompass extends Item {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (Screen.hasControlDown()) {
             //item lore
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl1"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.lore"));
             //line break
             pTooltipComponents.add(new TextComponent(" "));
             //item desc
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl2"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip.ctrl"));
         } else {
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_compass.tooltip"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.more_info_ctrl"));
         }
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }

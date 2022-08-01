@@ -97,6 +97,8 @@
   "sounds.atium_mod.coins_clank": "Coins clink",
 
   /* --==TOOL TIPS==-- */
+  "tooltip.atium_mod.tooltip.more_info_ctrl": "§7More info §8[CTRL]",
+
   //Infusions generic
   "tooltip.atium_mod.tooltip.iron": "§7Iron Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.steel": "§7Steel Infused §8[CTRL]",
@@ -106,9 +108,8 @@
   "tooltip.atium_mod.tooltip.zinc": "§7Zinc Infused §8[CTRL]",
   "tooltip.atium_mod.tooltip.gold": "§7Gold Infused §8[CTRL]",
   //Atium compass
-  "tooltip.atium_mod.atium_compass.tooltip.ctrl1": "§8§oThe compass needle seems to be attracted to the allomantic pulses of Atium.",
-  "tooltip.atium_mod.atium_compass.tooltip.ctrl2": "§7Hold §6[R-Click]§7 to locate the nearest source of Atium",
-  "tooltip.atium_mod.atium_compass.tooltip": "§7More info §8[CTRL]",
+  "tooltip.atium_mod.atium_compass.tooltip.lore": "§8§oThe compass needle seems to be attracted to the allomantic pulses of Atium.",
+  "tooltip.atium_mod.atium_compass.tooltip.ctrl": "§7Hold §6[R-Click]§7 to locate the nearest source of Atium",
   //Atium helmet
   "tooltip.atium_mod.atium_helmet.tooltip.iron.ctrl": "§8Shows location of close metallic ores when crouching (consumes hunger)",
   "tooltip.atium_mod.atium_helmet.tooltip.steel.ctrl": "§8Shows location of nearby metallic ores when crouching (consumes hunger)",
@@ -187,5 +188,8 @@
 
   //Pouch
   "item.atium_mod.coin_pouch": "Coin Pouch",
+  "tooltip.atium_mod.coin_pouch1.tooltip.consume_chance": "§7Consume chance: §b100%",
+  "tooltip.atium_mod.coin_pouch1.tooltip.strength_multiplier": "§7Strength multiplier: §b1x",
+  "tooltip.atium_mod.coin_pouch.tooltip.ctrl": "With iron and steel infused leggings you can shoot coins to pull and push yourself and targeted entities respectively",
   "tooltip.atium_mod.pouch_fullness_desc": "§8Iron Nuggets: §7"
 }

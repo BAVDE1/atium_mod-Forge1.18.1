@@ -3,8 +3,10 @@ package com.BAVDE.atium_mod.item.custom;
 import com.BAVDE.atium_mod.entity.projectile.IronCoinProjectile;
 import com.BAVDE.atium_mod.item.ModItems;
 import com.BAVDE.atium_mod.sound.ModSounds;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -247,7 +249,7 @@ public class CoinPouch extends Item {
         return 0;
     }
 
-    //sets use duration of item (when item starts being used counts down from 72000 every tick)
+    //sets use duration of item (when item starts being used counts down from getUseDuration every tick)
     @Override
     public int getUseDuration(ItemStack pStack) {
         return 72000;
@@ -283,7 +285,21 @@ public class CoinPouch extends Item {
             int currentCoins = pStack.getTag().getInt("atium_mod.coins");
             count = currentCoins;
         }
-        //make translatable component?
-        pTooltipComponents.add(new TextComponent("Coins: " + count + "/" + pStack.getMaxDamage()));
+
+        if (Screen.hasControlDown()) {
+            //item chances
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch1.tooltip.consume_chance"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch1.tooltip.strength_multiplier"));
+            //line break
+            pTooltipComponents.add(new TextComponent(" "));
+            //item desc
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch.tooltip.ctrl"));
+        } else {
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.more_info_ctrl"));
+        }
+        //line break
+        pTooltipComponents.add(new TextComponent(" "));
+        //iron nugget count
+        pTooltipComponents.add(new TextComponent("Iron nuggets: " + count + "/" + pStack.getMaxDamage()));
     }
 }

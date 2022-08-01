@@ -93,7 +93,7 @@ public class ModItems {
 
     //Pouches
     public static final RegistryObject<Item> COIN_POUCH = ITEMS.register("coin_pouch",
-            () -> new CoinPouch(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(32)));
+            () -> new CoinPouch(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(64)));
     //add pouch upgrade
 
     //Knives
