@@ -38,7 +38,14 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult pResult) {
         if (pResult.getEntity() instanceof LivingEntity target) {
             if (getOwner() instanceof Player owner) {
-                target.hurt(DamageSource.playerAttack(owner), 0.0F);
+                //damage (coin pouch = 0, diamond = 0.5, netherite = 1)
+                float damage = 0.0F;
+                if (this.getTags().contains("diamond")) {
+                    damage = 0.5F;
+                } else if (this.getTags().contains("netherite")) {
+                    damage = 1.0F;
+                }
+                target.hurt(DamageSource.playerAttack(owner), damage);
                 //pull
                 Position targetPos = target.position();
                 Position ownerPos = owner.position();

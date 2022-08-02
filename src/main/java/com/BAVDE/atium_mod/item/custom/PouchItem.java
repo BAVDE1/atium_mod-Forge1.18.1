@@ -61,7 +61,7 @@ public class PouchItem extends Item {
                     //iron
                     if (getMetalTag(leggings) == 1) {
                         //spawn projectile
-                        ironProjectileSpawn(level, (Player) player, pTimeCharged);
+                        ironProjectileSpawn(pouchItem, level, (Player) player, pTimeCharged);
 
                         playRemoveOneSound(player);
                         decreaseCoins(pouchItem, (Player) player);
@@ -91,11 +91,17 @@ public class PouchItem extends Item {
         player.getCooldowns().addCooldown(leggings.getItem(), getCooldownTicks());
     }
 
-    private void ironProjectileSpawn(Level level, Player player, int pTimeCharged) {
+    private void ironProjectileSpawn(ItemStack pouchItem, Level level, Player player, int pTimeCharged) {
         if (!level.isClientSide) {
             IronCoinProjectile ironCoinProjectile = new IronCoinProjectile(player, level);
             ironCoinProjectile.setItem(Items.IRON_NUGGET.getDefaultInstance());
             ironCoinProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+            //tag to determine damage
+            if (pouchItem.getItem() == ModItems.COIN_POUCH_DIAMOND.get()) {
+                ironCoinProjectile.getTags().add("diamond");
+            } else if (pouchItem.getItem() == ModItems.COIN_POUCH_NETHERITE.get()) {
+                ironCoinProjectile.getTags().add("netherite");
+            }
             level.addFreshEntity(ironCoinProjectile);
         }
     }
@@ -145,7 +151,7 @@ public class PouchItem extends Item {
 
     @Override
     public boolean isBarVisible(ItemStack pStack) {
-        return true;
+        return pStack.getTag().contains("atium_mod.coins");
     }
 
     //uses durability bar to show how many coins item contains
@@ -238,7 +244,7 @@ public class PouchItem extends Item {
 
     //run debug to find good volume & pitch
     private void playCoinsClinkSound(Entity entity) {
-        entity.playSound(ModSounds.COINS_CLANK.get(), 0.7F, 0.9F + entity.getLevel().getRandom().nextFloat() * 0.4F);
+        entity.playSound(ModSounds.COINS_CLINK.get(), 0.7F, 0.9F + entity.getLevel().getRandom().nextFloat() * 0.4F);
     }
 
     //plays push sound for steel push

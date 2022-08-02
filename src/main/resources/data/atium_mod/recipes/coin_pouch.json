@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "LAL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "A": {
+      "item": "atium_mod:aluminium"
+    }
+  },
+  "result": {
+    "item": "atium_mod:coin_pouch"
+  }
+}

@@ -13,7 +13,7 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, AtiumMod.MOD_ID);
 
     //register here
-    public static final RegistryObject<SoundEvent> COINS_CLANK = registerSoundEvent("coins_clank");
+    public static final RegistryObject<SoundEvent> COINS_CLINK = registerSoundEvent("coins_clink");
 
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {

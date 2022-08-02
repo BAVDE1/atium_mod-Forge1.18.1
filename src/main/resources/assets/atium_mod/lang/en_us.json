@@ -6,7 +6,6 @@
   "item.atium_mod.iron_hammer": "Iron Hammer",
   "item.atium_mod.diamond_hammer": "Diamond Hammer",
   "item.atium_mod.crystallized_knife": "Crystallized Knife",
-  "item.atium_mod.wood_knife": "Wooden Knife",
 
   //gear
   "item.atium_mod.atium_sword": "Atium Sword",
@@ -16,7 +15,6 @@
   "item.atium_mod.atium_hoe": "Atium Hoe",
   "item.atium_mod.atium_helmet": "Atium Helmet",
   "item.atium_mod.atium_chestplate": "Atium Chestplate",
-  "item.atium_mod.infused_atium_chestplate": "Infused Atium Chestplate",
   "item.atium_mod.atium_leggings": "Atium Leggings",
   "item.atium_mod.atium_boots": "Atium Boots",
 
@@ -25,6 +23,12 @@
   "item.atium_mod.atium_bead": "Atium Bead",
   "item.atium_mod.crystallized_shard": "Crystallized Shard",
   "item.atium_mod.atium_compass": "Atium Compass",
+  "item.atium_mod.diamond_compound": "Diamond Compound",
+
+  //pouches
+  "item.atium_mod.coin_pouch": "Coin Pouch",
+  "item.atium_mod.coin_pouch_diamond": "Diamond Coin Pouch",
+  "item.atium_mod.coin_pouch_netherite": "Netherite Coin Pouch",
 
   //metals
   "item.atium_mod.steel": "Steel",
@@ -36,9 +40,6 @@
   "item.atium_mod.bronze": "Bronze",
   "item.atium_mod.purified_gold": "Purified Gold",
   "item.atium_mod.aluminium": "Aluminium",
-
-  "item.atium_mod.diamond_compound": "Diamond Compound",
-  "item.atium_mod.coin": "Coin",
 
   //scrolls
   "item.atium_mod.empty_scroll": "Empty Scroll",
@@ -94,7 +95,7 @@
   "structure.atium_mod.atium_geode_structure": "Atium Geode Structure",
 
   //sounds
-  "sounds.atium_mod.coins_clank": "Coins clink",
+  "sounds.atium_mod.coins_clink": "Coins clink",
 
   /* --==TOOL TIPS==-- */
   "tooltip.atium_mod.tooltip.more_info_ctrl": "§7More info §8[CTRL]",
@@ -187,9 +188,6 @@
   "tooltip.atium_mod.has_copper_cloud": "§6Copper Cloud",
 
   //Pouch
-  "item.atium_mod.coin_pouch": "Coin Pouch",
-  "item.atium_mod.coin_pouch_diamond": "Diamond Coin Pouch",
-  "item.atium_mod.coin_pouch_netherite": "Netherite Coin Pouch",
   "tooltip.atium_mod.coin_pouch_generic.tooltip.ctrl": "§8§oWith iron and steel infused leggings you can shoot coins to pull and push yourself and targeted entities respectively",
   "tooltip.atium_mod.coin_pouch.tooltip.consume_chance": "§7Consume chance: §b100%",
   "tooltip.atium_mod.coin_pouch.tooltip.strength_multiplier": "§7Strength multiplier: §b1x",
@@ -199,6 +197,5 @@
   "tooltip.atium_mod.coin_pouch_diamond.tooltip.cooldown_ticks": "§7Cooldown time: §b18",
   "tooltip.atium_mod.coin_pouch_netherite.tooltip.consume_chance": "§7Consume chance: §b60%",
   "tooltip.atium_mod.coin_pouch_netherite.tooltip.strength_multiplier": "§7Strength multiplier: §b1.5x",
-  "tooltip.atium_mod.coin_pouch_netherite.tooltip.cooldown_ticks": "§7Cooldown time: §b16",
-  "tooltip.atium_mod.pouch_fullness_desc": "§8Iron nuggets: §7" //not used
+  "tooltip.atium_mod.coin_pouch_netherite.tooltip.cooldown_ticks": "§7Cooldown time: §b16"
 }
