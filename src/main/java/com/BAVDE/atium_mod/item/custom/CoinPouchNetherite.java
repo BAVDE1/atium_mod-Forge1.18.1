@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -18,22 +19,27 @@ public class CoinPouchNetherite extends PouchItem {
 
     @Override
     public double getMaxStr() {
-        return 3;
+        return 2.42;
     }
 
     @Override
     protected double getChargeDivision() {
-        return 7;
+        return 7.6;
     }
 
     @Override
     protected double getConsumeChance() {
-        return 0.5;
+        return 0.6;
     }
 
     @Override
     protected int getCooldownTicks() {
-        return 10;
+        return 16;
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        return Rarity.RARE;
     }
 
     //displays number of coins in pouch

@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -18,22 +19,27 @@ public class CoinPouchDiamond extends PouchItem {
 
     @Override
     public double getMaxStr() {
-        return 2.5;
+        return 2.2;
     }
 
     @Override
     protected double getChargeDivision() {
-        return 7.5;
+        return 7.8;
     }
 
     @Override
     protected double getConsumeChance() {
-        return 0.75;
+        return 0.8;
     }
 
     @Override
     protected int getCooldownTicks() {
-        return 15;
+        return 18;
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        return Rarity.UNCOMMON;
     }
 
     //displays number of coins in pouch

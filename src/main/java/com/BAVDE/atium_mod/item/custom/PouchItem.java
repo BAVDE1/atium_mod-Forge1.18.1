@@ -183,14 +183,19 @@ public class PouchItem extends Item {
         }
     }
 
-    //removes all items from pouch
+    //removes count of items from pouch
     private Optional<ItemStack> removeAllCoins(ItemStack pouchItem, Player player) {
         int currentCoins = pouchItem.getTag().getInt("atium_mod.coins");
         ItemStack returnItemStack = Items.IRON_NUGGET.getDefaultInstance();
 
-        //remove all items & clear tag
-        pouchItem.getTag().remove("atium_mod.coins");
-        returnItemStack.setCount(currentCoins);
+        //remove items & update or remove tag
+        if (currentCoins > 64) {
+            pouchItem.getTag().putInt("atium_mod.coins", currentCoins - 64);
+            returnItemStack.setCount(64);
+        } else {
+            pouchItem.getTag().remove("atium_mod.coins");
+            returnItemStack.setCount(currentCoins);
+        }
 
         this.playRemoveOneSound(player);
         return Optional.of(returnItemStack);

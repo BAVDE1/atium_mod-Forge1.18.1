@@ -52,6 +52,8 @@ public class ModItemProperties {
 
         //Pouch
         PouchProperty(ModItems.COIN_POUCH.get());
+        PouchProperty(ModItems.COIN_POUCH_DIAMOND.get());
+        PouchProperty(ModItems.COIN_POUCH_NETHERITE.get());
     }
 
     static void InfusableItem(Item item) {
