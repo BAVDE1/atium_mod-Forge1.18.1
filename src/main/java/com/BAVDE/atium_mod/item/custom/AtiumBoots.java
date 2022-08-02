@@ -35,23 +35,45 @@ public class AtiumBoots extends ArmorItem {
         if (stack.getTag().contains("atium_mod.metal")) {
             int currentMetal = stack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(level, player); //gives player slow fall is falls too far (health dependent)
+                case 1 -> iron(2, 10, stack, level, player); //gives player slow fall if falling and holds crouch
                 case 2 -> steel(stack); //simply ticks down dash timer; and removes the tag when it reaches 0
                 case 5 -> brass(2.5, level, player); //walk on water & lava; immunity to magma block damage
             }
         }
     }
 
-    //gives player slow fall is falls too far (health dependent)
-    private static void iron(Level level, Player player) {
-        int min = 2;
-        int max = 35;
-        if (player.fallDistance > Math.max(Math.min(max, player.getHealth() / 1.2), min) && !player.isOnGround()) {
-            Vec3 vec3 = player.getDeltaMovement();
-            player.push(vec3.x, 0.7, vec3.z);
-            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 80, 2, true, false));
-            level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
+    //gives player slow fall if falling and holds crouch
+    private static void iron(int slowFallSecs, int cooldownSecs, ItemStack itemStack, Level level, Player player) {
+        if (player.isCrouching() && player.fallDistance > 3.5 && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+            if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+                if (!itemStack.getTag().contains("iron_boots_lock")) {
+                    Vec3 vec3 = player.getDeltaMovement();
+                    player.push(vec3.x, 0.7, vec3.z);
+                    player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, slowFallSecs * 20, 2, false, true));
+                    level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
+                    itemStack.getTag().putBoolean("atium_mod.iron_boots_use", true);
+                    player.fallDistance = 0;
+                }
+            }
         }
+
+        if (itemStack.getTag().contains("atium_mod.iron_boots_use")) {
+            if (player.hasEffect(MobEffects.SLOW_FALLING)) {
+                if (!player.isCrouching() || player.isOnGround()) {
+                    endSlowFall(cooldownSecs, player, itemStack);
+                }
+            } else {
+                endSlowFall(cooldownSecs, player, itemStack);
+            }
+        }
+    }
+
+    private static void endSlowFall(int cooldownSecs, Player player, ItemStack itemStack) {
+        if (player.hasEffect(MobEffects.SLOW_FALLING)) {
+            player.removeEffect(MobEffects.SLOW_FALLING);
+        }
+        itemStack.getTag().remove("atium_mod.iron_boots_use");
+        player.getCooldowns().addCooldown(itemStack.getItem(), cooldownSecs * 20);
     }
 
     //simply ticks down dash timer; and removes the tag when it reaches 0

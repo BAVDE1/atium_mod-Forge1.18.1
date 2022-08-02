@@ -65,8 +65,7 @@ public class PouchItem extends Item {
 
                         playRemoveOneSound(player);
                         decreaseCoins(pouchItem, (Player) player);
-                        ((Player) player).getCooldowns().addCooldown(pouchItem.getItem(), getCooldownTicks());
-                        ((Player) player).getCooldowns().addCooldown(leggings.getItem(), getCooldownTicks());
+                        addCooldown((Player) player, leggings);
                     }
                 }
                 //steel
@@ -77,13 +76,19 @@ public class PouchItem extends Item {
                     playPushSound(player);
                     playRemoveOneSound(player);
                     decreaseCoins(pouchItem, (Player) player);
-                    ((Player) player).getCooldowns().addCooldown(pouchItem.getItem(), getCooldownTicks());
-                    ((Player) player).getCooldowns().addCooldown(leggings.getItem(), getCooldownTicks());
+                    addCooldown((Player) player, leggings);
                 }
             }
         }
 
         super.releaseUsing(pouchItem, level, player, pTimeCharged);
+    }
+
+    private void addCooldown(Player player, ItemStack leggings) {
+        player.getCooldowns().addCooldown(ModItems.COIN_POUCH.get(), getCooldownTicks());
+        player.getCooldowns().addCooldown(ModItems.COIN_POUCH_DIAMOND.get(), getCooldownTicks());
+        player.getCooldowns().addCooldown(ModItems.COIN_POUCH_NETHERITE.get(), getCooldownTicks());
+        player.getCooldowns().addCooldown(leggings.getItem(), getCooldownTicks());
     }
 
     private void ironProjectileSpawn(Level level, Player player, int pTimeCharged) {

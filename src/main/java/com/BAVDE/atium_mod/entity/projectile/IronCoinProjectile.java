@@ -43,7 +43,7 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
                 Position targetPos = target.position();
                 Position ownerPos = owner.position();
 
-                double v = 8;
+                double v = 6;
 
                 if (!owner.isCrouching()) {
                     double pX = targetPos.x() - ownerPos.x();
