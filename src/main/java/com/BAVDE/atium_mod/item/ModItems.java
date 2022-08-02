@@ -94,7 +94,10 @@ public class ModItems {
     //Pouches
     public static final RegistryObject<Item> COIN_POUCH = ITEMS.register("coin_pouch",
             () -> new CoinPouch(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(64)));
-    //add pouch upgrade
+    public static final RegistryObject<Item> COIN_POUCH_DIAMOND = ITEMS.register("coin_pouch_diamond",
+            () -> new CoinPouchDiamond(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(128)));
+    public static final RegistryObject<Item> COIN_POUCH_NETHERITE = ITEMS.register("coin_pouch_netherite",
+            () -> new CoinPouchNetherite(new Item.Properties().tab(ModCreativeModeTab.ATIUM_TAB).stacksTo(1).durability(256)));
 
     //Knives
     public static final RegistryObject<Item> CRYSTALLIZED_KNIFE = ITEMS.register("crystallized_knife",

@@ -188,8 +188,15 @@
 
   //Pouch
   "item.atium_mod.coin_pouch": "Coin Pouch",
-  "tooltip.atium_mod.coin_pouch1.tooltip.consume_chance": "§7Consume chance: §b100%",
-  "tooltip.atium_mod.coin_pouch1.tooltip.strength_multiplier": "§7Strength multiplier: §b1x",
-  "tooltip.atium_mod.coin_pouch.tooltip.ctrl": "With iron and steel infused leggings you can shoot coins to pull and push yourself and targeted entities respectively",
-  "tooltip.atium_mod.pouch_fullness_desc": "§8Iron Nuggets: §7"
+  "tooltip.atium_mod.coin_pouch_generic.tooltip.ctrl": "§8§oWith iron and steel infused leggings you can shoot coins to pull and push yourself and targeted entities respectively",
+  "tooltip.atium_mod.coin_pouch.tooltip.consume_chance": "§7Consume chance: §b100%",
+  "tooltip.atium_mod.coin_pouch.tooltip.strength_multiplier": "§7Strength multiplier: §b1x",
+  "tooltip.atium_mod.coin_pouch.tooltip.cooldown_ticks": "§7Cooldown amount: §b20",
+  "tooltip.atium_mod.coin_pouch_diamond.tooltip.consume_chance": "§7Consume chance: §b75%",
+  "tooltip.atium_mod.coin_pouch_diamond.tooltip.strength_multiplier": "§7Strength multiplier: §b1.5x",
+  "tooltip.atium_mod.coin_pouch_diamond.tooltip.cooldown_ticks": "§7Cooldown amount: §b15",
+  "tooltip.atium_mod.coin_pouch_netherite.tooltip.consume_chance": "§7Consume chance: §b50%",
+  "tooltip.atium_mod.coin_pouch_netherite.tooltip.strength_multiplier": "§7Strength multiplier: §b2x",
+  "tooltip.atium_mod.coin_pouch_netherite.tooltip.cooldown_ticks": "§7Cooldown amount: §b10",
+  "tooltip.atium_mod.pouch_fullness_desc": "§8Iron nuggets: §7" //not used
 }

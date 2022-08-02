@@ -29,12 +29,9 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
         super(entityType, level);
     }
 
+    //spawning of projectile super
     public IronCoinProjectile(LivingEntity livingEntity, Level level) {
         super(ModEntityTypes.IRON_COIN_PROJECTILE.get(), livingEntity, level);
-    }
-
-    public IronCoinProjectile(double x, double y, double z, Level level) {
-        super(ModEntityTypes.IRON_COIN_PROJECTILE.get(), x, y, z, level);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class IronCoinProjectile extends ThrowableItemProjectile {
                 Position targetPos = target.position();
                 Position ownerPos = owner.position();
 
-                double v = 4;
+                double v = 8;
 
                 if (!owner.isCrouching()) {
                     double pX = targetPos.x() - ownerPos.x();

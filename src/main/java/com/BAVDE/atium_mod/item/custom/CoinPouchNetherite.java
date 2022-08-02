@@ -11,29 +11,29 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CoinPouch extends PouchItem {
-    public CoinPouch(Properties pProperties) {
+public class CoinPouchNetherite extends PouchItem {
+    public CoinPouchNetherite(Properties pProperties) {
         super(pProperties);
     }
 
     @Override
     public double getMaxStr() {
-        return 2;
+        return 3;
     }
 
     @Override
     protected double getChargeDivision() {
-        return 8;
+        return 7;
     }
 
     @Override
     protected double getConsumeChance() {
-        return 1;
+        return 0.5;
     }
 
     @Override
     protected int getCooldownTicks() {
-        return 20;
+        return 10;
     }
 
     //displays number of coins in pouch
@@ -52,9 +52,9 @@ public class CoinPouch extends PouchItem {
             //line break
             pTooltipComponents.add(new TextComponent(" "));
             //item chances
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch.tooltip.consume_chance"));
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch.tooltip.strength_multiplier"));
-            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch.tooltip.cooldown_ticks"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch_netherite.tooltip.consume_chance"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch_netherite.tooltip.strength_multiplier"));
+            pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.coin_pouch_netherite.tooltip.cooldown_ticks"));
         } else {
             pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.tooltip.more_info_ctrl"));
         }
