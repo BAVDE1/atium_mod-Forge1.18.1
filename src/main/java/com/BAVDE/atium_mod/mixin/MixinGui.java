@@ -13,6 +13,6 @@ public class MixinGui {
 
     @Inject(at = @At("RETURN"), method = "renderCrosshair")
     private void afterRenderCrosshair(PoseStack poseStack, CallbackInfo ci) {
-        AtiumModClient.renderAtiumModArmourBars(poseStack, (Gui) (Object) this);
+        AtiumModClient.renderArmourBars(poseStack, (Gui) (Object) this);
     }
 }
