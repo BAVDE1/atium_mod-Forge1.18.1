@@ -2,6 +2,7 @@ package com.BAVDE.atium_mod;
 
 import com.BAVDE.atium_mod.block.ModBlocks;
 import com.BAVDE.atium_mod.block.entity.ModBlockEntities;
+import com.BAVDE.atium_mod.client.ModOverlays;
 import com.BAVDE.atium_mod.effect.ModMobEffects;
 import com.BAVDE.atium_mod.entity.ModEntityTypes;
 import com.BAVDE.atium_mod.item.ModItems;
@@ -14,6 +15,7 @@ import com.BAVDE.atium_mod.util.ModItemProperties;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +24,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static net.minecraftforge.client.gui.ForgeIngameGui.HOTBAR_ELEMENT;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AtiumMod.MOD_ID)
@@ -74,6 +78,9 @@ public class AtiumMod {
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_DOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRYSTALLINE_TRAPDOOR.get(), RenderType.cutout());
+
+        //hud overlay
+        OverlayRegistry.registerOverlayAbove(HOTBAR_ELEMENT, "Armour Bars", ModOverlays.HUD_ARMOUR_BARS);
 
         //mod gui
         MenuScreens.register(ModMenuTypes.INFUSING_TABLE_MENU.get(), InfusingTableScreen::new);

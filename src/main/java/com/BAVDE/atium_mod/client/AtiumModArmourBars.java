@@ -13,15 +13,15 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class AtiumModClient {
+public class AtiumModArmourBars {
     private static final ResourceLocation ARMOUR_ICONS = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons.png");
 
-    public static void renderArmourBars(PoseStack stack, Gui gui) {
+    public static void renderArmourBars(PoseStack poseStack, Gui gui) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null) {
             Window window = Minecraft.getInstance().getWindow();
-            stack.pushPose();
+            poseStack.pushPose();
             RenderSystem.disableBlend();
 
             //set texture
@@ -40,6 +40,15 @@ public class AtiumModClient {
 
             int bgBarW = 12;
             int bgBarH = 5;
+
+            gui.blit(poseStack, 10, 10, 0, 0, bgBarW, bgBarH); //background bar
+
+            gui.getFont().draw(poseStack, "hihIhi", screenW, 10, 0xffffffff);
+
+
+
+
+
             int fgBarW = 10; //doesn't use foreground outline
             int fgBarH = 3;
             int fgBarOffsetY = 6;
@@ -63,7 +72,6 @@ public class AtiumModClient {
 
             //U = X(W), V = Y(H)
 
-            gui.blit(stack, screenW, screenH / 2, 0, 0, bgBarW, bgBarH); //background bar
 
             if (helmetItem.getItem() == ModItems.ATIUM_HELMET.get()) {
                 //gui.blit(stack, midScreenW - 100, screenHeight - 22, fgBarOffsetX, fgBarOffsetY, fgBarW, fgBarH); //foreground bar
@@ -81,7 +89,7 @@ public class AtiumModClient {
             if (bootsItem.getItem() == ModItems.ATIUM_BOOTS.get()) {
 
             }
-            stack.popPose();
+            poseStack.popPose();
         }
     }
 }

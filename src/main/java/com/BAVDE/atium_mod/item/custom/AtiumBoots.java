@@ -49,7 +49,7 @@ public class AtiumBoots extends ArmorItem {
                 if (!itemStack.getTag().contains("iron_boots_lock")) {
                     Vec3 vec3 = player.getDeltaMovement();
                     player.push(vec3.x, 0.7, vec3.z);
-                    player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, slowFallSecs * 20, 2, false, true));
+                    player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, slowFallSecs * 20, 2, false, false, true));
                     level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
                     itemStack.getTag().putBoolean("atium_mod.iron_boots_use", true);
                     player.fallDistance = 0;

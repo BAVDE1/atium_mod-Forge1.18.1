@@ -57,8 +57,8 @@ public class InfusingTableScreen extends AbstractContainerScreen<InfusingTableMe
         RenderSystem.setShaderTexture(0, METAL_DESC);
         int Xpos = leftPos + 9;
         int Ypos = topPos + 24;
-        int height = 70;
         int width = 57;
+        int height = 70;
 
         switch (menu.hasMetal()) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold, 10=aluminium
             case 1 -> blit(poseStack, Xpos, Ypos, 0, 0, width, height);
