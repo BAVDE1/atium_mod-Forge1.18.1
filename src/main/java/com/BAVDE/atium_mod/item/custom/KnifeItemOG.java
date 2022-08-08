@@ -1,6 +1,5 @@
 package com.BAVDE.atium_mod.item.custom;
 
-import com.BAVDE.atium_mod.world.projectile.ThrownKnife;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -41,13 +40,13 @@ public class KnifeItemOG extends SwordItem {
                         p_43388_.broadcastBreakEvent(pLivingEntity.getUsedItemHand());
                     });
 
-                    ThrownKnife thrownKnife = new ThrownKnife(pLevel, player, pStack);
-                    if (player.getAbilities().instabuild) {
-                        thrownKnife.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                    }
+                    //ThrownKnife thrownKnife = new ThrownKnife(pLevel, player, pStack);
+                    //if (player.getAbilities().instabuild) {
+                    //    thrownKnife.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                    //}
 
-                    pLevel.addFreshEntity(thrownKnife);
-                    pLevel.playSound((Player) null, thrownKnife, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    //pLevel.addFreshEntity(thrownKnife);
+                    //plevel.playSound((Player) null, thrownKnife, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
                     if (!player.getAbilities().instabuild) {
                         player.getInventory().removeItem(pStack);
                     }

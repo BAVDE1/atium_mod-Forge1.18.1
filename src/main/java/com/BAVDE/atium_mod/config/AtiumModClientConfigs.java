@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AtiumModClientConfigs {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -14,6 +15,8 @@ public class AtiumModClientConfigs {
 
     static {
         BUILDER.push("Configs for the Atium Mod");
+
+        //ARMOUR_BAR_PLACEMENT = BUILDER.comment("a").defineList("Location", Arrays.asList("a", "s"), )
 
        //ARMOUR_BAR_PLACEMENT = BUILDER.comment("Specify where the armour bars are located on screen").defineList);
 
