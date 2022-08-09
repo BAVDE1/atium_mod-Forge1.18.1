@@ -33,15 +33,15 @@ public class CrystallizedAtiumCluster extends CrystallizedAtiumBlock implements 
     protected final VoxelShape upAabb;
     protected final VoxelShape downAabb;
 
-    public CrystallizedAtiumCluster(int p_152015_, int p_152016_, Properties p_49795_) {
-        super(p_49795_);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.UP));
-        this.upAabb = Block.box((double)p_152016_, 0.0D, (double)p_152016_, (double)(16 - p_152016_), (double)p_152015_, (double)(16 - p_152016_));
-        this.downAabb = Block.box((double)p_152016_, (double)(16 - p_152015_), (double)p_152016_, (double)(16 - p_152016_), 16.0D, (double)(16 - p_152016_));
-        this.northAabb = Block.box((double)p_152016_, (double)p_152016_, (double)(16 - p_152015_), (double)(16 - p_152016_), (double)(16 - p_152016_), 16.0D);
-        this.southAabb = Block.box((double)p_152016_, (double)p_152016_, 0.0D, (double)(16 - p_152016_), (double)(16 - p_152016_), (double)p_152015_);
-        this.eastAabb = Block.box(0.0D, (double)p_152016_, (double)p_152016_, (double)p_152015_, (double)(16 - p_152016_), (double)(16 - p_152016_));
-        this.westAabb = Block.box((double)(16 - p_152015_), (double)p_152016_, (double)p_152016_, 16.0D, (double)(16 - p_152016_), (double)(16 - p_152016_));
+    public CrystallizedAtiumCluster(int height, int sidesOffcut, Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE).setValue(FACING, Direction.UP));
+        this.upAabb = Block.box(sidesOffcut, 0.0D, sidesOffcut, 16 - sidesOffcut, height, 16 - sidesOffcut);
+        this.downAabb = Block.box(sidesOffcut, 16 - height, sidesOffcut, 16 - sidesOffcut, 16.0D, 16 - sidesOffcut);
+        this.northAabb = Block.box(sidesOffcut, sidesOffcut, 16 - height, 16 - sidesOffcut, 16 - sidesOffcut, 16.0D);
+        this.southAabb = Block.box(sidesOffcut, sidesOffcut, 0.0D, 16 - sidesOffcut, 16 - sidesOffcut, height);
+        this.eastAabb = Block.box(0.0D, sidesOffcut, sidesOffcut, height, 16 - sidesOffcut, 16 - sidesOffcut);
+        this.westAabb = Block.box(16 - height, sidesOffcut, sidesOffcut, 16.0D, 16 - sidesOffcut, 16 - sidesOffcut);
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -78,9 +78,9 @@ public class CrystallizedAtiumCluster extends CrystallizedAtiumBlock implements 
 
     //damages more when fell on
     @Override
-    public void fallOn(Level p_152426_, BlockState p_152427_, BlockPos p_152428_, Entity p_152429_, float p_152430_) {
-        p_152429_.causeFallDamage(p_152430_ + 2.0F, 2.0F, DamageSource.FALL);
-        super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, p_152430_);
+    public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float fallDis) {
+        entity.causeFallDamage(fallDis + 2.0F, 1.0F, DamageSource.FALL);
+        super.fallOn(level, blockState, blockPos, entity, fallDis);
     }
 
     @Nullable

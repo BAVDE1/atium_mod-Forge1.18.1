@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class AtiumModArmourBars {
     private static final ResourceLocation ARMOUR_ICONS = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons.png");
+    private static final ResourceLocation ARMOUR_ICONS_TRANSPARENT = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons_transparent.png");
 
     public static void renderArmourBars(PoseStack poseStack, Gui gui) {
         Player player = Minecraft.getInstance().player;
@@ -22,7 +23,8 @@ public class AtiumModArmourBars {
         if (player != null && !player.isSpectator()) {
             Window window = Minecraft.getInstance().getWindow();
             poseStack.pushPose();
-            RenderSystem.disableBlend();
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
 
             //set texture
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -69,118 +71,92 @@ public class AtiumModArmourBars {
             int bootsOffsetY = 39;
 
             //changeable
-            int bgHelmetX = screenW / 2 - 108;
-            int bgHelmetY = screenH - 19;
-            int fgHelmetX = screenW / 2 - 107;
-            int fgHelmetY = screenH - 18;
-            int icHelmetX = screenW / 2 - 115;
-            int icHelmetY = screenH - 20;
+            int bgHelmetX = 11;
+            int bgHelmetY = screenH - 40;
+            int fgHelmetX = 12;
+            int fgHelmetY = screenH - 39;
+            int icHelmetX = 4;
+            int icHelmetY = screenH - 41;
 
-            int bgChestplateX = screenW / 2 - 108;
-            int bgChestplateY = screenH - 9;
-            int fgChestplateX = screenW / 2 - 107;
-            int fgChestplateY = screenH - 8;
-            int icChestplateX = screenW / 2 - 115;
-            int icChestplateY = screenH - 11;
+            int bgChestplateX = 11;
+            int bgChestplateY = screenH - 30;
+            int fgChestplateX = 12;
+            int fgChestplateY = screenH - 29;
+            int icChestplateX = 4;
+            int icChestplateY = screenH - 32;
 
-            int bgLeggingsX = screenW / 2 + 96;
+            int bgLeggingsX = 11;
             int bgLeggingsY = screenH - 19;
-            int fgLeggingsX = screenW / 2 + 97;
+            int fgLeggingsX = 12;
             int fgLeggingsY = screenH - 18;
-            int icLeggingsX = screenW / 2 + 107;
+            int icLeggingsX = 5;
             int icLeggingsY = screenH - 21;
 
-            int bgBootsX = screenW / 2 + 96;
+            int bgBootsX = 11;
             int bgBootsY = screenH - 9;
-            int fgBootsX = screenW / 2 + 97;
+            int fgBootsX = 12;
             int fgBootsY = screenH - 8;
-            int icBootsX = screenW / 2 + 106;
+            int icBootsX = 4;
             int icBootsY = screenH - 10;
-
-            //put config position changes here
-
-            if ("lol" == "lol") {
-                bgHelmetX = screenW / 2 - 108;
-                bgHelmetY = screenH - 19;
-                fgHelmetX = screenW / 2 - 107;
-                fgHelmetY = screenH - 18;
-                icHelmetX = screenW / 2 - 115;
-                icHelmetY = screenH - 20;
-
-                bgChestplateX = screenW / 2 - 108;
-                bgChestplateY = screenH - 9;
-                fgChestplateX = screenW / 2 - 107;
-                fgChestplateY = screenH - 8;
-                icChestplateX = screenW / 2 - 115;
-                icChestplateY = screenH - 11;
-
-                bgLeggingsX = screenW / 2 + 96;
-                bgLeggingsY = screenH - 19;
-                fgLeggingsX = screenW / 2 + 97;
-                fgLeggingsY = screenH - 18;
-                icLeggingsX = screenW / 2 + 107;
-                icLeggingsY = screenH - 21;
-
-                bgBootsX = screenW / 2 + 96;
-                bgBootsY = screenH - 9;
-                fgBootsX = screenW / 2 + 97;
-                fgBootsY = screenH - 8;
-                icBootsX = screenW / 2 + 106;
-                icBootsY = screenH - 10;
-            }
 
             //FOR REFERENCE: U = X(W), V = Y(H)
 
             if (hasValidHelmet) {
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
                 float cooldown = player.getCooldowns().getCooldownPercent(helmetItem.getItem(), Minecraft.getInstance().getFrameTime());
 
                 gui.blit(poseStack, bgHelmetX, bgHelmetY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar cooldown
                 gui.blit(poseStack, icHelmetX, icHelmetY, 0, helmetOffsetY, helmetX, helmetY); //icon
             } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
                 gui.blit(poseStack, bgHelmetX, bgHelmetY, 0, 0, bgBarX, bgBarY); //shadow background bar
                 gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar cooldown
                 gui.blit(poseStack, icHelmetX, icHelmetY, 0, helmetOffsetY, helmetX, helmetY); //shadow icon
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
             }
 
             if (hasValidChestplate) {
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
+                float cooldown = player.getCooldowns().getCooldownPercent(chestplateItem.getItem(), Minecraft.getInstance().getFrameTime());
+
                 gui.blit(poseStack, bgChestplateX, bgChestplateY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //foreground bar
+                gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
                 gui.blit(poseStack, icChestplateX, icChestplateY, 0, chestplateOffsetY, chestplateX, chestplateY); //icon
             } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
                 gui.blit(poseStack, bgChestplateX, bgChestplateY, 0, 0, bgBarX, bgBarY); //shadow background bar
                 gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
                 gui.blit(poseStack, icChestplateX, icChestplateY, 0, chestplateOffsetY, chestplateX, chestplateY); //shadow icon
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
 
             if (hasValidLeggings) {
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
+                float cooldown = player.getCooldowns().getCooldownPercent(leggingsItem.getItem(), Minecraft.getInstance().getFrameTime());
+
                 gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //foreground bar
+                gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
                 gui.blit(poseStack, icLeggingsX, icLeggingsY, 0, leggingsOffsetY, leggingsX, leggingsY); //icon
             } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
                 gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //shadow background bar
                 gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
                 gui.blit(poseStack, icLeggingsX, icLeggingsY, 0, leggingsOffsetY, leggingsX, leggingsY); //shadow icon
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
 
             if (hasValidBoots) {
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
+                float cooldown = player.getCooldowns().getCooldownPercent(bootsItem.getItem(), Minecraft.getInstance().getFrameTime());
+
                 gui.blit(poseStack, bgBootsX, bgBootsY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //foreground bar
+                gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
                 gui.blit(poseStack, icBootsX, icBootsY, 0, bootsOffsetY, bootsX, bootsY); //icon
             } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
                 gui.blit(poseStack, bgBootsX, bgBootsY, 0, 0, bgBarX, bgBarY); //shadow background bar
                 gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
                 gui.blit(poseStack, icBootsX, icBootsY, 0, bootsOffsetY, bootsX, bootsY); //shadow icon
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
+            RenderSystem.disableBlend();
             poseStack.popPose();
         }
     }
