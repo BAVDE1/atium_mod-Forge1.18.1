@@ -5,6 +5,7 @@ import com.BAVDE.atium_mod.item.ModItems;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GameRenderer;
@@ -13,16 +14,19 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
-
 public class AtiumModArmourBars {
     private static final ResourceLocation ARMOUR_ICONS = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons.png");
-    private static final ResourceLocation ARMOUR_ICONS_TRANSPARENT = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons_transparent.png");
+    private static float helmetTimeStamp = 0F;
+    private static float chestplateTimeStamp = 0F;
+    private static float leggingsTimeStamp = 0F;
+    private static float bootsTimeStamp = 0F;
 
     public static void renderArmourBars(PoseStack poseStack, Gui gui) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null && !player.isSpectator()) {
+            float currentTime = Util.getMillis();
+            float shadowAlpha = 0.5F;
             Window window = Minecraft.getInstance().getWindow();
             poseStack.pushPose();
             RenderSystem.enableBlend();
@@ -103,64 +107,62 @@ public class AtiumModArmourBars {
 
             //FOR REFERENCE: U = X(W), V = Y(H)
 
-            if (hasValidHelmet) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
-                float cooldown = player.getCooldowns().getCooldownPercent(helmetItem.getItem(), Minecraft.getInstance().getFrameTime());
+            if (hasValidPieceEquipped) {
+                //helmet
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0f, hasValidHelmet ? 1.0F : shadowAlpha);
+                float helmetCooldown = player.getCooldowns().getCooldownPercent(helmetItem.getItem(), Minecraft.getInstance().getFrameTime());
 
                 gui.blit(poseStack, bgHelmetX, bgHelmetY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar cooldown
+                gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, hasValidHelmet ? (int) (fgBarX - (helmetCooldown * 10)) : fgBarX, fgBarY); //foreground bar cooldown
+                if (helmetItem.getTag() != null && helmetItem.getTag().contains("atium_mod.green_tick")) {
+                    helmetItem.getTag().remove("atium_mod.green_tick");
+                    helmetTimeStamp = currentTime;
+                }
+                float helmetCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - helmetTimeStamp) / 1000)));
+                RenderSystem.setShaderColor(helmetCol, 1.0F, helmetCol, hasValidHelmet ? 1.0F : shadowAlpha);
                 gui.blit(poseStack, icHelmetX, icHelmetY, 0, helmetOffsetY, helmetX, helmetY); //icon
-            } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
-                gui.blit(poseStack, bgHelmetX, bgHelmetY, 0, 0, bgBarX, bgBarY); //shadow background bar
-                gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar cooldown
-                gui.blit(poseStack, icHelmetX, icHelmetY, 0, helmetOffsetY, helmetX, helmetY); //shadow icon
-            }
 
-            if (hasValidChestplate) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
-                float cooldown = player.getCooldowns().getCooldownPercent(chestplateItem.getItem(), Minecraft.getInstance().getFrameTime());
+                //chestplate
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0f, hasValidChestplate ? 1.0F : shadowAlpha);
+                float chestplateCooldown = player.getCooldowns().getCooldownPercent(chestplateItem.getItem(), Minecraft.getInstance().getFrameTime());
 
                 gui.blit(poseStack, bgChestplateX, bgChestplateY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
+                gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, hasValidChestplate ? (int) (fgBarX - (chestplateCooldown * 10)) : fgBarX, fgBarY); //foreground bar
+                if (chestplateItem.getTag() != null && chestplateItem.getTag().contains("atium_mod.green_tick")) {
+                    chestplateItem.getTag().remove("atium_mod.green_tick");
+                    chestplateTimeStamp = currentTime;
+                }
+                float chestplateCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - chestplateTimeStamp) / 1000)));
+                RenderSystem.setShaderColor(chestplateCol, 1.0F, chestplateCol, hasValidChestplate ? 1.0F : shadowAlpha);
                 gui.blit(poseStack, icChestplateX, icChestplateY, 0, chestplateOffsetY, chestplateX, chestplateY); //icon
-            } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
-                gui.blit(poseStack, bgChestplateX, bgChestplateY, 0, 0, bgBarX, bgBarY); //shadow background bar
-                gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
-                gui.blit(poseStack, icChestplateX, icChestplateY, 0, chestplateOffsetY, chestplateX, chestplateY); //shadow icon
-            }
 
-            if (hasValidLeggings) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
-                float cooldown = player.getCooldowns().getCooldownPercent(leggingsItem.getItem(), Minecraft.getInstance().getFrameTime());
+                //leggings
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0f, hasValidLeggings ? 1.0F : shadowAlpha);
+                float leggingsCooldown = player.getCooldowns().getCooldownPercent(leggingsItem.getItem(), Minecraft.getInstance().getFrameTime());
 
                 gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
+                gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, hasValidLeggings ? (int) (fgBarX - (leggingsCooldown * 10)) : fgBarX, fgBarY); //foreground bar
                 if (leggingsItem.getTag() != null && leggingsItem.getTag().contains("atium_mod.green_tick")) {
                     leggingsItem.getTag().remove("atium_mod.green_tick");
-                    //RenderSystem.setShaderColor(0.0F, 1.0F, 0.0F, 1.0F);
+                    leggingsTimeStamp = currentTime;
                 }
+                float leggingsCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - leggingsTimeStamp) / 1000)));
+                RenderSystem.setShaderColor(leggingsCol, 1.0F, leggingsCol, hasValidLeggings ? 1.0F : shadowAlpha);
                 gui.blit(poseStack, icLeggingsX, icLeggingsY, 0, leggingsOffsetY, leggingsX, leggingsY); //icon
-            } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
-                gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //shadow background bar
-                gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
-                gui.blit(poseStack, icLeggingsX, icLeggingsY, 0, leggingsOffsetY, leggingsX, leggingsY); //shadow icon
-            }
 
-            if (hasValidBoots) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS);
-                float cooldown = player.getCooldowns().getCooldownPercent(bootsItem.getItem(), Minecraft.getInstance().getFrameTime());
+                //boots
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0f, hasValidBoots ? 1.0F : shadowAlpha);
+                float bootsCooldown = player.getCooldowns().getCooldownPercent(bootsItem.getItem(), Minecraft.getInstance().getFrameTime());
 
                 gui.blit(poseStack, bgBootsX, bgBootsY, 0, 0, bgBarX, bgBarY); //background bar
-                gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
+                gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, hasValidBoots ? (int) (fgBarX - (bootsCooldown * 10)) : fgBarX, fgBarY); //foreground bar
+                if (bootsItem.getTag() != null && bootsItem.getTag().contains("atium_mod.green_tick")) {
+                    bootsItem.getTag().remove("atium_mod.green_tick");
+                    bootsTimeStamp = currentTime;
+                }
+                float bootsCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - bootsTimeStamp) / 1000)));
+                RenderSystem.setShaderColor(bootsCol, 1.0F, bootsCol, hasValidBoots ? 1.0F : shadowAlpha);
                 gui.blit(poseStack, icBootsX, icBootsY, 0, bootsOffsetY, bootsX, bootsY); //icon
-            } else if (hasValidPieceEquipped) {
-                RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);
-                gui.blit(poseStack, bgBootsX, bgBootsY, 0, 0, bgBarX, bgBarY); //shadow background bar
-                gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, fgBarX, fgBarY); //shadow foreground bar
-                gui.blit(poseStack, icBootsX, icBootsY, 0, bootsOffsetY, bootsX, bootsY); //shadow icon
             }
             RenderSystem.disableBlend();
             poseStack.popPose();

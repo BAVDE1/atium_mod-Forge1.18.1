@@ -79,6 +79,7 @@ public class PouchItem extends Item {
                     playRemoveOneSound(player);
                     decreaseCoins(pouchItem, (Player) player);
                     addCooldown((Player) player, leggings);
+                    addGreenTickTag(leggings);
                 }
             }
         }
@@ -94,7 +95,9 @@ public class PouchItem extends Item {
     }
 
     private void addGreenTickTag(ItemStack leggings) {
-        leggings.getTag().putBoolean("atium_mod.green_tick", true);
+        if (leggings.getTag() != null) {
+            leggings.getTag().putBoolean("atium_mod.green_tick", true);
+        }
     }
 
     private void ironProjectileSpawn(ItemStack pouchItem, Level level, Player player, int pTimeCharged) {
