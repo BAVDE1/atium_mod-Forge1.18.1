@@ -13,6 +13,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class AtiumModArmourBars {
     private static final ResourceLocation ARMOUR_ICONS = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons.png");
     private static final ResourceLocation ARMOUR_ICONS_TRANSPARENT = new ResourceLocation(AtiumMod.MOD_ID, "textures/gui/armour_icons/armour_icons_transparent.png");
@@ -135,6 +137,10 @@ public class AtiumModArmourBars {
 
                 gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, (int) (fgBarX - (cooldown * 10)), fgBarY); //foreground bar
+                if (leggingsItem.getTag() != null && leggingsItem.getTag().contains("atium_mod.green_tick")) {
+                    leggingsItem.getTag().remove("atium_mod.green_tick");
+                    //RenderSystem.setShaderColor(0.0F, 1.0F, 0.0F, 1.0F);
+                }
                 gui.blit(poseStack, icLeggingsX, icLeggingsY, 0, leggingsOffsetY, leggingsX, leggingsY); //icon
             } else if (hasValidPieceEquipped) {
                 RenderSystem.setShaderTexture(0, ARMOUR_ICONS_TRANSPARENT);

@@ -39,11 +39,10 @@ public class CoinPouch extends PouchItem {
     //displays number of coins in pouch
     //add: More Info [CTRL]
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         int count = 0;
-        if (pStack.getTag().contains("atium_mod.coins")) {
-            int currentCoins = pStack.getTag().getInt("atium_mod.coins");
-            count = currentCoins;
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.coins")) {
+            count = itemStack.getTag().getInt("atium_mod.coins");
         }
 
         if (Screen.hasControlDown()) {
@@ -61,6 +60,6 @@ public class CoinPouch extends PouchItem {
         //line break
         pTooltipComponents.add(new TextComponent(" "));
         //iron nugget count
-        pTooltipComponents.add(new TextComponent("Iron nuggets: " + count + "/" + pStack.getMaxDamage()));
+        pTooltipComponents.add(new TextComponent("Iron nuggets: " + count + "/" + itemStack.getMaxDamage()));
     }
 }

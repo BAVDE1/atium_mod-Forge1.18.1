@@ -16,6 +16,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 
 import java.util.Optional;
 
@@ -66,6 +67,7 @@ public class PouchItem extends Item {
                         playRemoveOneSound(player);
                         decreaseCoins(pouchItem, (Player) player);
                         addCooldown((Player) player, leggings);
+                        addGreenTickTag(leggings);
                     }
                 }
                 //steel
@@ -89,6 +91,10 @@ public class PouchItem extends Item {
         player.getCooldowns().addCooldown(ModItems.COIN_POUCH_DIAMOND.get(), getCooldownTicks());
         player.getCooldowns().addCooldown(ModItems.COIN_POUCH_NETHERITE.get(), getCooldownTicks());
         player.getCooldowns().addCooldown(leggings.getItem(), getCooldownTicks());
+    }
+
+    private void addGreenTickTag(ItemStack leggings) {
+        leggings.getTag().putBoolean("atium_mod.green_tick", true);
     }
 
     private void ironProjectileSpawn(ItemStack pouchItem, Level level, Player player, int pTimeCharged) {

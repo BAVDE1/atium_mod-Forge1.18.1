@@ -42,9 +42,9 @@ public class AtiumSword extends SwordItem {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        if (pStack.getTag().contains("atium_mod.metal")) {
-            int currentMetal = pStack.getTag().getInt("atium_mod.metal");
+    public boolean hurtEnemy(ItemStack itemStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                 case 2 -> steel(0.1, pTarget, pAttacker); //10% chance for big knockback
                 case 3 -> tin(0.1, 5, pTarget, pAttacker); //10% chance for blindness & disoriented
@@ -54,17 +54,17 @@ public class AtiumSword extends SwordItem {
                 case 9 -> gold(0.1, pAttacker); //10% chance to drop cloud of healing
             }
         }
-        return super.hurtEnemy(pStack, pTarget, pAttacker);
+        return super.hurtEnemy(itemStack, pTarget, pAttacker);
     }
 
     //use animation for iron infusion
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+        ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
         //if iron infused start using item
-        if (pPlayer.getMainHandItem().getTag().contains("atium_mod.metal") && pPlayer.getMainHandItem().getTag().getInt("atium_mod.metal") == 1) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal") && pPlayer.getMainHandItem().getTag().getInt("atium_mod.metal") == 1) {
             pPlayer.startUsingItem(pUsedHand);
-            return InteractionResultHolder.consume(itemstack);
+            return InteractionResultHolder.consume(itemStack);
         } else {
             return super.use(pLevel, pPlayer, pUsedHand);
         }
@@ -72,11 +72,11 @@ public class AtiumSword extends SwordItem {
 
     //tick if iron infused
     @Override
-    public void onUseTick(Level pLevel, LivingEntity pPlayer, ItemStack pStack, int pRemainingUseDuration) {
-        if (pStack.getTag().contains("atium_mod.metal") && pStack.getTag().getInt("atium_mod.metal") == 1) {
+    public void onUseTick(Level pLevel, LivingEntity pPlayer, ItemStack itemStack, int pRemainingUseDuration) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal") && itemStack.getTag().getInt("atium_mod.metal") == 1) {
             iron(pLevel, pPlayer);
         }
-        super.onUseTick(pLevel, pPlayer, pStack, pRemainingUseDuration);
+        super.onUseTick(pLevel, pPlayer, itemStack, pRemainingUseDuration);
     }
 
     @Override
@@ -217,19 +217,19 @@ public class AtiumSword extends SwordItem {
     }
 
     @Override
-    public Rarity getRarity(ItemStack pStack) {
-        if (pStack.getTag().contains("atium_mod.metal")) {
+    public Rarity getRarity(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
             return Rarity.UNCOMMON;
         } else {
-            return super.getRarity(pStack);
+            return super.getRarity(itemStack);
         }
     }
 
     //hover text
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (pStack.getTag().contains("atium_mod.metal")) {
-            int currentMetal = pStack.getTag().getInt("atium_mod.metal");
+    public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             if (Screen.hasControlDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                     case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_sword.tooltip.iron.ctrl"));
@@ -252,11 +252,11 @@ public class AtiumSword extends SwordItem {
                 }
             }
         }
-        if (pStack.getTag().contains("atium_mod.copper_cloud")) {
-            if (pStack.getTag().getInt("atium_mod.copper_cloud") == 1) {
+        if (itemStack.getTag().contains("atium_mod.copper_cloud")) {
+            if (itemStack.getTag().getInt("atium_mod.copper_cloud") == 1) {
                 pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.has_copper_cloud"));
             }
         }
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        super.appendHoverText(itemStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

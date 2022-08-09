@@ -15,18 +15,18 @@ public class AtiumShovel extends PickaxeItem {
     }
 
     @Override
-    public Rarity getRarity(ItemStack pStack) {
-        if (pStack.getTag().contains("atium_mod.metal")) {
+    public Rarity getRarity(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
             return Rarity.UNCOMMON;
         } else {
-            return super.getRarity(pStack);
+            return super.getRarity(itemStack);
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (pStack.getTag().contains("atium_mod.metal")) {
-            int currentMetal = pStack.getTag().getInt("atium_mod.metal");
+    public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             if (Screen.hasControlDown()) {
                 switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
                     case 1 -> pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.atium_shovel.tooltip.iron.ctrl"));
@@ -49,11 +49,11 @@ public class AtiumShovel extends PickaxeItem {
                 }
             }
         }
-        if (pStack.getTag().contains("atium_mod.copper_cloud")) {
-            if (pStack.getTag().getInt("atium_mod.copper_cloud") == 1) {
+        if (itemStack.getTag().contains("atium_mod.copper_cloud")) {
+            if (itemStack.getTag().getInt("atium_mod.copper_cloud") == 1) {
                 pTooltipComponents.add(new TranslatableComponent("tooltip.atium_mod.has_copper_cloud"));
             }
         }
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        super.appendHoverText(itemStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

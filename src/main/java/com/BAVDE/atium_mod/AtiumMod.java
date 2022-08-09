@@ -46,7 +46,7 @@ public class AtiumMod {
         ModMobEffects.register(eventBus);
         ModSounds.register(eventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AtiumModClientConfigs.SPEC, "atium_mod-client.toml");
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AtiumModClientConfigs.SPEC, "atium_mod-client.toml");
 
         eventBus.addListener(this::setup);
         eventBus.addListener(this::FMLClientSetup);

@@ -36,6 +36,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = AtiumMod.MOD_ID)
@@ -128,6 +129,11 @@ public class ModEvents {
                 }
             }
         }
+
+        //safety check
+        if (itemStackFrom.getTag() != null && itemStackFrom.getTag().contains("atium_mod.green_tick")) {
+            itemStackFrom.getTag().remove("atium_mod.green_tick");
+        }
     }
 
     @SubscribeEvent
@@ -198,12 +204,16 @@ public class ModEvents {
                     player.push(looking.z, 0, -looking.x);
 
                     //remove tag
-                    itemStack.getTag().remove("atium_mod.left_dash_ready");
+                    if (itemStack.getTag() != null) {
+                        itemStack.getTag().remove("atium_mod.left_dash_ready");
+                    }
                     //adds cooldown
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
                 } else if (!leftDashKeyPressed) {
                     //else if item does not have dash tag, add the tag
-                    itemStack.getTag().putInt("atium_mod.left_dash_ready", doubleTapTickSpeed);
+                    if (itemStack.getTag() != null) {
+                        itemStack.getTag().putInt("atium_mod.left_dash_ready", doubleTapTickSpeed);
+                    }
                     leftDashKeyPressed = true;
                 }
             } else {
@@ -221,12 +231,16 @@ public class ModEvents {
                     player.push(-look.z, 0, look.x);
 
                     //remove tag
-                    itemStack.getTag().remove("atium_mod.right_dash_ready");
+                    if (itemStack.getTag() != null) {
+                        itemStack.getTag().remove("atium_mod.right_dash_ready");
+                    }
                     //adds cooldown
                     player.getCooldowns().addCooldown(itemStack.getItem(), cooldownTicks);
                 } else if (!rightDashKeyPressed) {
                     //else if item does not have dash tag, add the tag
-                    itemStack.getTag().putInt("atium_mod.right_dash_ready", doubleTapTickSpeed);
+                    if (itemStack.getTag() != null) {
+                        itemStack.getTag().putInt("atium_mod.right_dash_ready", doubleTapTickSpeed);
+                    }
                     rightDashKeyPressed = true;
                 }
             } else {
@@ -245,28 +259,29 @@ public class ModEvents {
     //chance to set attacker on fire
     private static void chestplateBrass(double chance, int secondsOnFire, LivingEntity player, LivingHurtEvent event) {
         if (Math.random() < chance) { //15%
-            int seconds = secondsOnFire;
             LivingEntity pAttacker = (LivingEntity) event.getSource().getEntity();
-            if (!pAttacker.isOnFire()) {
-                pAttacker.setSecondsOnFire(seconds);
-            } else {
-                int fireTicks = pAttacker.getRemainingFireTicks();
-                pAttacker.setRemainingFireTicks(fireTicks + (seconds * 20));
+            if (pAttacker != null) {
+                if (!pAttacker.isOnFire()) {
+                    pAttacker.setSecondsOnFire(secondsOnFire);
+                } else {
+                    int fireTicks = pAttacker.getRemainingFireTicks();
+                    pAttacker.setRemainingFireTicks(fireTicks + (secondsOnFire * 20));
+                }
+                pAttacker.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
+                //knockback
+                double pX = player.getX() - pAttacker.getX();
+                double pZ;
+                for (pZ = player.getZ() - pAttacker.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
+                    pX = (Math.random() - Math.random()) * 0.01D;
+                }
+                pAttacker.knockback(0.3F, pX, pZ);
             }
-            pAttacker.playSound(SoundEvents.FIRECHARGE_USE, 4.0F, 1.0F);
-            //knockback
-            double pX = player.getX() - pAttacker.getX();
-            double pZ;
-            for (pZ = player.getZ() - pAttacker.getZ(); pX * pX + pZ * pZ < 1.0E-4D; pZ = (Math.random() - Math.random()) * 0.01D) {
-                pX = (Math.random() - Math.random()) * 0.01D;
-            }
-            pAttacker.knockback(0.3F, pX, pZ);
         }
     }
 
     //adds 4 hp (2 hearts)
     private static void chestplatePewterOn(double hpAmount, LivingEntity player) {
-        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) + hpAmount);
+        Objects.requireNonNull(player.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) + hpAmount);
     }
 
     //takes 4 hp (2 hearts)
@@ -274,7 +289,7 @@ public class ModEvents {
         if (player.getHealth() > player.getMaxHealth() - hpAmount) {
             player.setHealth(player.getMaxHealth() - (float) hpAmount);
         }
-        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - hpAmount);
+        Objects.requireNonNull(player.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) - hpAmount);
     }
 
     //20% chance to give player speed on hurt
@@ -461,11 +476,11 @@ public class ModEvents {
 
     //checks for steel dash tag (returns boolean)
     private static boolean hasLeftDashTag(ItemStack itemStack) {
-        return itemStack.getTag().contains("atium_mod.left_dash_ready");
+        return itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.left_dash_ready");
     }
 
     private static boolean hasRightDashTag(ItemStack itemStack) {
-        return itemStack.getTag().contains("atium_mod.right_dash_ready");
+        return itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.right_dash_ready");
     }
 
     //checks if item is on cooldown (returns boolean)
@@ -475,12 +490,12 @@ public class ModEvents {
 
     //checks if itemstack has metal tag (returns boolean)
     private static boolean hasMetalTag(ItemStack itemStack) {
-        return itemStack.getTag().contains("atium_mod.metal");
+        return itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal");
     }
 
     //returns the metal tag of itemStack (returns int)
     private static int getMetalTag(ItemStack itemStack) {
-        if (hasMetalTag(itemStack)) {
+        if (hasMetalTag(itemStack) && itemStack.getTag() != null) {
             return itemStack.getTag().getInt("atium_mod.metal");
         }
         //returns 0 if doesn't have metal tag
