@@ -1,5 +1,7 @@
 # The Atium Mod on Forge 1.18.2
 
+THIS MOD IS OUT OF DEVELOPMENT
+
 [![Discord](https://img.shields.io/discord/947616273603391508)](https://discord.gg/a5Me8SPGjt)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/BAVDE1/atium_mod-Forge1.18.2)
 ![GitHub Repo stars](https://img.shields.io/github/stars/BAVDE1/atium_mod-Forge1.18.2?style=social)
