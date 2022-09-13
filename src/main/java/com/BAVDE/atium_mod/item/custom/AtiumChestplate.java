@@ -24,17 +24,17 @@ public class AtiumChestplate extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (stack.getTag().contains("atium_mod.metal")) {
-            int currentMetal = stack.getTag().getInt("atium_mod.metal");
+    public void onArmorTick(ItemStack itemStack, Level level, Player player) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(8.0D, 80, level, player); //pulls nearby items towards
+                case 1 -> iron(8.0D, 80, level, player, itemStack); //pulls nearby items towards
                 //2 steel is in ModEvents
-                case 3 -> tin(6, player); //gives resistance if under 7hp
+                case 3 -> tin(6, player, itemStack); //gives resistance if under 7hp
                 //4 pewter is in ModEvents
                 //5 brass is in ModEvents
                 //6 zinc is in ModEvents
-                case 9 -> gold(15, stack, level, player); //heals 1/2 heart every 15 sec
+                case 9 -> gold(5, itemStack, level, player); //heals 1/2 heart every 15 sec
             }
         }
     }
@@ -42,7 +42,7 @@ public class AtiumChestplate extends ArmorItem {
     /**** INFUSION FUNCTIONALITIES ****/
 
     //pulls nearby items towards
-    private void iron(double range, int pullingSpeedDivision, Level level, Player player) {
+    private void iron(double range, int pullingSpeedDivision, Level level, Player player, ItemStack itemStack) {
         if (player.isCrouching()) {
             //code explained in iron method, atium sword class
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
@@ -54,27 +54,51 @@ public class AtiumChestplate extends ArmorItem {
                     pX = (Math.random() - Math.random()) * 0.01D;
                 }
                 itemEntity.push((pX / pullingSpeedDivision), 0, (pZ / pullingSpeedDivision));
+                addGreenTick(itemStack);
             }
+            //if no items are being pulled remove tag
+            if (itemEntityList.size() == 0) {
+                removeGreenTag(itemStack);
+            }
+        } else {
+            removeGreenTag(itemStack);
         }
     }
 
     //gives resistance if under 7hp
-    private void tin(int healthTarget, Player player) {
-        if (player.getHealth() <= healthTarget && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE)) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 15));
+    private void tin(int healthTarget, Player player, ItemStack itemStack) {
+        if (player.getHealth() <= healthTarget) {
+            addGreenTick(itemStack);
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10));
+        } else {
+            removeGreenTag(itemStack);
         }
     }
 
     //heals 1/2 heart every 15 sec
-    private void gold(int cooldownSecs, ItemStack stack, Level level, Player player) {
-        if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+    private void gold(int cooldownSecs, ItemStack itemStack, Level level, Player player) {
+        if (player.getHealth() < player.getMaxHealth() && !player.getCooldowns().isOnCooldown(itemStack.getItem())) {
             //15 seconds
-            player.getCooldowns().addCooldown(stack.getItem(), cooldownSecs * 20);
+            player.getCooldowns().addCooldown(itemStack.getItem(), cooldownSecs * 20);
             player.heal(1f);
             player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1.5F + level.random.nextFloat() * 2.0F);
-            for (int i = 0; i < 8; i++) {
-                level.addParticle(ParticleTypes.HAPPY_VILLAGER, player.getRandomX(1.0D), player.getRandomY() + 0.5D, player.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
-            }
+            addGreenTick(itemStack);
+        } else {
+            removeGreenTag(itemStack);
+        }
+    }
+
+    //for hud elements
+    private static void addGreenTick(ItemStack itemStack) {
+        if (itemStack.getTag() != null && !itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().putBoolean("atium_mod.green_tick", true);
+        }
+    }
+
+    //for hud elements
+    private static void removeGreenTag(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().remove("atium_mod.green_tick");
         }
     }
 

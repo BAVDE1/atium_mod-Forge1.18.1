@@ -91,7 +91,7 @@ public class AtiumSword extends SwordItem {
 
     /**** INFUSION FUNCTIONALITIES ****/
 
-    //pulls nearby mobs in
+    //pulls nearby mobs in TODO: cap the hunger exhaustion
     private void iron(Level pLevel, LivingEntity pPlayer) {
         //sets range entities are detected in (5x5x5)
         var range = 5.0D;

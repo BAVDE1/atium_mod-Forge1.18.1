@@ -62,20 +62,20 @@ public class ModEvents {
         //atium chestplate
         if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
             switch (getMetalTag(getChestplateItem(player))) {
-                case 6 -> chestplateZinc(0.2, event); //20% deflects projectiles
+                case 6 -> chestplateZinc(0.2, event, getChestplateItem(player)); //20% deflects projectiles
             }
         }
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 5 -> bootsBrass(event); //prevents all damage from magma blocks
-                case 9 -> bootsGold(0.15, player, level); //15% creates healing cloud around player
+                case 5 -> bootsBrass(event, getBootsItem(player)); //prevents all damage from magma blocks
+                case 9 -> bootsGold(0.15, player, level, getBootsItem(player)); //15% creates healing cloud around player
             }
         }
         //atium boots
         if (isAtiumLeggings(getLeggingsItem(player)) && hasMetalTag(getLeggingsItem(player))) {
             switch (getMetalTag(getLeggingsItem(player))) {
-                case 4 -> leggingsPewter(0.15, 5, player); //20% chance to give player speed on hurt
+                case 4 -> leggingsPewter(0.15, 5, player, getLeggingsItem(player)); //20% chance to give player speed on hurt
             }
         }
     }
@@ -88,14 +88,14 @@ public class ModEvents {
         //atium chestplate
         if (isAtiumChestplate(getChestplateItem(player)) && hasMetalTag(getChestplateItem(player))) {
             switch (getMetalTag(getChestplateItem(player))) {
-                case 2 -> chestplateSteel(0.15, 6.0D, level, player); //15% chance to push nearby mobs away on damage
-                case 5 -> chestplateBrass(0.15, 5, player, event); //chance to set attacker on fire
+                case 2 -> chestplateSteel(0.15, 6.0D, level, player, getChestplateItem(player)); //15% chance to push nearby mobs away on damage
+                case 5 -> chestplateBrass(0.15, 5, player, event, getChestplateItem(player)); //chance to set attacker on fire
             }
         }
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 6 -> bootsZinc(0.1, 2F, event, player, level); //10% to take half damage and push away from damage source
+                case 6 -> bootsZinc(0.1, 2F, event, player, level, getBootsItem(player)); //10% to take half damage and push away from damage source
             }
         }
     }
@@ -110,7 +110,7 @@ public class ModEvents {
             //ON
             if (isAtiumChestplate(itemStackTo) && hasMetalTag(itemStackTo)) {
                 switch (getMetalTag(itemStackTo)) {
-                    case 4 -> chestplatePewterOn(4.0D, player); //adds 4 hp (2 hearts)
+                    case 4 -> chestplatePewterOn(4.0D, player, itemStackTo); //adds 4 hp (2 hearts)
                 }
             }
             //OFF
@@ -130,9 +130,14 @@ public class ModEvents {
             }
         }
 
-        //safety check
-        if (itemStackFrom.getTag() != null && itemStackFrom.getTag().contains("atium_mod.green_tick")) {
-            itemStackFrom.getTag().remove("atium_mod.green_tick");
+        //safety checks
+        if (itemStackFrom.getTag() != null) {
+            if (itemStackFrom.getTag().contains("atium_mod.green_tick")) {
+                itemStackFrom.getTag().remove("atium_mod.green_tick");
+            }
+            if (itemStackFrom.getTag().contains("atium_mod.green_hold")) {
+                itemStackFrom.getTag().remove("atium_mod.green_hold");
+            }
         }
     }
 
@@ -144,7 +149,7 @@ public class ModEvents {
         //atium boots
         if (isAtiumBoots(getBootsItem(player)) && hasMetalTag(getBootsItem(player))) {
             switch (getMetalTag(getBootsItem(player))) {
-                case 4 -> bootsPewter(0.3D, (Player) player, level); //big jump when crouch jump
+                case 4 -> bootsPewter(0.3D, (Player) player, level, getBootsItem(player)); //big jump when crouch jump
             }
         }
     }
@@ -167,7 +172,7 @@ public class ModEvents {
      **/
 
     //chance to push nearby mobs away on damage
-    private static void chestplateSteel(double chance, double range, Level level, LivingEntity player) {
+    private static void chestplateSteel(double chance, double range, Level level, LivingEntity player, ItemStack itemStack) {
         if (Math.random() < chance) {
             //code explained in iron method, atium sword
             AABB aabb = player.getBoundingBox().inflate(range, range, range);
@@ -180,7 +185,7 @@ public class ModEvents {
                 }
                 entity.knockback(1.0F, pX, pZ);
             }
-            //sound not working atm
+            //sound & particles not working atm
             level.playSound((Player) player, player, SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 4.0F, 1.0F);
             createForceFieldParticles(0.7D, 4, player);
         }
@@ -257,7 +262,7 @@ public class ModEvents {
     }
 
     //chance to set attacker on fire
-    private static void chestplateBrass(double chance, int secondsOnFire, LivingEntity player, LivingHurtEvent event) {
+    private static void chestplateBrass(double chance, int secondsOnFire, LivingEntity player, LivingHurtEvent event, ItemStack itemStack) {
         if (Math.random() < chance) { //15%
             LivingEntity pAttacker = (LivingEntity) event.getSource().getEntity();
             if (pAttacker != null) {
@@ -280,7 +285,7 @@ public class ModEvents {
     }
 
     //adds 4 hp (2 hearts)
-    private static void chestplatePewterOn(double hpAmount, LivingEntity player) {
+    private static void chestplatePewterOn(double hpAmount, LivingEntity player, ItemStack itemStack) {
         Objects.requireNonNull(player.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(player.getAttributeValue(Attributes.MAX_HEALTH) + hpAmount);
     }
 
@@ -293,7 +298,7 @@ public class ModEvents {
     }
 
     //20% chance to give player speed on hurt
-    private static void leggingsPewter(double chance, int speedSecs, LivingEntity player) {
+    private static void leggingsPewter(double chance, int speedSecs, LivingEntity player, ItemStack itemStack) {
         if (Math.random() < chance) {
             if (!player.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, speedSecs * 20, 0, false, false));
@@ -302,7 +307,7 @@ public class ModEvents {
     }
 
     //big jump when crouch jump
-    private static void bootsPewter(double jumpPower, Player player, Level level) {
+    private static void bootsPewter(double jumpPower, Player player, Level level, ItemStack itemStack) {
         if (player.isCrouching() && !player.hasEffect(MobEffects.JUMP) && player.isOnGround()) {
             //jump indication (sound & particles)
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 2, 1, false);
@@ -322,14 +327,14 @@ public class ModEvents {
     }
 
     //prevents all damage from magma blocks
-    private static void bootsBrass(LivingAttackEvent event) {
+    private static void bootsBrass(LivingAttackEvent event, ItemStack itemStack) {
         if (event.getSource() == DamageSource.HOT_FLOOR) {
             event.setCanceled(true);
         }
     }
 
     //deflects projectiles
-    private static void chestplateZinc(double chance, LivingAttackEvent event) {
+    private static void chestplateZinc(double chance, LivingAttackEvent event, ItemStack itemStack) {
         Entity damageSourceEntity = event.getSource().getDirectEntity();
         if (damageSourceEntity instanceof AbstractArrow || damageSourceEntity instanceof ThrowableItemProjectile) {
             if (Math.random() < chance) {
@@ -342,7 +347,7 @@ public class ModEvents {
     }
 
     //take 50% damage and push away from damage source
-    private static void bootsZinc(double chance, float damageDivision, LivingHurtEvent event, LivingEntity player, Level level) {
+    private static void bootsZinc(double chance, float damageDivision, LivingHurtEvent event, LivingEntity player, Level level, ItemStack itemStack) {
         if (Math.random() < chance) {
             Entity attacker = event.getSource().getDirectEntity();
             if (attacker != null) {
@@ -371,7 +376,7 @@ public class ModEvents {
     }
 
     //creates healing cloud around player
-    private static void bootsGold(double chance, LivingEntity player, Level level) {
+    private static void bootsGold(double chance, LivingEntity player, Level level, ItemStack itemStack) {
         if (Math.random() < chance) {
             //cloud properties
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(level, player.getX(), player.getY(), player.getZ());
@@ -434,6 +439,20 @@ public class ModEvents {
     @SubscribeEvent
     public static void resetFreezeOnRespawn(ClientPlayerNetworkEvent.RespawnEvent event) {
         event.getNewPlayer().setTicksFrozen(0);
+    }
+
+    //for hud elements
+    private static void addGreenTick(ItemStack itemStack) {
+        if (itemStack.getTag() != null && !itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().putBoolean("atium_mod.green_tick", true);
+        }
+    }
+
+    //for hud elements
+    private static void removeGreenTag(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().remove("atium_mod.green_tick");
+        }
     }
 
     /**

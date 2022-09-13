@@ -29,17 +29,29 @@ public class AtiumLeggings extends ArmorItem {
         if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
             int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 5 -> brass(player); //fire res for 6 secs when on fire
+                case 5 -> brass(player, itemStack); //fire res for 6 secs when on fire
                 //case 6 -> zinc(0.07, 8, stack, player);
             }
         }
     }
 
     //fire res for 6 secs when on fire
-    private static void brass(LivingEntity player) {
+    private static void brass(Player player, ItemStack itemStack) {
+        int seconds = 6;
         if (!player.isOnFire()) {
-            int seconds = 6;
+            if (player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+                player.getCooldowns().removeCooldown(itemStack.getItem());
+            }
             player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, seconds * 20, 0, false, false));
+            removeGreenTag(itemStack);
+        } else if (player.hasEffect(MobEffects.FIRE_RESISTANCE)){
+            //adds cooldown to display how much water breathing is left
+            if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
+                player.getCooldowns().addCooldown(itemStack.getItem(), seconds * 20);
+            }
+            addGreenTick(itemStack);
+        } else if (!player.hasEffect(MobEffects.FIRE_RESISTANCE)) {
+            removeGreenTag(itemStack);
         }
     }
 
@@ -61,6 +73,20 @@ public class AtiumLeggings extends ArmorItem {
         }
         if (player.isOnGround()) {
             slowFallLock = false;
+        }
+    }
+
+    //for hud elements
+    private static void addGreenTick(ItemStack itemStack) {
+        if (itemStack.getTag() != null && !itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().putBoolean("atium_mod.green_tick", true);
+        }
+    }
+
+    //for hud elements
+    private static void removeGreenTag(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().remove("atium_mod.green_tick");
         }
     }
 

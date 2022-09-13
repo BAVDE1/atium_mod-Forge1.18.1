@@ -115,7 +115,6 @@ public class AtiumModArmourBars {
                 gui.blit(poseStack, bgHelmetX, bgHelmetY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgHelmetX, fgHelmetY, fgBarOffsetX, fgBarOffsetY, hasValidHelmet ? (int) (fgBarX - (helmetCooldown * 10)) : fgBarX, fgBarY); //foreground bar cooldown
                 if (helmetItem.getTag() != null && helmetItem.getTag().contains("atium_mod.green_tick")) {
-                    helmetItem.getTag().remove("atium_mod.green_tick");
                     helmetTimeStamp = currentTime;
                 }
                 float helmetCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - helmetTimeStamp) / 1000)));
@@ -129,7 +128,6 @@ public class AtiumModArmourBars {
                 gui.blit(poseStack, bgChestplateX, bgChestplateY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgChestplateX, fgChestplateY, fgBarOffsetX, fgBarOffsetY, hasValidChestplate ? (int) (fgBarX - (chestplateCooldown * 10)) : fgBarX, fgBarY); //foreground bar
                 if (chestplateItem.getTag() != null && chestplateItem.getTag().contains("atium_mod.green_tick")) {
-                    chestplateItem.getTag().remove("atium_mod.green_tick");
                     chestplateTimeStamp = currentTime;
                 }
                 float chestplateCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - chestplateTimeStamp) / 1000)));
@@ -143,7 +141,6 @@ public class AtiumModArmourBars {
                 gui.blit(poseStack, bgLeggingsX, bgLeggingsY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgLeggingsX, fgLeggingsY, fgBarOffsetX, fgBarOffsetY, hasValidLeggings ? (int) (fgBarX - (leggingsCooldown * 10)) : fgBarX, fgBarY); //foreground bar
                 if (leggingsItem.getTag() != null && leggingsItem.getTag().contains("atium_mod.green_tick")) {
-                    leggingsItem.getTag().remove("atium_mod.green_tick");
                     leggingsTimeStamp = currentTime;
                 }
                 float leggingsCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - leggingsTimeStamp) / 1000)));
@@ -157,7 +154,6 @@ public class AtiumModArmourBars {
                 gui.blit(poseStack, bgBootsX, bgBootsY, 0, 0, bgBarX, bgBarY); //background bar
                 gui.blit(poseStack, fgBootsX, fgBootsY, fgBarOffsetX, fgBarOffsetY, hasValidBoots ? (int) (fgBarX - (bootsCooldown * 10)) : fgBarX, fgBarY); //foreground bar
                 if (bootsItem.getTag() != null && bootsItem.getTag().contains("atium_mod.green_tick")) {
-                    bootsItem.getTag().remove("atium_mod.green_tick");
                     bootsTimeStamp = currentTime;
                 }
                 float bootsCol = Math.max(0.0F, Math.min(1.0F, ((currentTime - bootsTimeStamp) / 1000)));

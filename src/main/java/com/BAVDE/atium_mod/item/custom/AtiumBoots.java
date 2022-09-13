@@ -31,13 +31,13 @@ public class AtiumBoots extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (stack.getTag() != null && stack.getTag().contains("atium_mod.metal")) {
-            int currentMetal = stack.getTag().getInt("atium_mod.metal");
+    public void onArmorTick(ItemStack itemStack, Level level, Player player) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.metal")) {
+            int currentMetal = itemStack.getTag().getInt("atium_mod.metal");
             switch (currentMetal) { //1=iron, 2=steel, 3=tin, 4=pewter, 5=brass, 6=zinc, 7=copper, 8=bronze, 9=gold
-                case 1 -> iron(2, 10, stack, level, player); //gives player slow fall if falling and holds crouch
-                case 2 -> steel(stack); //simply ticks down dash timer; and removes the tag when it reaches 0
-                case 5 -> brass(2.5, level, player); //walk on water & lava; immunity to magma block damage
+                case 1 -> iron(2, 10, itemStack, level, player); //gives player slow fall if falling and holds crouch
+                case 2 -> steel(itemStack); //simply ticks down dash timer; and removes the tag when it reaches 0
+                case 5 -> brass(2.5, level, player, itemStack); //walk on water & lava; immunity to magma block damage
             }
         }
     }
@@ -104,7 +104,7 @@ public class AtiumBoots extends ArmorItem {
     }
 
     //walk on water & lava; immunity to magma block damage
-    private static void brass(double range, Level level, Player player) {
+    private static void brass(double range, Level level, Player player, ItemStack itemStack) {
         if (player.isOnGround() && !player.level.isClientSide) {
             BlockState iceBlockstate = Blocks.FROSTED_ICE.defaultBlockState();
             BlockState magmaBlockstate = ModBlocks.FRACTURED_MAGMA_BLOCK.get().defaultBlockState();
@@ -135,6 +135,20 @@ public class AtiumBoots extends ArmorItem {
                     }
                 }
             }
+        }
+    }
+
+    //for hud elements
+    private static void addGreenTick(ItemStack itemStack) {
+        if (itemStack.getTag() != null && !itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().putBoolean("atium_mod.green_tick", true);
+        }
+    }
+
+    //for hud elements
+    private static void removeGreenTag(ItemStack itemStack) {
+        if (itemStack.getTag() != null && itemStack.getTag().contains("atium_mod.green_tick")) {
+            itemStack.getTag().remove("atium_mod.green_tick");
         }
     }
 
